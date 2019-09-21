@@ -22,7 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.admin.R;
+import com.example.admin.pigfarm.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -86,7 +86,7 @@ public class RecyclerFragment extends Fragment implements MyAdapter.OnItemClickL
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Loading...");
         progressDialog.show();
-        String url = "http://pigaboo.xyz/Query_ProfilePig.php?farm_id="+getfarm_id;
+        String url = "https://pigaboo.xyz/Query_ProfilePig.php?farm_id="+getfarm_id;
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

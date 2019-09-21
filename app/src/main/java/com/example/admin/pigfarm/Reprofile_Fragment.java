@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -28,7 +29,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.admin.R;
+import com.example.admin.pigfarm.R;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,7 +54,7 @@ public class Reprofile_Fragment extends Fragment {
     EditText edit_id2, edit_pregNo2, edit_opendate2, edit_birthday2, edit_breed2, edit_dadId2, edit_momId2, edit_form2, edit_reserveID2;
     Button btn_saveBio2;
     String farm_id;
-    ImageView img_calOpen2, img_calBD2;
+    ImageView img_calOpen2, img_calBD2,qr_code3;
     Calendar myCalendar = Calendar.getInstance();
     Calendar myCalendar2 = Calendar.getInstance();
     ArrayList<String> list = new ArrayList<>();
@@ -80,6 +83,29 @@ public class Reprofile_Fragment extends Fragment {
         farm_id = shared.getString("farm_id", "missing");
 
         bindWidget();
+
+        qr_code3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                IntentIntegrator.forSupportFragment(Reprofile_Fragment.this).initiateScan();
+                IntentIntegrator integrator = new IntentIntegrator(getActivity());
+                integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+                integrator.setPrompt("Please focus the camera on the QR Code");
+                integrator.setCameraId(0);
+                integrator.setBeepEnabled(false);
+                integrator.setBarcodeImageEnabled(false);
+                integrator.initiateScan();
+            }
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if(scanResult != null){
+            edit_id2.setText(scanResult.getContents());
+        }
+
     }
 
     private void bindWidget() {
@@ -95,6 +121,7 @@ public class Reprofile_Fragment extends Fragment {
         img_calOpen2 = getView().findViewById(R.id.img_calOpen2);
         img_calBD2 = getView().findViewById(R.id.img_calBD2);
         edit_dadId2 = getView().findViewById(R.id.edit_dadId2);
+        qr_code3  = getView().findViewById(R.id.img_qr3);
 
         String date_n = new SimpleDateFormat("yyyy-MM-dd",
                 Locale.getDefault()).format(new Date());
@@ -154,7 +181,7 @@ public class Reprofile_Fragment extends Fragment {
     private View.OnClickListener onSubmitClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            new InsertAsyn().execute("http://pigaboo.xyz/Insert_ProfilePig.php");
+            new InsertAsyn().execute("https://pigaboo.xyz/Insert_ProfilePig.php");
 
         }
     };

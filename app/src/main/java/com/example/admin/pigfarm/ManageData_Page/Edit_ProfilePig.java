@@ -19,7 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.example.admin.pigfarm.R;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
@@ -27,7 +27,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.admin.R;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -52,7 +51,7 @@ public class Edit_ProfilePig extends Fragment {
     Calendar myCalendar = Calendar.getInstance();
     Calendar myCalendar2 = Calendar.getInstance();
     ImageView img_a1, img_a2;
-    String UpdateURL = "http://pigaboo.xyz/Update_DataPig.php";
+    String UpdateURL = "https://pigaboo.xyz/Update_DataPig.php";
 
 
     public Edit_ProfilePig() {
@@ -86,7 +85,7 @@ public class Edit_ProfilePig extends Fragment {
         edit_momNo = getView().findViewById(R.id.edit_momNo);
         edit_location = getView().findViewById(R.id.edit_location);
         edit_spareID = getView().findViewById(R.id.edit_spareID);
-        edit_preglist = getView().findViewById(R.id.edit_preglist);
+//        edit_preglist = getView().findViewById(R.id.edit_preglist);
         txt_preglist = getView().findViewById(R.id.txt_preglist);
         btn_update = getView().findViewById(R.id.btn_update);
         img_a1 = getView().findViewById(R.id.img_a1);
@@ -146,7 +145,7 @@ public class Edit_ProfilePig extends Fragment {
 
 
     private void loaddatapigtoedit(){
-        String url = "http://pigaboo.xyz/Query_DataPig.php?pig_id="+getpigid;
+        String url = "https://pigaboo.xyz/Query_DataPig.php?pig_id="+getpigid;
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -181,7 +180,7 @@ public class Edit_ProfilePig extends Fragment {
 
                 pig_no = collectData.getString("pig_no");
                 pig_id = collectData.getString("pig_id");
-                pig_preglist = collectData.getString("pig_preglist");
+//                pig_preglist = collectData.getString("pig_preglist");
                 pig_recorddate = collectData.getString("pig_recorddate");
                 pig_birthday = collectData.getString("pig_birthday");
                 pig_breed = collectData.getString("pig_breed");
@@ -199,14 +198,12 @@ public class Edit_ProfilePig extends Fragment {
                 edit_momNo.setText(pig_idbreeder2);
                 edit_location.setText(pig_from);
                 edit_spareID.setText(pig_idreserve);
-                if(pig_preglist.isEmpty()){
-                    txt_preglist.setVisibility(View.INVISIBLE);
-                    edit_preglist.setVisibility(View.INVISIBLE);
-                }else {
-                    edit_preglist.setVisibility(View.VISIBLE);
-                    txt_preglist.setVisibility(View.VISIBLE);
-                    edit_preglist.setText(pig_preglist);
-                }
+//                if (pig_preglist == ""){
+//                    edit_preglist.setText("");
+//                }else{
+//                    edit_preglist.setText(pig_preglist);
+//                }
+
 
             }
             btn_update.setOnClickListener(new View.OnClickListener() {
@@ -225,7 +222,7 @@ public class Edit_ProfilePig extends Fragment {
 
     private void GetDataFromEditText(){
         getpigid = edit_earID.getText().toString();
-        pig_preglist = edit_preglist.getText().toString();
+//        pig_preglist = edit_preglist.getText().toString();
         pig_recorddate = edit_new.getText().toString();
         pig_birthday = edit_bd.getText().toString();
         pig_breed = edit_gene.getText().toString();

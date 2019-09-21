@@ -34,7 +34,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.admin.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -60,7 +59,7 @@ public class Breed_Fragment extends Fragment {
     Spinner spin_noteId01,spin_dadId01;
     EditText edit_dateNote01;
     Button btn_flacAct01;
-    String record_date,recorddate,getamount;
+    private String record_date,recorddate,getamount,getmaxeventid,max_count,event_recorddate;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<String> listDad = new ArrayList<>();
     ArrayList<String> listItems = new ArrayList<>();
@@ -70,7 +69,7 @@ public class Breed_Fragment extends Fragment {
     public static String gettextbreed,farm_id;
     ImageView img_calNote01;
     Calendar myCalendar = Calendar.getInstance();
-    Date date_before,date_record;
+    Date date_before,date_record,date_indb,date_infield;
     Object pregnant;
     private String[] event_date_array;
     private String[] pig_id_array;
@@ -78,7 +77,7 @@ public class Breed_Fragment extends Fragment {
     private List<String> mStrings_event_date = new ArrayList<String>();
     private String[] amount_pregnant_array;
     private List<String> mStrings_pregnant = new ArrayList<String>();
-    private int pig_id_dropdown,amount;
+    private int pig_id_dropdown,amount,sum_count;
     private List<String> sum_amount_pregnant = new ArrayList<String>();
 
     public Breed_Fragment() {
@@ -115,7 +114,7 @@ public class Breed_Fragment extends Fragment {
 
 
 
-            String url = "http://pigaboo.xyz/Query_pigid.php?farm_id="+farm_id;
+            String url = "https://pigaboo.xyz/Query_pigid.php?farm_id="+farm_id;
             StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -133,7 +132,7 @@ public class Breed_Fragment extends Fragment {
 
 
 
-            String url2 = "http://pigaboo.xyz/Query_DadID.php?farm_id="+farm_id;
+            String url2 = "https://pigaboo.xyz/Query_DadID.php?farm_id="+farm_id;
             StringRequest stringRequest1 = new StringRequest(url2, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -151,19 +150,17 @@ public class Breed_Fragment extends Fragment {
 
 
 
-
-
         btn_flacAct01.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if (spin_dadId01 != null && spin_dadId01.getSelectedItem() != null) {
-                    String url3 = "http://pigaboo.xyz/Query_AmountPregnantById.php?farm_id="+farm_id+"&pig_id="+spin_noteId01.getSelectedItem().toString();
+                    String url3 = "https://pigaboo.xyz/Query_AmountPregnantById.php?farm_id="+farm_id+"&pig_id="+spin_noteId01.getSelectedItem().toString();
                     StringRequest stringRequest2 = new StringRequest(url3, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             QueryAmountPregnant(response);
-                            new InsertAsyn().execute("http://pigaboo.xyz/Insert_EventBreed.php");
+                            Rut();
                         }
                     }, new Response.ErrorListener() {
                         @Override
@@ -174,8 +171,6 @@ public class Breed_Fragment extends Fragment {
                     );
                     RequestQueue requestQueue2 = Volley.newRequestQueue(getActivity().getApplicationContext());
                     requestQueue2.add(stringRequest2);
-
-
 
               }
                 else {
@@ -217,6 +212,51 @@ public class Breed_Fragment extends Fragment {
 
     }
 
+    private void Rut(){
+    String url4 = "https://pigaboo.xyz/Query_CountRut.php?farm_id="+farm_id+"&pig_id="+spin_noteId01.getSelectedItem().toString();
+    StringRequest stringRequest3 = new StringRequest(url4, new Response.Listener<String>() {
+        @Override
+        public void onResponse(String response) {
+            QueryCountRut(response);
+            new InsertAsyn().execute("https://pigaboo.xyz/Insert_EventBreed.php");
+        }
+    }, new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            Toast.makeText(getActivity(), "Wrong", Toast.LENGTH_SHORT).show();
+        }
+    }
+    );
+    RequestQueue requestQueue3 = Volley.newRequestQueue(getActivity().getApplicationContext());
+        requestQueue3.add(stringRequest3);
+}
+
+    private void QueryCountRut(String response) {
+        try {
+            JSONObject jsonObject4 = new JSONObject(response);
+            JSONArray result4 = jsonObject4.getJSONArray("result");
+
+            for (int i = 0; i<result4.length(); i++){
+                JSONObject collectData4 = result4.getJSONObject(i);
+                if (collectData4.getString("max_count") == "null"){
+                    max_count = "0";
+                }else{
+                    max_count = collectData4.getString("max_count");
+                }
+                if (collectData4.getString("event_recorddate") == null){
+                    event_recorddate = edit_dateNote01.getText().toString();
+                }else{
+                    event_recorddate = collectData4.getString("event_recorddate");
+                }
+
+                Log.d("result max_date","value: " + collectData4.getString("event_recorddate"));
+                Log.d("result max_count_rut","value: " + max_count);
+            }
+        }catch (JSONException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public void showDatePickerDialog(){
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH));
@@ -242,7 +282,18 @@ public class Breed_Fragment extends Fragment {
 
             for (int i = 0; i<result3.length(); i++){
                 JSONObject collectData3 = result3.getJSONObject(i);
-                getamount = collectData3.getString("pig_amount_pregnant");
+                if (collectData3.getString("pig_amount_pregnant") == "null"){
+                    getamount = "0";
+                }else{
+                    getamount = collectData3.getString("pig_amount_pregnant");
+
+                }if (collectData3.getString("max_eventid") == null){
+                    getmaxeventid = "0";
+                }else{
+                    getmaxeventid = collectData3.getString("max_eventid");
+                }
+
+                Log.d("result getmaxeventid","value: "+getmaxeventid);
             }
         }catch (JSONException ex) {
             ex.printStackTrace();
@@ -253,34 +304,51 @@ public class Breed_Fragment extends Fragment {
     private class InsertAsyn extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
-            try{
+            try {
 
                 DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                 date_before = formatter.parse(event_date_array[pig_id_dropdown]);
                 date_record = formatter.parse(edit_dateNote01.getText().toString());
 
-                if (date_record.getTime() < date_before.getTime()){
+                if (date_record.getTime() < date_before.getTime()) {
                     getActivity().runOnUiThread(new Runnable() {
+                                                    public void run() {
+                                                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
+                                                        builder.setCancelable(false);
+                                                        builder.setMessage("กรอกวันที่น้อยกว่าวันที่เข้าฟาร์มไม่ได้");
+                                                        builder.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(DialogInterface dialog, int which) {
+                                                                dialog.cancel();
+                                                            }
+                                                        });
+                                                        AlertDialog dialog = builder.create();
+                                                        dialog.show();
+                                                    }
+                                                }
+                    );
+                    return null;
+                }
+                if (!getmaxeventid.equals("6") && !getmaxeventid.equals("1") && !getmaxeventid.equals("null")){
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
                         public void run() {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
-                            builder.setCancelable(false);
-                            builder.setMessage("กรอกวันที่น้อยกว่าวันที่เข้าฟาร์มไม่ได้");
-                            builder.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
+                            AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
+                            builder1.setCancelable(false);
+                            builder1.setMessage("เหตุการณ์ล่าสุดไม่ใช่เหตุการณ์ผสม หรือ หย่านม");
+                            builder1.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.cancel();
                                 }
                             });
-                            AlertDialog dialog = builder.create();
+                            AlertDialog dialog = builder1.create();
                             dialog.show();
-
                         }
-                    }
-                    );
-                return null;
-
-                }else{
-//                    amount = Integer.parseInt(amount_pregnant_array[pig_id_dropdown]);
+                    });
+                    return "not success";
+                }
+                else{
                     OkHttpClient _okHttpClient = new OkHttpClient();
                     RequestBody _requestBody = new FormBody.Builder()
                             .add("event_id", "1")
@@ -305,9 +373,9 @@ public class Breed_Fragment extends Fragment {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-
-            if (s != null){
-                Toast.makeText(getActivity(), "บันทึกข้อมูลเรียบร้อยแล้ว",Toast.LENGTH_SHORT).show();
+            Log.d("result async","value: "+s);
+            if (s == "successfully"){
+                new InsertRut().execute("https://pigaboo.xyz/Insert_Rut.php");
             }else {
                 Toast.makeText(getActivity(), "ไม่สามารถบันทึกข้อมูลได้",Toast.LENGTH_SHORT).show();
             }
@@ -391,9 +459,69 @@ public class Breed_Fragment extends Fragment {
     }
 
 
+    private class InsertRut extends AsyncTask<String, Void, String> {
 
+        @Override
+        protected String doInBackground(String... strings) {
+            try {
 
+                if (event_recorddate == null){
+                    event_recorddate = edit_dateNote01.getText().toString();
+                }else{
+                    event_recorddate = event_recorddate.toString();
+                }if (max_count == null){
+                    max_count = "0";
+                }
 
+                DateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
 
+                date_indb =  formatter2.parse(event_recorddate);
+                date_infield = formatter2.parse(edit_dateNote01.getText().toString());
 
+                long diff = date_infield.getTime() - date_indb.getTime();
+                long seconds = diff / 1000;
+                long minutes = seconds / 60;
+                long hours = minutes / 60;
+                long days = hours / 24;
+
+                if (days >= 11) {
+                    sum_count = 0;
+                }else{
+                    max_count = max_count.toString();
+                    sum_count = Integer.parseInt(max_count);
+                }
+
+                Log.d("compare","value :"+days);
+
+                OkHttpClient _okHttpClient2 = new OkHttpClient();
+                RequestBody _requestBody2 = new FormBody.Builder()
+                        .add("event_id", "1")
+                        .add("event_recorddate", edit_dateNote01.getText().toString())
+                        .add("pig_id", spin_noteId01.getSelectedItem().toString())
+                        .add("pig_amount_pregnant", getamount)
+                        .add("count_rut", String.valueOf(sum_count+1))
+                        .build();
+
+                Request _request = new Request.Builder().url(strings[0]).post(_requestBody2).build();
+                _okHttpClient2.newCall(_request).execute();
+                return "successfully";
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.d("result async","value: "+s);
+            if (s == "successfully"){
+                Toast.makeText(getActivity(), "บันทึกข้อมูลเรียบร้อยแล้ว",Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(getActivity(), "ไม่สามารถบันทึกข้อมูลได้",Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 }

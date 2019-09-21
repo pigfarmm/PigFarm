@@ -32,7 +32,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.admin.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -59,7 +58,7 @@ public class CheckPregnant_Fragment extends Fragment {
     ArrayList<String> listItems = new ArrayList<>();
     ArrayAdapter<String> adapter;
     public static String gettextbreed, farm_id;
-    Spinner spin_noteId02, spin_result02;
+    Spinner spin_noteId02, spin_result02, spin_howtoresult;
     EditText edit_dateNote02;
     Button btn_flacAct02;
     ImageView img_calNote02;
@@ -70,7 +69,7 @@ public class CheckPregnant_Fragment extends Fragment {
     private List<String> mStrings_pig_id = new ArrayList<String>();
     private List<String> mStrings_event_date = new ArrayList<String>();
     private int pig_id_dropdown;
-    String count_pregnant,item;
+    String getamount,item;
 
 
     public CheckPregnant_Fragment() {
@@ -103,6 +102,7 @@ public class CheckPregnant_Fragment extends Fragment {
         spin_result02 = getView().findViewById(R.id.spin_result02);
         btn_flacAct02 = getView().findViewById(R.id.btn_flacAct02);
         img_calNote02 = getView().findViewById(R.id.img_calNote02);
+        spin_howtoresult = getView().findViewById(R.id.spin_howtoresult);
 
         String date_n = new SimpleDateFormat("yyyy-MM-dd",
                 Locale.getDefault()).format(new Date());
@@ -113,8 +113,14 @@ public class CheckPregnant_Fragment extends Fragment {
                 android.R.layout.simple_dropdown_item_1line, eventStr);
         spin_result02.setAdapter(adapterEvent);
 
+        final String[] eventStr2 = getResources().getStringArray(R.array.howtocheckpreg);
+        final ArrayAdapter<String> adapterEvent2 = new ArrayAdapter<String>(this.getActivity(),
+                android.R.layout.simple_dropdown_item_1line, eventStr2);
+        spin_howtoresult.setAdapter(adapterEvent2);
 
-        String url = "http://pigaboo.xyz/Query_BreedID.php?farm_id=" + farm_id;
+
+
+        String url = "https://pigaboo.xyz/Query_BreedID.php?farm_id=" + farm_id;
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -134,7 +140,23 @@ public class CheckPregnant_Fragment extends Fragment {
         btn_flacAct02.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new InsertAsyn().execute("http://pigaboo.xyz/Insert_EventCheckPregnant.php");
+                String url3 = "https://pigaboo.xyz/Query_AmountPregnantById.php?farm_id="+farm_id+"&pig_id="+spin_noteId02.getSelectedItem().toString();
+                StringRequest stringRequest2 = new StringRequest(url3, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        QueryAmountPregnant(response);
+                        new InsertAsyn().execute("https://pigaboo.xyz/Insert_EventCheckPregnant.php");
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getActivity(), "Wrong", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                );
+                RequestQueue requestQueue2 = Volley.newRequestQueue(getActivity().getApplicationContext());
+                requestQueue2.add(stringRequest2);
+
             }
         });
 
@@ -177,6 +199,20 @@ public class CheckPregnant_Fragment extends Fragment {
         }
     };
 
+    public void QueryAmountPregnant(String response){
+        try {
+            JSONObject jsonObject3 = new JSONObject(response);
+            JSONArray result3 = jsonObject3.getJSONArray("result");
+
+            for (int i = 0; i<result3.length(); i++){
+                JSONObject collectData3 = result3.getJSONObject(i);
+                getamount = collectData3.getString("pig_amount_pregnant");
+            }
+        }catch (JSONException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     private class InsertAsyn extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
@@ -193,10 +229,6 @@ public class CheckPregnant_Fragment extends Fragment {
                     public void onNothingSelected(AdapterView<?> adapterView) {
                     }
                 });
-
-
-
-
                 OkHttpClient _okHttpClient = new OkHttpClient();
                 RequestBody _requestBody = new FormBody.Builder()
                         .add("event_id", "2")
@@ -204,6 +236,8 @@ public class CheckPregnant_Fragment extends Fragment {
                         .add("pig_id", pig_id_array[pig_id_dropdown])
                         .add("result_pregnant",item)
                         .add("note", event_date_array[pig_id_dropdown])
+                        .add("pig_amount_pregnant",getamount)
+                        .add("howtocheckpreg",spin_howtoresult.getSelectedItem().toString())
                         .build();
 
                 Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();

@@ -22,13 +22,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
+import com.example.admin.pigfarm.R;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.admin.R;
 import com.example.admin.pigfarm.ManageData_Page.HttpParse;
 
 import org.json.JSONArray;
@@ -55,7 +55,7 @@ public class edt_Breed_Fragment extends Fragment {
     Button btn_flacAct01;
     ImageView img_calNote01;
     Calendar myCalendar = Calendar.getInstance();
-    String UpdateURL = "http://pigaboo.xyz/Update_Event.php";
+    String UpdateURL = "https://pigaboo.xyz/Update_Event.php";
 
     @Nullable
     @Override
@@ -119,7 +119,7 @@ public class edt_Breed_Fragment extends Fragment {
     };
 
     private void LoadData() {
-        String url = "http://pigaboo.xyz/Query_PigID_By_Detail_ID.php?detail_id="+get_detail_id;
+        String url = "https://pigaboo.xyz/Query_PigID_By_Detail_ID.php?detail_id="+get_detail_id;
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -139,7 +139,7 @@ public class edt_Breed_Fragment extends Fragment {
 
 
     private void LoadDataDadID() {
-        String url2 = "http://pigaboo.xyz/Query_DadID.php?farm_id="+getfarm_id;
+        String url2 = "https://pigaboo.xyz/Query_DadID.php?farm_id="+getfarm_id;
         StringRequest stringRequest1 = new StringRequest(url2, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

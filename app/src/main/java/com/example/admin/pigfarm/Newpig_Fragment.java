@@ -1,6 +1,7 @@
 package com.example.admin.pigfarm;
 
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -8,13 +9,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,8 +37,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.admin.R;
 import com.example.admin.pigfarm.SelectDateFragment;
+import com.google.zxing.Result;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,6 +53,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -56,9 +63,9 @@ import okhttp3.RequestBody;
 public class Newpig_Fragment extends Fragment {
 
     Button btnSubmitNewpig;
-    EditText edit_id, edit_opendate, edit_birthday, edit_breed, edit_dadId1, edit_momId, edit_form, edit_reserveID;
+    EditText edit_id, edit_opendate, edit_birthday, edit_breed, edit_dadId1, edit_momId, edit_form, edit_reserveID,id;
     String farm_id;
-    ImageView img_calOpen1, img_calBD1;
+    ImageView img_calOpen1, img_calBD1,qr_code;
     Calendar myCalendar = Calendar.getInstance();
     Calendar myCalendar2 = Calendar.getInstance();
     ArrayList<String> list = new ArrayList<>();
@@ -67,10 +74,10 @@ public class Newpig_Fragment extends Fragment {
     ArrayList<String> listItemsDad = new ArrayList<>();
     ArrayAdapter<String> adapter;
     ArrayAdapter<String> adapter1;
+    private ZXingScannerView zXingScannerView;
 
     public Newpig_Fragment() {
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,6 +93,11 @@ public class Newpig_Fragment extends Fragment {
         SharedPreferences shared = getActivity().getSharedPreferences("Login", Context.MODE_PRIVATE);
         farm_id = shared.getString("farm_id", "missing");
 
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) !=
+                PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.CAMERA},
+                    50); }
+
         edit_id = getView().findViewById(R.id.edit_id1);
         edit_opendate = getActivity().findViewById(R.id.edit_opendate1);
         edit_birthday = getView().findViewById(R.id.edit_birthday1);
@@ -97,6 +109,9 @@ public class Newpig_Fragment extends Fragment {
         img_calOpen1 = getView().findViewById(R.id.img_calOpen1);
         img_calBD1 = getView().findViewById(R.id.img_calBD1);
         edit_dadId1 = getView().findViewById(R.id.edit_dadId1);
+        qr_code = getView().findViewById(R.id.img_qr);
+
+
 
         String date_n = new SimpleDateFormat("yyyy-MM-dd",
                 Locale.getDefault()).format(new Date());
@@ -118,6 +133,29 @@ public class Newpig_Fragment extends Fragment {
                 showDatePickerDialog2();
             }
         });
+
+        qr_code.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                IntentIntegrator.forSupportFragment(Newpig_Fragment.this).initiateScan();
+                IntentIntegrator integrator = new IntentIntegrator(getActivity());
+                integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+                integrator.setPrompt("Please focus the camera on the QR Code");
+                integrator.setCameraId(0);
+                integrator.setBeepEnabled(false);
+                integrator.setBarcodeImageEnabled(false);
+                integrator.initiateScan();
+            }
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if(scanResult != null){
+            edit_id.setText(scanResult.getContents());
+        }
+
     }
 
     public void showDatePickerDialog() {
@@ -158,10 +196,13 @@ public class Newpig_Fragment extends Fragment {
     private View.OnClickListener onSubmitClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            new InsertAsyn().execute("http://pigaboo.xyz/Insert_ProfilePig.php");
+            new InsertAsyn().execute("https://pigaboo.xyz/Insert_ProfilePig.php");
 
         }
     };
+
+
+
 
     public class InsertAsyn extends AsyncTask<String, Void, String> {
         @Override

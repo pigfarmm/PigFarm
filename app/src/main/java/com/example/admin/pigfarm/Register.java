@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.admin.R;
+import com.example.admin.pigfarm.R;
 
 import java.io.IOException;
 
@@ -72,7 +72,7 @@ public class Register extends AppCompatActivity {
                 }
 
                 else{
-                    new InsertAsyn().execute("http://pigaboo.xyz/Register2.php");
+                    new InsertAsyn().execute("https://pigaboo.xyz/Register2.php");
                 }
             }
         });

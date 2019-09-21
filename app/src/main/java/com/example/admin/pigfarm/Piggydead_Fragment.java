@@ -1,7 +1,9 @@
 package com.example.admin.pigfarm;
 
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -24,7 +26,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.admin.R;
+import com.example.admin.pigfarm.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,6 +55,7 @@ public class Piggydead_Fragment extends Fragment {
     EditText edit_dateNote11, edit_count11,edit_cause11;
     Button btn_flacAct11;
     ImageView img_calNote11;
+    String getamount;
     Calendar myCalendar = Calendar.getInstance();
 
 
@@ -87,7 +90,7 @@ public class Piggydead_Fragment extends Fragment {
                 Locale.getDefault()).format(new Date());
 
         edit_dateNote11.setText(date_n);
-        String url = "http://pigaboo.xyz/Query_Maternity.php?farm_id="+farm_id;
+        String url = "https://pigaboo.xyz/Query_Maternity.php?farm_id="+farm_id;
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -106,7 +109,36 @@ public class Piggydead_Fragment extends Fragment {
         btn_flacAct11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new InsertAsyn().execute("http://pigaboo.xyz/Insert_EventPiggyDead.php");
+                if (spin_noteId11 != null && spin_noteId11.getSelectedItem() != null) {
+                    String url3 = "https://pigaboo.xyz/Query_AmountPregnantById.php?farm_id=" + farm_id + "&pig_id=" + spin_noteId11.getSelectedItem().toString();
+                    StringRequest stringRequest2 = new StringRequest(url3, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            QueryAmountPregnant(response);
+                            new InsertAsyn().execute("https://pigaboo.xyz/Insert_EventPiggyDead.php");
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getActivity(), "Wrong", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    );
+                    RequestQueue requestQueue2 = Volley.newRequestQueue(getActivity().getApplicationContext());
+                    requestQueue2.add(stringRequest2);
+                }else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
+                    builder.setCancelable(false);
+                    builder.setMessage("กรุณากรอกข้อมูลให้ครบถ้วน");
+                    builder.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
             }
         });
 
@@ -137,6 +169,20 @@ public class Piggydead_Fragment extends Fragment {
         }
     };
 
+    public void QueryAmountPregnant(String response){
+        try {
+            JSONObject jsonObject3 = new JSONObject(response);
+            JSONArray result3 = jsonObject3.getJSONArray("result");
+
+            for (int i = 0; i<result3.length(); i++){
+                JSONObject collectData3 = result3.getJSONObject(i);
+                getamount = collectData3.getString("pig_amount_pregnant");
+            }
+        }catch (JSONException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     private class InsertAsyn extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
@@ -148,6 +194,7 @@ public class Piggydead_Fragment extends Fragment {
                         .add("pig_id", spin_noteId11.getSelectedItem().toString())
                         .add("note", edit_cause11.getText().toString())
                         .add("pig_die", edit_count11.getText().toString())
+                        .add("pig_amount_pregnant",getamount)
                         .build();
 
                 Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();
@@ -178,6 +225,21 @@ public class Piggydead_Fragment extends Fragment {
         try {
             JSONObject jsonObject = new JSONObject(response);
             JSONArray result = jsonObject.getJSONArray("result");
+
+            if (result.length() == 0) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
+                builder.setCancelable(false);
+                builder.setMessage("ท่านยังไม่ได้บันทึกเหตุการณ์คลอด");
+                builder.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
 
 
             for (int i = 0; i<result.length(); i++){

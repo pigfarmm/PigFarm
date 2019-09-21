@@ -16,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.admin.R;
 
 public class Event_main extends AppCompatActivity {
     Spinner event_spinner;

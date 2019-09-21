@@ -24,7 +24,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.admin.R;
+import com.example.admin.pigfarm.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,7 +51,7 @@ public class Wean_Fragment extends Fragment {
     Spinner spin_noteId06;
     EditText edit_dateNote06, edit_numbaby06, edit_weight06;
     Button btn_flacAct06;
-    String getweight;
+    String getweight,getamount;
     ImageView img_calNote06;
     Calendar myCalendar = Calendar.getInstance();
 
@@ -85,7 +85,7 @@ public class Wean_Fragment extends Fragment {
                 Locale.getDefault()).format(new Date());
         edit_dateNote06.setText(date_n);
 
-        String url = "http://pigaboo.xyz/Query_pigid.php?farm_id="+farm_id;
+        String url = "https://pigaboo.xyz/Query_pigid.php?farm_id="+farm_id;
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -104,7 +104,23 @@ public class Wean_Fragment extends Fragment {
         btn_flacAct06.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new InsertAsyn().execute("http://pigaboo.xyz/Insert_EventWean.php");
+                String url3 = "https://pigaboo.xyz/Query_AmountPregnantById.php?farm_id="+farm_id+"&pig_id="+spin_noteId06.getSelectedItem().toString();
+                StringRequest stringRequest2 = new StringRequest(url3, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        QueryAmountPregnant(response);
+                        new InsertAsyn().execute("https://pigaboo.xyz/Insert_EventWean.php");
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getActivity(), "Wrong", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                );
+                RequestQueue requestQueue2 = Volley.newRequestQueue(getActivity().getApplicationContext());
+                requestQueue2.add(stringRequest2);
+
             }
         });
 
@@ -133,6 +149,20 @@ public class Wean_Fragment extends Fragment {
         }
     };
 
+    public void QueryAmountPregnant(String response){
+        try {
+            JSONObject jsonObject3 = new JSONObject(response);
+            JSONArray result3 = jsonObject3.getJSONArray("result");
+
+            for (int i = 0; i<result3.length(); i++){
+                JSONObject collectData3 = result3.getJSONObject(i);
+                getamount = collectData3.getString("pig_amount_pregnant");
+            }
+        }catch (JSONException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     private class InsertAsyn extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
@@ -145,6 +175,7 @@ public class Wean_Fragment extends Fragment {
                         .add("pig_id", spin_noteId06.getSelectedItem().toString())
                         .add("pig_amountofwean", edit_numbaby06.getText().toString())
                         .add("pig_allweight", edit_weight06.getText().toString())
+                        .add("pig_amount_pregnant",getamount)
                         .build();
 
                 Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();

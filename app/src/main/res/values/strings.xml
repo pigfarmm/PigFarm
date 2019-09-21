@@ -14,6 +14,7 @@
         <item>รับเลี้ยงลูก</item>
         <item>คัดทิ้ง</item>
         <item>หมายเหตุ</item>
+        <item>ลูกหมูตาย</item>
         <item>เป็นสัดแต่ไม่ผสมพันธุ์</item>
         <item>ท้องลม</item>
         <item>แยกหย่านม</item>
@@ -26,6 +27,11 @@
         <item>ไม่ท้อง</item>
     </string-array>
 
+    <string-array name="howtocheckpreg">
+        <item>จับสัด</item>
+        <item>อัลตร้าซาวด์</item>
+        <item>อื่นๆ</item>
+    </string-array>
 
     <string-array name="exclude_event">
         <item>ขาย</item>
@@ -41,10 +47,10 @@
         <item>ผสม</item>
         <item>ไม่ท้อง</item>
         <item>กำหนดเข้าคลอด</item>
-        <item>ต้องทำก่อนเข้าคลอด</item>
+        <!--<item>ต้องทำก่อนเข้าคลอด</item>-->
         <item>คลอด</item>
         <item>หย่านท</item>
-        <item>แม่ต้องทำวัคซีน</item>
+        <!--<item>แม่ต้องทำวัคซีน</item>-->
     </string-array>
 
     <string-array name="choice">
@@ -132,6 +138,17 @@
         <item>อหิวาต์สุกร</item>
         <item>อหิวาต์อาฟริกัน</item>
         <item>อื่นๆ</item>
+    </string-array>
+
+    <string-array name="length_time_allperformance">
+    <item>วัน</item>
+    <item>เดือน</item>
+    <item>ปี</item>
+    <item>สัปดาห์</item>
+    </string-array>
+
+    <string-array name="time_allperformance">
+        <item>ไม่ต้องการ</item>
     </string-array>
 
     <string name="summary_account_settings">แก้ไขชื่อเจ้าของฟาร์ม</string>

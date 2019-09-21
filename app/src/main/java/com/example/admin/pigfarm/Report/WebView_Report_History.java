@@ -16,13 +16,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.webkit.SslErrorHandler;
+import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.admin.R;
+import com.example.admin.pigfarm.R;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -43,7 +45,6 @@ public class WebView_Report_History extends AppCompatActivity {
     String pdffile,pig_id;
     StringBuffer buffer;
 //    SwipeRefreshLayout mySwipeRefreshLayout;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,16 +60,15 @@ public class WebView_Report_History extends AppCompatActivity {
         pig_id = intent.getStringExtra("pig_id");
 
         if (pig_id == null) {
-            buffer=new StringBuffer("http://drive.google.com/viewerng/viewer?url=");
+            buffer = new StringBuffer("https://drive.google.com/viewerng/viewer?url=");
             buffer.append(URLEncoder.encode(pdffile)+"?");
             buffer.append(URLEncoder.encode("farm_id=")+farm_id);
         }else{
-            StringBuffer buffer=new StringBuffer("http://drive.google.com/viewerng/viewer?url=");
+            buffer = new StringBuffer("https://drive.google.com/viewerng/viewer?url=");
             buffer.append(URLEncoder.encode(pdffile)+"?");
             buffer.append(URLEncoder.encode("farm_id=")+farm_id);
             buffer.append(URLEncoder.encode("&pig_id=")+pig_id);
         }
-
 
 
         Log.d("show url" ,buffer.toString());
@@ -77,14 +77,6 @@ public class WebView_Report_History extends AppCompatActivity {
         webview.getSettings().setJavaScriptEnabled(true);
         webview.setWebViewClient(new MyWebViewClient());
         webview.loadUrl(buffer.toString());
-
-//        mySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                webview.reload();
-//                mySwipeRefreshLayout.setRefreshing(false);
-//            }
-//        });
 
     }
 
@@ -118,6 +110,15 @@ public class WebView_Report_History extends AppCompatActivity {
         @Override
         public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
             handler.proceed();
+        }
+
+        @Override
+        public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+            super.onReceivedError(view, request, error);
+            Log.d("webview",""+error);
+
+
+
         }
     }
 

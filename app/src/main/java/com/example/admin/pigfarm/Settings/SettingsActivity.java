@@ -10,7 +10,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 
 
-import com.example.admin.R;
+import com.example.admin.pigfarm.R;
 
 
 public class SettingsActivity extends PreferenceActivity {

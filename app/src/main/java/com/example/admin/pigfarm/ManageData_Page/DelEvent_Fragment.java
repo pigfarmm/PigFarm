@@ -17,13 +17,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import com.example.admin.pigfarm.R;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.admin.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,7 +46,7 @@ public class DelEvent_Fragment extends android.support.v4.app.Fragment implement
     String detail_id_final,event_name_detail;
     SwipeRefreshLayout swiperefresh;
     Handler handler;
-    private String DeleteEvent = "http://pigaboo.xyz/Delete_Eventdata.php";
+    private String DeleteEvent = "https://pigaboo.xyz/Delete_Eventdata.php";
 
     public DelEvent_Fragment() {
 
@@ -90,7 +90,7 @@ public class DelEvent_Fragment extends android.support.v4.app.Fragment implement
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String url = "http://pigaboo.xyz/Query_DataPig.php?pig_id="+getpigid;
+        String url = "https://pigaboo.xyz/Query_DataPig.php?pig_id="+getpigid;
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

@@ -8,7 +8,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
-import com.example.admin.R;
+import com.example.admin.pigfarm.R;
 
 public class SettingsFragment extends PreferenceFragment{
 

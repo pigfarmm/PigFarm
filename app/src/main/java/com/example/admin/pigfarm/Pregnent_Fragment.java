@@ -26,7 +26,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.admin.R;
+import com.example.admin.pigfarm.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,7 +50,7 @@ public class Pregnent_Fragment extends Fragment {
     ArrayList<String> list = new ArrayList<>();
     ArrayList<String> listItems = new ArrayList<>();
     ArrayAdapter<String> adapter;
-    public static String gettextbreed,farm_id;
+    public static String gettextbreed,farm_id,getamount;
     Spinner spin_noteId03;
     EditText edit_dateNote03,edit_msg03;
     Button btn_flacAct03;
@@ -93,7 +93,7 @@ public class Pregnent_Fragment extends Fragment {
                 Locale.getDefault()).format(new Date());
         edit_dateNote03.setText(date_n);
 
-            String url = "http://pigaboo.xyz/Query_BreedID.php?farm_id="+farm_id;
+            String url = "https://pigaboo.xyz/Query_BreedID.php?farm_id="+farm_id;
             StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -112,7 +112,23 @@ public class Pregnent_Fragment extends Fragment {
             btn_flacAct03.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    new InsertAsyn().execute("http://pigaboo.xyz/Insert_EventPregnant.php");
+                    String url3 = "https://pigaboo.xyz/Query_AmountPregnantById.php?farm_id="+farm_id+"&pig_id="+spin_noteId03.getSelectedItem().toString();
+                    StringRequest stringRequest2 = new StringRequest(url3, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            QueryAmountPregnant(response);
+                            new InsertAsyn().execute("https://pigaboo.xyz/Insert_EventPregnant.php");
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getActivity(), "Wrong", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    );
+                    RequestQueue requestQueue2 = Volley.newRequestQueue(getActivity().getApplicationContext());
+                    requestQueue2.add(stringRequest2);
+
                 }
             });
 
@@ -122,6 +138,25 @@ public class Pregnent_Fragment extends Fragment {
                 showDatePickerDialog();
             }
         });
+    }
+
+    private void QueryAmountPregnant(String response) {
+        try {
+            JSONObject jsonObject3 = new JSONObject(response);
+            JSONArray result3 = jsonObject3.getJSONArray("result");
+
+            for (int i = 0; i<result3.length(); i++){
+                JSONObject collectData3 = result3.getJSONObject(i);
+                if (collectData3.getString("pig_amount_pregnant") == null){
+                    getamount = "0";
+                }else{
+                    getamount = collectData3.getString("pig_amount_pregnant");
+                }
+
+            }
+        }catch (JSONException ex) {
+            ex.printStackTrace();
+        }
     }
 
 
@@ -144,10 +179,10 @@ public class Pregnent_Fragment extends Fragment {
                 RequestBody _requestBody = new FormBody.Builder()
                         .add("event_id", "3")
                         .add("event_recorddate", edit_dateNote03.getText().toString())
-                        .add("pig_id", pig_id_array[pig_id_dropdown])
+                        .add("pig_id", spin_noteId03.getSelectedItem().toString())
                         .add("note", edit_msg03.getText().toString())
                         .add("event_recorddate_for_abort", event_date_array[pig_id_dropdown])
-
+                        .add("pig_amount_pregnant", getamount)
                         .build();
 
                 Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();

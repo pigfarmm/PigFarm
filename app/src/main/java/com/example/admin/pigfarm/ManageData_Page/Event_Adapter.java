@@ -9,7 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.admin.R;
+import com.example.admin.pigfarm.R;
+
 import java.util.List;
 
 
@@ -57,18 +58,18 @@ public class Event_Adapter extends RecyclerView.Adapter<Event_Adapter.EventViewH
     class EventViewHolder extends RecyclerView.ViewHolder{
         TextView eventdata_name, eventdata_recorddate;
 
-        public EventViewHolder(View itemView){
-            super(itemView);
+    public EventViewHolder(View itemView){
+        super(itemView);
 
-            eventdata_name = itemView.findViewById(R.id.eventdata_name);
-            eventdata_recorddate = itemView.findViewById(R.id.eventdata_recorddate);
-            if (eventdata_name != null && eventdata_recorddate != null){
-                eventdata_name.setVisibility(View.VISIBLE);
-                eventdata_recorddate.setVisibility(View.VISIBLE);
-            }else {
-                eventdata_name.setVisibility(View.INVISIBLE);
-                eventdata_recorddate.setVisibility(View.INVISIBLE);
-            }
+        eventdata_name = itemView.findViewById(R.id.eventdata_name);
+        eventdata_recorddate = itemView.findViewById(R.id.eventdata_recorddate);
+        if (eventdata_name != null && eventdata_recorddate != null){
+            eventdata_name.setVisibility(View.VISIBLE);
+            eventdata_recorddate.setVisibility(View.VISIBLE);
+        }else {
+            eventdata_name.setVisibility(View.INVISIBLE);
+            eventdata_recorddate.setVisibility(View.INVISIBLE);
         }
     }
+}
 }

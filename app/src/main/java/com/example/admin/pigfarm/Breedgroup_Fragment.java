@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.admin.R;
 
 
 public class Breedgroup_Fragment extends Fragment {

@@ -24,7 +24,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.admin.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,6 +51,7 @@ public class Exclude_Fragment extends Fragment {
     EditText edit_dateNote08, edit_desc08;
     Button btn_flacAct08;
     ImageView img_calNote08;
+    String getamount;
     Calendar myCalendar = Calendar.getInstance();
 
 
@@ -91,7 +91,7 @@ public class Exclude_Fragment extends Fragment {
                 android.R.layout.simple_dropdown_item_1line, eventStr);
         spin_result08.setAdapter(adapterEvent);
 
-        String url = "http://pigaboo.xyz/Query_pigid.php?farm_id="+farm_id;
+        String url = "https://pigaboo.xyz/Query_pigid.php?farm_id="+farm_id;
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -110,7 +110,23 @@ public class Exclude_Fragment extends Fragment {
         btn_flacAct08.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new InsertAsyn().execute("http://pigaboo.xyz/Insert_EventExclude.php");
+                String url3 = "https://pigaboo.xyz/Query_AmountPregnantById.php?farm_id="+farm_id+"&pig_id="+spin_noteId08.getSelectedItem().toString();
+                StringRequest stringRequest2 = new StringRequest(url3, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        QueryAmountPregnant(response);
+                        new InsertAsyn().execute("https://pigaboo.xyz/Insert_EventExclude.php");
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getActivity(), "Wrong", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                );
+                RequestQueue requestQueue2 = Volley.newRequestQueue(getActivity().getApplicationContext());
+                requestQueue2.add(stringRequest2);
+
             }
         });
 
@@ -139,6 +155,20 @@ public class Exclude_Fragment extends Fragment {
         }
     };
 
+    public void QueryAmountPregnant(String response){
+        try {
+            JSONObject jsonObject3 = new JSONObject(response);
+            JSONArray result3 = jsonObject3.getJSONArray("result");
+
+            for (int i = 0; i<result3.length(); i++){
+                JSONObject collectData3 = result3.getJSONObject(i);
+                getamount = collectData3.getString("pig_amount_pregnant");
+            }
+        }catch (JSONException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     private class InsertAsyn extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
@@ -150,6 +180,7 @@ public class Exclude_Fragment extends Fragment {
                         .add("pig_id", spin_noteId08.getSelectedItem().toString())
                         .add("pig_resultofexclude", spin_result08.getSelectedItem().toString())
                         .add("pig_reasonofexclude", edit_desc08.getText().toString())
+                        .add("pig_amount_pregnant",getamount)
                         .build();
 
                 Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();

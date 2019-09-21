@@ -15,8 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-
-import com.example.admin.R;
+import com.example.admin.pigfarm.R;
 
 public class Report_Status_a1_Fragment extends Fragment {
     String farm_id;
@@ -41,7 +40,7 @@ public class Report_Status_a1_Fragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         SharedPreferences shared = getActivity().getSharedPreferences("Login", Context.MODE_PRIVATE);
-        farm_id = shared.getString("farm_id", "missing");
+        farm_id = shared.getString("farm_id", "");
 
         spin_type = getView().findViewById(R.id.spin_type);
         spin_sortby = getView().findViewById(R.id.spin_sortby);
@@ -88,7 +87,7 @@ public class Report_Status_a1_Fragment extends Fragment {
 
                 if (String.valueOf(spin_type.getSelectedItem()).equals("พ่อ")){
 
-                    pdf = "http://pigaboo.xyz/Report/Status_Dad.php";
+                    pdf = "https://pigaboo.xyz/Report/Status_Dad.php";
                     Intent intent = new Intent(getActivity(), WebView_Report_Status.class);
                     intent.putExtra("url",pdf);
                     startActivity(intent);
@@ -96,7 +95,7 @@ public class Report_Status_a1_Fragment extends Fragment {
 
                 if (String.valueOf(spin_type.getSelectedItem()).equals("แม่") && String.valueOf(spin_sortby.getSelectedItem()).equals("เบอร์หู")){
 
-                    pdf = "http://pigaboo.xyz/Report/Status_Mom_by_ID.php";
+                    pdf = "https://pigaboo.xyz/Report/Status_Mom_by_ID.php";
                     Intent intent = new Intent(getActivity(), WebView_Report_Status.class);
                     intent.putExtra("url",pdf);
                     startActivity(intent);
@@ -104,7 +103,7 @@ public class Report_Status_a1_Fragment extends Fragment {
 
                 else if (String.valueOf(spin_type.getSelectedItem()).equals("แม่") && String.valueOf(spin_sortby.getSelectedItem()).equals("ท้องที่")){
 
-                    pdf = "http://pigaboo.xyz/Report/Status_Mom_by_Pregnant.php";
+                    pdf = "https://pigaboo.xyz/Report/Status_Mom_by_Pregnant.php";
                     Intent intent = new Intent(getActivity(), WebView_Report_Status.class);
                     intent.putExtra("url",pdf);
 
@@ -113,7 +112,7 @@ public class Report_Status_a1_Fragment extends Fragment {
 
                 else if (String.valueOf(spin_type.getSelectedItem()).equals("แม่") && String.valueOf(spin_sortby.getSelectedItem()).equals("สถานภาพ")){
 
-                    pdf = "http://pigaboo.xyz/Report/Status_Mom_by_Status.php";
+                    pdf = "https://pigaboo.xyz/Report/Status_Mom_by_Status.php";
                     Intent intent = new Intent(getActivity(), WebView_Report_Status.class);
                     intent.putExtra("url",pdf);
                     startActivity(intent);
@@ -121,7 +120,7 @@ public class Report_Status_a1_Fragment extends Fragment {
 
                 else if (String.valueOf(spin_type.getSelectedItem()).equals("แม่") && String.valueOf(spin_sortby.getSelectedItem()).equals("วันสุดท้าย")){
 
-                    pdf = "http://pigaboo.xyz/Report/Status_Mom_by_LastDay.php";
+                    pdf = "https://pigaboo.xyz/Report/Status_Mom_by_LastDay.php";
                     Intent intent = new Intent(getActivity(), WebView_Report_Status.class);
                     intent.putExtra("url",pdf);
                     startActivity(intent);
@@ -129,7 +128,7 @@ public class Report_Status_a1_Fragment extends Fragment {
 
                 else if (String.valueOf(spin_type.getSelectedItem()).equals("ทั้งหมด") && String.valueOf(spin_sortby.getSelectedItem()).equals("เบอร์หู")){
 
-                    pdf = "http://pigaboo.xyz/Report/Status_All_by_ID.php";
+                    pdf = "https://pigaboo.xyz/Report/Status_All_by_ID.php";
                     Intent intent = new Intent(getActivity(), WebView_Report_Status.class);
                     intent.putExtra("url",pdf);
                     startActivity(intent);
@@ -137,7 +136,7 @@ public class Report_Status_a1_Fragment extends Fragment {
 
                 else if (String.valueOf(spin_type.getSelectedItem()).equals("ทั้งหมด") && String.valueOf(spin_sortby.getSelectedItem()).equals("ท้องที่")){
 
-                    pdf = "http://pigaboo.xyz/Report/Status_All_by_Pregnant.php";
+                    pdf = "https://pigaboo.xyz/Report/Status_All_by_Pregnant.php";
                     Intent intent = new Intent(getActivity(), WebView_Report_Status.class);
                     intent.putExtra("url",pdf);
                     startActivity(intent);
@@ -145,7 +144,7 @@ public class Report_Status_a1_Fragment extends Fragment {
 
                 else if (String.valueOf(spin_type.getSelectedItem()).equals("ทั้งหมด") && String.valueOf(spin_sortby.getSelectedItem()).equals("สถานภาพ")){
 
-                    pdf = "http://pigaboo.xyz/Report/Status_All_by_Status.php";
+                    pdf = "https://pigaboo.xyz/Report/Status_All_by_Status.php";
                     Intent intent = new Intent(getActivity(), WebView_Report_Status.class);
                     intent.putExtra("url",pdf);
                     startActivity(intent);
@@ -153,7 +152,7 @@ public class Report_Status_a1_Fragment extends Fragment {
 
                 else if (String.valueOf(spin_type.getSelectedItem()).equals("ทั้งหมด") && String.valueOf(spin_sortby.getSelectedItem()).equals("วันสุดท้าย")){
 
-                    pdf = "http://pigaboo.xyz/Report/Status_All_by_LastDay.php";
+                    pdf = "https://pigaboo.xyz/Report/Status_All_by_LastDay.php";
                     Intent intent = new Intent(getActivity(), WebView_Report_Status.class);
                     intent.putExtra("url",pdf);
                     startActivity(intent);

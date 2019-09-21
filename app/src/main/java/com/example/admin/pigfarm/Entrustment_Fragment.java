@@ -1,12 +1,16 @@
 package com.example.admin.pigfarm;
 
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +28,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.admin.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,9 +51,10 @@ public class Entrustment_Fragment extends Fragment {
     ArrayList<String> listItems = new ArrayList<>();
     ArrayAdapter<String> adapter;
     Spinner spin_noteId05;
-    EditText edit_dateNote05, edit_numbaby05;
+    EditText edit_dateNote05, edit_numbaby05, edit_numbaby06;
     Button btn_flacAct05;
     ImageView img_calNote05;
+    String getamount;
     Calendar myCalendar = Calendar.getInstance();
 
 
@@ -78,6 +82,7 @@ public class Entrustment_Fragment extends Fragment {
         edit_numbaby05 = getView().findViewById(R.id.edit_numbaby05);
         btn_flacAct05 = getView().findViewById(R.id.btn_flacAct05);
         img_calNote05 = getView().findViewById(R.id.img_calNote05);
+        edit_numbaby06 = getView().findViewById(R.id.edit_numbaby06);
 
 
         String date_n = new SimpleDateFormat("yyyy-MM-dd",
@@ -85,7 +90,7 @@ public class Entrustment_Fragment extends Fragment {
         edit_dateNote05.setText(date_n);
 
 
-        String url = "http://pigaboo.xyz/Query_pigid.php?farm_id="+farm_id;
+        String url = "https://pigaboo.xyz/Query_pigid.php?farm_id="+farm_id;
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -101,10 +106,44 @@ public class Entrustment_Fragment extends Fragment {
         RequestQueue requestQueue = Volley.newRequestQueue(this.getActivity().getApplicationContext());
         requestQueue.add(stringRequest);
 
+
+
         btn_flacAct05.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new InsertAsyn().execute("http://pigaboo.xyz/Insert_EventEntrustment.php");
+                if (edit_numbaby05.getText().toString().isEmpty() || edit_numbaby06.getText().toString().isEmpty()){
+                    String url3 = "https://pigaboo.xyz/Query_AmountPregnantById.php?farm_id="+farm_id+"&pig_id="+spin_noteId05.getSelectedItem().toString();
+                    StringRequest stringRequest2 = new StringRequest(url3, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            QueryAmountPregnant(response);
+                            new InsertAsyn().execute("https://pigaboo.xyz/Insert_EventEntrustment.php");
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getActivity(), "Wrong", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    );
+                    RequestQueue requestQueue2 = Volley.newRequestQueue(getActivity().getApplicationContext());
+                    requestQueue2.add(stringRequest2);
+
+                }else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
+                    builder.setCancelable(false);
+                    builder.setMessage("กรุณาเลือกกรอก ฝากให้ หรือ ฝากรับ อย่างใดอย่างหนึ่ง");
+                    builder.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+
+
             }
         });
 
@@ -133,6 +172,20 @@ public class Entrustment_Fragment extends Fragment {
         }
     };
 
+    public void QueryAmountPregnant(String response){
+        try {
+            JSONObject jsonObject3 = new JSONObject(response);
+            JSONArray result3 = jsonObject3.getJSONArray("result");
+
+            for (int i = 0; i<result3.length(); i++){
+                JSONObject collectData3 = result3.getJSONObject(i);
+                getamount = collectData3.getString("pig_amount_pregnant");
+            }
+        }catch (JSONException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     private class InsertAsyn extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
@@ -143,6 +196,8 @@ public class Entrustment_Fragment extends Fragment {
                         .add("event_recorddate", edit_dateNote05.getText().toString())
                         .add("pig_id", spin_noteId05.getSelectedItem().toString())
                         .add("pig_amountofentrustment", edit_numbaby05.getText().toString())
+                        .add("pig_amountofadopt",edit_numbaby06.getText().toString())
+                        .add("pig_amount_pregnant",getamount)
                         .build();
 
                 Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();

@@ -22,10 +22,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.admin.R;
 import com.example.admin.pigfarm.ManageData_Page.MainActivity_ManageData;
 import com.example.admin.pigfarm.Report.PigData_Report;
 import com.example.admin.pigfarm.Report.Report_Home;
+import com.example.admin.pigfarm.Report.Report_Main;
 import com.example.admin.pigfarm.Settings.SettingsActivity;
 
 import org.json.JSONArray;
@@ -57,7 +57,7 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
         txt_farm = findViewById(R.id.txt_farm);
         txt_unit = findViewById(R.id.txt_unit);
 
-        String url = "http://pigaboo.xyz/Query_Farm.php?username="+username+"&password="+password;
+        String url = "https://pigaboo.xyz/Query_Farm.php?username="+username+"&password="+password;
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -137,6 +137,12 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(Home.this, MainActivity_ManageData.class);
+                            SharedPreferences farm = getSharedPreferences("Farm", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor2 = farm.edit();
+                            editor2.putString("farm_name",farm_name);
+                            editor2.putString("unit_name",unit_name);
+                            editor2.putString("farm_id",farm_id);
+                            editor2.commit();
                             startActivity(intent);
                         }
                     });
@@ -144,7 +150,13 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
                     card_report.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(Home.this, Report_Home.class);
+                            Intent intent = new Intent(Home.this, Report_Main.class);
+                            SharedPreferences farm = getSharedPreferences("Farm", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor2 = farm.edit();
+                            editor2.putString("farm_name",farm_name);
+                            editor2.putString("unit_name",unit_name);
+                            editor2.putString("farm_id",farm_id);
+                            editor2.commit();
                             startActivity(intent);
                         }
                     });
@@ -153,6 +165,12 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(Home.this, SettingsActivity.class);
+                            SharedPreferences farm = getSharedPreferences("Farm", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor2 = farm.edit();
+                            editor2.putString("farm_name",farm_name);
+                            editor2.putString("unit_name",unit_name);
+                            editor2.putString("farm_id",farm_id);
+                            editor2.commit();
                             startActivity(intent);
                         }
                     });

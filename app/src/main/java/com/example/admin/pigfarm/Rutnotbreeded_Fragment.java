@@ -29,7 +29,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.admin.R;
+import com.example.admin.pigfarm.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -89,7 +89,7 @@ public class Rutnotbreeded_Fragment extends Fragment {
 
         edit_dateNote15.setText(date_n);
 
-        String url = "http://pigaboo.xyz/Query_WeanID.php?farm_id="+farm_id;
+        String url = "https://pigaboo.xyz/Query_WeanID.php?farm_id="+farm_id;
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -109,7 +109,7 @@ public class Rutnotbreeded_Fragment extends Fragment {
         btn_flacAct15.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new InsertAsyn().execute("http://pigaboo.xyz/Insert_EventRutnotbreed.php");
+                new InsertAsyn().execute("https://pigaboo.xyz/Insert_EventRutnotbreed.php");
             }
         });
 

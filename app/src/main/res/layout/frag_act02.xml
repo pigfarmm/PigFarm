@@ -122,6 +122,42 @@
                     android:src="@drawable/dropdown" />
             </RelativeLayout>
 
+            <TextView
+                android:id="@+id/txt_howtoresult"
+                android:text="วิธีการตรวจ"
+                android:textColor="@color/Colorfont"
+                android:textSize="20sp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/thaisansneue_bold"/>
+
+            <RelativeLayout
+                android:layout_width="325dp"
+                android:layout_height="45dp"
+                android:background="#d2d2d2"
+                android:layout_marginLeft="30dp">
+
+                <Spinner
+                    android:id="@+id/spin_howtoresult"
+                    android:layout_width="325dp"
+                    android:layout_height="45dp"
+                    android:spinnerMode="dropdown"
+                    />
+
+                <ImageView
+                    android:id="@+id/img_howtoresult"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp"
+                    android:src="@drawable/dropdown" />
+            </RelativeLayout>
+
+
+
             <Button
                 android:id="@+id/btn_flacAct02"
                 android:layout_width="300dp"

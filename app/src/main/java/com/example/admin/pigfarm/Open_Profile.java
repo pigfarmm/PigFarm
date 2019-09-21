@@ -16,8 +16,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.admin.R;
-
 public class Open_Profile extends AppCompatActivity {
 
     TextView txt_farmOpen2,txt_unitOpen2;
@@ -53,6 +51,7 @@ public class Open_Profile extends AppCompatActivity {
                 Newpig_Fragment newpig_fragment = new Newpig_Fragment();
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.content_fragment, newpig_fragment);
+                transaction.addToBackStack(null);
                 transaction.commit();
 
                 card_geneMom.setCardBackgroundColor(Color.parseColor("#000000"));

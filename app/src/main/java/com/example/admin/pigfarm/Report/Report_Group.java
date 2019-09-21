@@ -25,9 +25,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.admin.R;
+import com.example.admin.pigfarm.R;
+import com.example.admin.pigfarm.Home;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -37,13 +39,17 @@ import java.util.Locale;
 public class Report_Group extends AppCompatActivity {
 
     private String farm_id,pdf;
-    Spinner spin_type_of_report, spin_place_mom;
+    Spinner spin_type_of_report;
     Button btn_submit_report;
-    EditText edt_lengthtime, edt_reportmom, edt_startdate, edt_enddate;
-    private String lengthtime,checkpregnant;
+    EditText edt_startdate, edt_enddate;
     Calendar StartDate = Calendar.getInstance();
     Calendar EndDate = Calendar.getInstance();
     ImageView calendar_start, calendar_end;
+    String getfarm_name,getunit_name,getfarm_id;
+    TextView txt_farm, txt_unit;
+    ImageView img_back;
+
+
 
 
     @Override
@@ -51,14 +57,30 @@ public class Report_Group extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.report_group);
 
+        img_back = findViewById(R.id.img_back);
+        txt_farm = findViewById(R.id.txt_farm);
+        txt_unit = findViewById(R.id.txt_unit);
+
         SharedPreferences farm = getSharedPreferences("Farm", Context.MODE_PRIVATE);
-        farm_id = farm.getString("farm_id", "");
+        getfarm_name = farm.getString("farm_name", "");
+        getunit_name = farm.getString("unit_name", "");
+        getfarm_id = farm.getString("farm_id","");
+        txt_farm.setText(getfarm_name);
+        txt_unit.setText(getunit_name);
+
+
+        img_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Report_Group.this, Home.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
 
         spin_type_of_report = findViewById(R.id.spin_type_of_report);
-        spin_place_mom = findViewById(R.id.spin_place_mom);
         btn_submit_report = findViewById(R.id.btn_submit_report);
-        edt_reportmom = findViewById(R.id.edt_reportmom);
         edt_startdate = findViewById(R.id.edt_startdate);
         edt_enddate = findViewById(R.id.edt_enddate);
         calendar_start = findViewById(R.id.calendar_start);
@@ -93,19 +115,12 @@ public class Report_Group extends AppCompatActivity {
         spin_type_of_report.setAdapter(adapterType);
 
 
-        final String[] eventStr2 = getResources().getStringArray(R.array.choice);
-        ArrayAdapter<String> adapterChoice = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_dropdown_item, eventStr2);
-        adapterChoice.setDropDownViewResource(R.layout.spinner_item);
-        spin_place_mom.setAdapter(adapterChoice);
-
-
         btn_submit_report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                         if (String.valueOf(spin_type_of_report.getSelectedItem()).equals("ทั้งหมด")){
 
-                            pdf = "http://pigaboo.xyz/Report/All_Report.php";
+                            pdf = "https://pigaboo.xyz/Report/All_Report.php";
                             Intent intent = new Intent(Report_Group.this, PigData_Report.class);
                             intent.putExtra("url",pdf);
                             intent.putExtra("start_date",edt_startdate.getText().toString());
@@ -115,7 +130,7 @@ public class Report_Group extends AppCompatActivity {
 
                         else if (String.valueOf(spin_type_of_report.getSelectedItem()).equals("หมูสาวยังไม่ได้ผสม")){
 
-                            pdf = "http://pigaboo.xyz/Report/Momnotbreed_Report.php";
+                            pdf = "https://pigaboo.xyz/Report/Momnotbreed_Report.php";
                             Intent intent = new Intent(Report_Group.this, PigData_Report.class);
                             intent.putExtra("url",pdf);
                             intent.putExtra("start_date",edt_startdate.getText().toString());
@@ -128,7 +143,7 @@ public class Report_Group extends AppCompatActivity {
 
                         else if (String.valueOf(spin_type_of_report.getSelectedItem()).equals("ผสม")){
 
-                            pdf = "http://pigaboo.xyz/Report/Mombreed_Report.php";
+                            pdf = "https://pigaboo.xyz/Report/Mombreed_Report.php";
                             Intent intent = new Intent(Report_Group.this, PigData_Report.class);
                             intent.putExtra("url",pdf);
                             intent.putExtra("start_date",edt_startdate.getText().toString());
@@ -139,7 +154,7 @@ public class Report_Group extends AppCompatActivity {
 
                         else if (String.valueOf(spin_type_of_report.getSelectedItem()).equals("ไม่ท้อง")){
 
-                            pdf = "http://pigaboo.xyz/Report/NoPregnant_Report.php";
+                            pdf = "https://pigaboo.xyz/Report/NoPregnant_Report.php";
                             Intent intent = new Intent(Report_Group.this, PigData_Report.class);
                             intent.putExtra("url",pdf);
                             intent.putExtra("start_date",edt_startdate.getText().toString());
@@ -150,7 +165,7 @@ public class Report_Group extends AppCompatActivity {
 
                         else if (String.valueOf(spin_type_of_report.getSelectedItem()).equals("กำหนดเข้าคลอด")){
 
-                            pdf = "http://pigaboo.xyz/Report/DueDate_Pregnant_Report.php";
+                            pdf = "https://pigaboo.xyz/Report/DueDate_Pregnant_Report.php";
                             Intent intent = new Intent(Report_Group.this, PigData_Report.class);
                             intent.putExtra("url",pdf);
                             intent.putExtra("start_date",edt_startdate.getText().toString());
@@ -159,13 +174,13 @@ public class Report_Group extends AppCompatActivity {
 
                         }
 
-                        else if (String.valueOf(spin_type_of_report.getSelectedItem()).equals("ต้องทำก่อนเข้าคลอด")){
-
-                        }
+//                        else if (String.valueOf(spin_type_of_report.getSelectedItem()).equals("ต้องทำก่อนเข้าคลอด")){
+//
+//                        }
 
                         else if (String.valueOf(spin_type_of_report.getSelectedItem()).equals("คลอด")){
 
-                            pdf = "http://pigaboo.xyz/Report/Maternity_but_notwean_Report.php";
+                            pdf = "https://pigaboo.xyz/Report/Maternity_but_notwean_Report.php";
                             Intent intent = new Intent(Report_Group.this, PigData_Report.class);
                             intent.putExtra("url",pdf);
                             intent.putExtra("start_date",edt_startdate.getText().toString());
@@ -175,7 +190,7 @@ public class Report_Group extends AppCompatActivity {
 
                         else if (String.valueOf(spin_type_of_report.getSelectedItem()).equals("หย่านม")){
 
-                            pdf = "http://pigaboo.xyz/Report/Wean_not_Breed_Report.php";
+                            pdf = "https://pigaboo.xyz/Report/Wean_not_Breed_Report.php";
                             Intent intent = new Intent(Report_Group.this, PigData_Report.class);
                             intent.putExtra("url",pdf);
                             intent.putExtra("start_date",edt_startdate.getText().toString());
@@ -183,9 +198,9 @@ public class Report_Group extends AppCompatActivity {
                             startActivity(intent);
                         }
 
-                        else if (String.valueOf(spin_type_of_report.getSelectedItem()).equals("แม่ต้องทำวัคซีน")){
-
-                        }
+//                        else if (String.valueOf(spin_type_of_report.getSelectedItem()).equals("แม่ต้องทำวัคซีน")){
+//
+//                        }
                     }
 
         });
@@ -226,6 +241,11 @@ public class Report_Group extends AppCompatActivity {
             edt_enddate.setText(year+"-"+monthOfYear+"-"+dayOfMonth);
         }
     };
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 
 
 

@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +23,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.admin.R;
+import com.example.admin.pigfarm.R;
+import com.example.admin.pigfarm.Home;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,14 +45,25 @@ public class Report_History extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     ArrayAdapter<String> adapter1;
     Button btn_A1;
+    String getfarm_name,getunit_name,getfarm_id;
+    TextView txt_farm, txt_unit;
+    ImageView img_back;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.report_history);
 
+        img_back = findViewById(R.id.img_back);
+        txt_farm = findViewById(R.id.txt_farm);
+        txt_unit = findViewById(R.id.txt_unit);
+
         SharedPreferences farm = getSharedPreferences("Farm", Context.MODE_PRIVATE);
-        farm_id = farm.getString("farm_id", "");
+        getfarm_name = farm.getString("farm_name", "");
+        getunit_name = farm.getString("unit_name", "");
+        getfarm_id = farm.getString("farm_id","");
+        txt_farm.setText(getfarm_name);
+        txt_unit.setText(getunit_name);
 
         spin_A1_1 = findViewById(R.id.spin_A1_1);
         spin_A1_7 = findViewById(R.id.spin_A1_7);
@@ -58,7 +71,7 @@ public class Report_History extends AppCompatActivity {
         txt_A1_8 = findViewById(R.id.txt_A1_8);
         btn_A1 = findViewById(R.id.btn_A1);
 
-        url = "http://pigaboo.xyz/Query_pigid.php?farm_id="+farm_id;
+        url = "https://pigaboo.xyz/Query_pigid.php?farm_id="+getfarm_id;
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -74,7 +87,7 @@ public class Report_History extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this.getApplicationContext());
         requestQueue.add(stringRequest);
 
-        url2 = "http://pigaboo.xyz/Query_DadID.php?farm_id="+farm_id;
+        url2 = "https://pigaboo.xyz/Query_DadID.php?farm_id="+getfarm_id;
         StringRequest stringRequest1 = new StringRequest(url2, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -89,7 +102,6 @@ public class Report_History extends AppCompatActivity {
         );
         RequestQueue requestQueue1 = Volley.newRequestQueue(this.getApplicationContext());
         requestQueue1.add(stringRequest1);
-
 
 
 
@@ -198,39 +210,76 @@ public class Report_History extends AppCompatActivity {
         btn_A1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (String.valueOf(spin_A1_7.getSelectedItem()).equals("เบอร์หู")){
+                if (String.valueOf(spin_A1_1.getSelectedItem()).equals("แม่พันธุ์") && String.valueOf(spin_A1_7.getSelectedItem()).equals("เบอร์หู")){
 
-                    pdf = "http://pigaboo.xyz/Report/History_by_ID.php";
+                    pdf = "https://pigaboo.xyz/Report/History_by_ID.php";
                     pig_id = spin_A1_8.getSelectedItem().toString();
-                    Intent intent = new Intent(Report_History.this, WebView_Report_Status.class);
+                    Intent intent = new Intent(Report_History.this, WebView_Report_History.class);
                     intent.putExtra("url",pdf);
                     intent.putExtra("pig_id",pig_id);
                     startActivity(intent);
                 }
 
-                if (String.valueOf(spin_A1_7.getSelectedItem()).equals("สถานภาพ") && String.valueOf(spin_A1_8.getSelectedItem()).equals("หมูในฝูง")){
+                if (String.valueOf(spin_A1_1.getSelectedItem()).equals("แม่พันธุ์") && String.valueOf(spin_A1_7.getSelectedItem()).equals("สถานภาพ") && String.valueOf(spin_A1_8.getSelectedItem()).equals("หมูในฝูง")){
 
-                    pdf = "http://pigaboo.xyz/Report/History_by_PigAlive.php";
+                    pdf = "https://pigaboo.xyz/Report/History_by_PigAlive.php";
                     Intent intent = new Intent(Report_History.this, WebView_Report_History.class);
                     intent.putExtra("url",pdf);
                     startActivity(intent);
                 }
 
-                if (String.valueOf(spin_A1_7.getSelectedItem()).equals("สถานภาพ") && String.valueOf(spin_A1_8.getSelectedItem()).equals("หมูคัดทิ้ง")){
+                if (String.valueOf(spin_A1_1.getSelectedItem()).equals("แม่พันธุ์") && String.valueOf(spin_A1_7.getSelectedItem()).equals("สถานภาพ") && String.valueOf(spin_A1_8.getSelectedItem()).equals("หมูคัดทิ้ง")){
 
-                    pdf = "http://pigaboo.xyz/Report/History_by_Exclude.php";
+                    pdf = "https://pigaboo.xyz/Report/History_by_Exclude.php";
                     Intent intent = new Intent(Report_History.this, WebView_Report_History.class);
                     intent.putExtra("url",pdf);
                     startActivity(intent);
                 }
 
-                if (String.valueOf(spin_A1_7.getSelectedItem()).equals("สถานภาพ") && String.valueOf(spin_A1_8.getSelectedItem()).equals("ทั้งหมด")){
+                if (String.valueOf(spin_A1_1.getSelectedItem()).equals("แม่พันธุ์") && String.valueOf(spin_A1_7.getSelectedItem()).equals("สถานภาพ") && String.valueOf(spin_A1_8.getSelectedItem()).equals("ทั้งหมด")){
 
-                    pdf = "http://pigaboo.xyz/Report/History_by_All.php";
+                    pdf = "https://pigaboo.xyz/Report/History_by_All.php";
                     Intent intent = new Intent(Report_History.this, WebView_Report_History.class);
                     intent.putExtra("url",pdf);
                     startActivity(intent);
                 }
+
+                if (String.valueOf(spin_A1_1.getSelectedItem()).equals("พ่อพันธุ์") && String.valueOf(spin_A1_7.getSelectedItem()).equals("เบอร์หู")){
+
+                    pdf = "https://pigaboo.xyz/Report/HistoryDAD_by_ID.php";
+                    pig_id = spin_A1_8.getSelectedItem().toString();
+                    Intent intent = new Intent(Report_History.this, WebView_Report_History.class);
+                    intent.putExtra("url",pdf);
+                    intent.putExtra("pig_id",pig_id);
+                    startActivity(intent);
+                }
+
+                if (String.valueOf(spin_A1_1.getSelectedItem()).equals("พ่อพันธุ์") && String.valueOf(spin_A1_7.getSelectedItem()).equals("สถานภาพ") && String.valueOf(spin_A1_8.getSelectedItem()).equals("หมูในฝูง")){
+
+                    pdf = "https://pigaboo.xyz/Report/HistoryDAD_by_All.php";
+                    Intent intent = new Intent(Report_History.this, WebView_Report_History.class);
+                    intent.putExtra("url",pdf);
+                    startActivity(intent);
+                }
+
+                if (String.valueOf(spin_A1_1.getSelectedItem()).equals("พ่อพันธุ์") && String.valueOf(spin_A1_7.getSelectedItem()).equals("สถานภาพ") && String.valueOf(spin_A1_8.getSelectedItem()).equals("ทั้งหมด")){
+
+                    pdf = "https://pigaboo.xyz/Report/HistoryDAD_by_All.php";
+                    Intent intent = new Intent(Report_History.this, WebView_Report_History.class);
+                    intent.putExtra("url",pdf);
+                    startActivity(intent);
+                }
+
+
+            }
+        });
+
+        img_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Report_History.this, Home.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -245,7 +294,7 @@ public class Report_History extends AppCompatActivity {
             JSONArray result = jsonObject.getJSONArray("result");
 
             if (result.length() == 0) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(Report_History.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                AlertDialog.Builder builder = new AlertDialog.Builder(Report_History.this, R.style.Theme_AppCompat_Light_Dialog_Alert);
                 builder.setCancelable(false);
                 builder.setMessage("ท่านยังไม่ได้เปิดประวัติสุกร");
                 builder.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
@@ -299,8 +348,10 @@ public class Report_History extends AppCompatActivity {
             ex.printStackTrace();
         }
 
+    }
 
-
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import com.example.admin.pigfarm.R;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -24,7 +25,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.admin.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,7 +47,7 @@ public class edt_Maternity_Fragment extends Fragment {
     private HttpParse httpParse = new HttpParse();
     ArrayAdapter<String> adapter;
     Calendar myCalendar = Calendar.getInstance();
-    String UpdateURL = "http://pigaboo.xyz/Update_Event.php";
+    String UpdateURL = "https://pigaboo.xyz/Update_Event.php";
 
 
     @Nullable
@@ -104,7 +104,7 @@ public class edt_Maternity_Fragment extends Fragment {
     };
 
     private void LoadData() {
-        String url = "http://pigaboo.xyz/Query_PigID_By_Detail_ID.php?detail_id="+get_detail_id;
+        String url = "https://pigaboo.xyz/Query_PigID_By_Detail_ID.php?detail_id="+get_detail_id;
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

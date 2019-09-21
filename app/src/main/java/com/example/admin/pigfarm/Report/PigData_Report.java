@@ -21,8 +21,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.Toast;
-
-import com.example.admin.R;
+import com.example.admin.pigfarm.R;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -58,7 +57,7 @@ public class PigData_Report extends AppCompatActivity {
         getend_date = intent.getStringExtra("end_date");
 
 
-        StringBuffer buffer=new StringBuffer("http://drive.google.com/viewerng/viewer?url=");
+        StringBuffer buffer=new StringBuffer("https://drive.google.com/viewerng/viewer?url=");
         buffer.append(URLEncoder.encode(pdffile)+"?");
         buffer.append(URLEncoder.encode("farm_id=")+farm_id);
         buffer.append(URLEncoder.encode("&start_date=")+getstart_date);

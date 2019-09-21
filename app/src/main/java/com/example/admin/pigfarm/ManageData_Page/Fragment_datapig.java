@@ -22,7 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.admin.R;
+import com.example.admin.pigfarm.R;
 
 
 
@@ -38,7 +38,7 @@ import java.util.List;
 public class Fragment_datapig extends Fragment {
 
     private TextView text_recorddate,text_preglist, text_bd, text_breed, text_bredder, text_bredder1, text_from, text_reserveid,texttitle_preglist, text_pigid;
-    String getpigno, getpigid, pig_no, pig_id, pig_preglist, pig_recorddate, pig_birthday, pig_breed, pig_idbreeder, pig_idbreeder2, pig_from, pig_idreserve,
+    String getpigno, getpigid, pig_no, pig_id, pig_preglist, pig_recorddate, pig_birthday, pig_breed, pig_idbreeder, pig_idbreeder2, pig_from, pig_idreserve,pig_amount_pregnant,
             event_name,event_recorddate;
     List<Event_items> itemsList;
     RecyclerView recyclerView;
@@ -128,7 +128,7 @@ public class Fragment_datapig extends Fragment {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String url = "http://pigaboo.xyz/Query_DataPig.php?pig_id="+getpigid;
+        String url = "https://pigaboo.xyz/Query_DataPig.php?pig_id="+getpigid;
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -168,6 +168,9 @@ public class Fragment_datapig extends Fragment {
                 pig_from = collectData.getString("pig_from");
                 event_name = collectData.getString("event_name");
                 event_recorddate = collectData.getString("event_recorddate");
+                pig_amount_pregnant = collectData.getString("pig_amount_pregnant");
+
+                Log.d("pig_id",pig_id);
 
 
                 text_pigid.setText(pig_id);
@@ -178,6 +181,7 @@ public class Fragment_datapig extends Fragment {
                 text_bredder1.setText(pig_idbreeder2);
                 text_reserveid.setText(pig_idreserve);
                 text_from.setText(pig_from);
+                text_preglist.setText(pig_amount_pregnant);
 
                 if(event_name.equals("null") && event_recorddate.equals("null")) {
                     Log.d("CHECK EVENT " , " "+event_name+"  "+event_recorddate);
@@ -186,15 +190,6 @@ public class Fragment_datapig extends Fragment {
                     itemsList.add(event_items);
 
                 }
-                if(pig_preglist.isEmpty()){
-                    text_preglist.setVisibility(View.INVISIBLE);
-                    texttitle_preglist.setVisibility(View.INVISIBLE);
-                }else {
-                    text_preglist.setVisibility(View.VISIBLE);
-                    texttitle_preglist.setVisibility(View.VISIBLE);
-                    text_preglist.setText(pig_preglist);
-                }
-
             }
 
             adapter = new Event_Adapter(getActivity(),itemsList);

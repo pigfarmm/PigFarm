@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.admin.R;
+import com.example.admin.pigfarm.R;
 
 
 public class StallName_Fragment extends Fragment {

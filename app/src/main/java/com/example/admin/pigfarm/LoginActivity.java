@@ -26,7 +26,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.admin.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -89,7 +88,7 @@ public class LoginActivity extends Activity {
 
                 } else {
                     progressbar.show();
-                    url = "http://pigaboo.xyz/login2.php?username="+username+"&password="+password;
+                    url = "https://pigaboo.xyz/login2.php?username="+username+"&password="+password;
                     StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
