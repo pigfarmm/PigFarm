@@ -51,8 +51,9 @@ public class Getsick_Fragment extends Fragment {
     Spinner spin_noteId20,spin_sickness20;
     ImageView img_calNote20;
     Button btn_flacAct20;
-    String getamount;
+    String getamount,m,d;
     Calendar myCalendar = Calendar.getInstance();
+
 
 
     public Getsick_Fragment() {
@@ -152,7 +153,17 @@ public class Getsick_Fragment extends Fragment {
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             monthOfYear = monthOfYear + 1;
-            edit_dateNote20.setText(year+"-"+monthOfYear+"-"+dayOfMonth);
+            if (monthOfYear < 10){
+                m = "0"+monthOfYear;
+            }else{
+                m = String.valueOf(monthOfYear);
+            }
+            if (dayOfMonth < 10){
+                d = "0"+dayOfMonth;
+            }else{
+                d = String.valueOf(dayOfMonth);
+            }
+            edit_dateNote20.setText(year+"-"+m+"-"+d);
         }
     };
 

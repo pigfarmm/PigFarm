@@ -104,6 +104,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:textSize="20sp"
+                android:inputType="number"
                 android:textColor="@color/Colorfont"
                 android:backgroundTint="@color/Colorfont"/>
 

@@ -59,7 +59,7 @@ public class Breed_Fragment extends Fragment {
     Spinner spin_noteId01,spin_dadId01;
     EditText edit_dateNote01;
     Button btn_flacAct01;
-    private String record_date,recorddate,getamount,getmaxeventid,max_count,event_recorddate;
+    private String record_date,recorddate,getamount,getmaxeventid,max_count,event_recorddate,group_rut,m,d;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<String> listDad = new ArrayList<>();
     ArrayList<String> listItems = new ArrayList<>();
@@ -77,7 +77,7 @@ public class Breed_Fragment extends Fragment {
     private List<String> mStrings_event_date = new ArrayList<String>();
     private String[] amount_pregnant_array;
     private List<String> mStrings_pregnant = new ArrayList<String>();
-    private int pig_id_dropdown,amount,sum_count;
+    private int pig_id_dropdown,amount,sum_count,sum_grouprut;
     private List<String> sum_amount_pregnant = new ArrayList<String>();
 
     public Breed_Fragment() {
@@ -249,8 +249,15 @@ public class Breed_Fragment extends Fragment {
                     event_recorddate = collectData4.getString("event_recorddate");
                 }
 
+                if (collectData4.getString("group_rut") == null){
+                    group_rut = "0";
+                }else{
+                    group_rut = collectData4.getString("group_rut");
+                }
+
                 Log.d("result max_date","value: " + collectData4.getString("event_recorddate"));
                 Log.d("result max_count_rut","value: " + max_count);
+                Log.d("result group_rut","value: " + group_rut);
             }
         }catch (JSONException ex) {
             ex.printStackTrace();
@@ -271,7 +278,18 @@ public class Breed_Fragment extends Fragment {
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             monthOfYear = monthOfYear + 1;
-            edit_dateNote01.setText(year+"-"+monthOfYear+"-"+dayOfMonth);
+            if (monthOfYear < 10){
+                m = "0"+monthOfYear;
+            }else{
+                m = String.valueOf(monthOfYear);
+            }
+            if (dayOfMonth < 10){
+                d = "0"+dayOfMonth;
+            }else{
+                d = String.valueOf(dayOfMonth);
+            }
+
+            edit_dateNote01.setText(year+"-"+m+"-"+d);
         }
     };
 
@@ -471,6 +489,8 @@ public class Breed_Fragment extends Fragment {
                     event_recorddate = event_recorddate.toString();
                 }if (max_count == null){
                     max_count = "0";
+                }if (group_rut == null){
+                    group_rut = "0";
                 }
 
                 DateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
@@ -486,9 +506,13 @@ public class Breed_Fragment extends Fragment {
 
                 if (days >= 11) {
                     sum_count = 0;
+                    group_rut = group_rut.toString();
+                    sum_grouprut = Integer.parseInt(group_rut)+1;
                 }else{
+                    group_rut = group_rut.toString();
                     max_count = max_count.toString();
                     sum_count = Integer.parseInt(max_count);
+                    sum_grouprut = Integer.parseInt(group_rut);
                 }
 
                 Log.d("compare","value :"+days);
@@ -500,6 +524,7 @@ public class Breed_Fragment extends Fragment {
                         .add("pig_id", spin_noteId01.getSelectedItem().toString())
                         .add("pig_amount_pregnant", getamount)
                         .add("count_rut", String.valueOf(sum_count+1))
+                        .add("group_rut", String.valueOf(sum_grouprut))
                         .build();
 
                 Request _request = new Request.Builder().url(strings[0]).post(_requestBody2).build();

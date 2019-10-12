@@ -216,7 +216,7 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(Home.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+        AlertDialog.Builder builder = new AlertDialog.Builder(Home.this, R.style.Theme_AppCompat_Light_Dialog_Alert);
         builder.setCancelable(true);
         builder.setMessage("คุณต้องการออกระบบใช่หรือไม่");
         builder.setPositiveButton("ใช่",

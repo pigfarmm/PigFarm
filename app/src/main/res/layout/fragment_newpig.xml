@@ -37,6 +37,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:backgroundTint="@color/Colorfont"
+                android:inputType="text"
+                android:maxLines="1"
+                android:nextFocusDown="@id/edit_opendate1"
                 android:fontFamily="@font/thaisansneue_bold"
                 android:textColor="@color/Colorfont"
                 android:textSize="20sp" />
@@ -71,6 +74,7 @@
                 <EditText
                     android:id="@+id/edit_opendate1"
                     android:layout_width="290dp"
+                    android:maxLines="1"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:backgroundTint="@color/Colorfont"
@@ -109,6 +113,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:backgroundTint="@color/Colorfont"
+                    android:maxLines="1"
                     android:fontFamily="@font/thaisansneue_regular"
                     android:textColor="@color/Colorfont"
                     android:textSize="20sp" />
@@ -140,6 +145,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:backgroundTint="@color/Colorfont"
+                android:maxLines="1"
                 android:fontFamily="@font/thaisansneue_regular"
                 android:textColor="@color/Colorfont"
                 android:textSize="20sp" />
@@ -161,6 +167,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:backgroundTint="@color/Colorfont"
+                android:maxLines="1"
                 android:fontFamily="@font/thaisansneue_regular"
                 android:textColor="@color/Colorfont"
                 android:textSize="20sp" />
@@ -182,6 +189,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:backgroundTint="@color/Colorfont"
+                android:maxLines="1"
                 android:fontFamily="@font/thaisansneue_regular"
                 android:textColor="@color/Colorfont"
                 android:textSize="20sp" />
@@ -203,6 +211,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:backgroundTint="@color/Colorfont"
+                android:maxLines="1"
                 android:fontFamily="@font/thaisansneue_regular"
                 android:textColor="@color/Colorfont"
                 android:textSize="20sp" />
@@ -224,6 +233,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:backgroundTint="@color/Colorfont"
+                android:maxLines="1"
                 android:fontFamily="@font/thaisansneue_regular"
                 android:textColor="@color/Colorfont"
                 android:textSize="20sp" />

@@ -52,7 +52,7 @@ public class Adopt_Fragment extends Fragment {
     Button btn_flacAct07;
     ImageView img_calNote07;
     Calendar myCalendar = Calendar.getInstance();
-
+    String m,d;
 
     public Adopt_Fragment() {
     }
@@ -127,7 +127,17 @@ public class Adopt_Fragment extends Fragment {
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             monthOfYear = monthOfYear + 1;
-            edit_dateNote07.setText(year+"-"+monthOfYear+"-"+dayOfMonth);
+            if (monthOfYear < 10){
+                m = "0"+monthOfYear;
+            }else{
+                m = String.valueOf(monthOfYear);
+            }
+            if (dayOfMonth < 10){
+                d = "0"+dayOfMonth;
+            }else{
+                d = String.valueOf(dayOfMonth);
+            }
+            edit_dateNote07.setText(year+"-"+m+"-"+d);
         }
     };
 

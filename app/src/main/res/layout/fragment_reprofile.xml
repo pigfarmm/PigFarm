@@ -38,6 +38,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:textSize="20sp"
+                android:maxLines="1"
+                android:inputType="text"
                 android:fontFamily="@font/thaisansneue_regular"
                 android:textColor="@color/Colorfont"
                 android:backgroundTint="@color/Colorfont" />
@@ -70,6 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:textSize="20dp"
+                android:maxLines="1"
                 android:fontFamily="@font/thaisansneue_regular"
                 android:textColor="@color/Colorfont"
                 android:backgroundTint="@color/Colorfont"/>
@@ -95,6 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:backgroundTint="@color/Colorfont"
+                    android:maxLines="1"
                     android:fontFamily="@font/thaisansneue_regular"
                     android:inputType="date"
                     android:textColor="@color/Colorfont"
@@ -132,6 +136,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:backgroundTint="@color/Colorfont"
+                    android:maxLines="1"
                     android:fontFamily="@font/thaisansneue_regular"
                     android:inputType="date"
                     android:textColor="@color/Colorfont"
@@ -165,6 +170,7 @@
                 android:layout_marginLeft="30dp"
                 android:textSize="20sp"
                 android:fontFamily="@font/thaisansneue_regular"
+                android:maxLines="1"
                 android:textColor="@color/Colorfont"
                 android:backgroundTint="@color/Colorfont"/>
 
@@ -187,6 +193,7 @@
                 android:textSize="20sp"
                 android:fontFamily="@font/thaisansneue_regular"
                 android:textColor="@color/Colorfont"
+                android:maxLines="1"
                 android:backgroundTint="@color/Colorfont"/>
 
 
@@ -230,6 +237,7 @@
                 android:textSize="20sp"
                 android:fontFamily="@font/thaisansneue_regular"
                 android:textColor="@color/Colorfont"
+                android:maxLines="1"
                 android:backgroundTint="@color/Colorfont"/>
 
             <TextView
@@ -248,22 +256,23 @@
                 android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
+                android:maxLines="1"
                 android:textSize="20sp"
                 android:fontFamily="@font/thaisansneue_regular"
                 android:textColor="@color/Colorfont"
                 android:backgroundTint="@color/Colorfont"/>
 
             <Button
-            android:id="@+id/btn_saveBio2"
-            android:layout_width="300dp"
-            android:layout_height="40dp"
-                android:textColor="@color/white"
-            android:layout_marginTop="50dp"
-            android:layout_gravity="center"
-            android:text="บันทึกข้อมูล"
-            android:textSize="25dp"
-            android:fontFamily="@font/thaisansneue_bold"
-            android:background="@color/ColorNavBar"/>
+                android:id="@+id/btn_saveBio2"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                    android:textColor="@color/white"
+                android:layout_marginTop="50dp"
+                android:layout_gravity="center"
+                android:text="บันทึกข้อมูล"
+                android:textSize="25dp"
+                android:fontFamily="@font/thaisansneue_bold"
+                android:background="@color/ColorNavBar"/>
 
         </LinearLayout>
 

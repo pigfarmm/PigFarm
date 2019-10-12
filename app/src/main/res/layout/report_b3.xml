@@ -174,7 +174,7 @@
 
                 <EditText
                     android:id="@+id/edit_B2"
-                    android:layout_width="300dp"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:hint="เริ่ม"
@@ -186,10 +186,12 @@
                 <Spinner
                     android:id="@+id/spnlengthtime"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="45sp"
+                    android:layout_alignParentTop="true"
                     android:layout_toRightOf="@id/edit_B2"
-                    android:layout_marginBottom="0dp"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="-2dp"
+                    android:layout_marginBottom="0dp"/>
 
             </RelativeLayout>
 
@@ -208,6 +210,16 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/thaisansneue_bold"/>
 
+                <Spinner
+                    android:id="@+id/select_type_b3"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/txt_B3"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginTop="20dp"/>
+
+
             <EditText
                 android:id="@+id/pregnant_edt"
                 android:layout_width="130dp"
@@ -215,7 +227,7 @@
                 android:layout_marginLeft="30dp"
                 android:hint="กรอกจำนวนท้อง"
                 android:layout_marginRight="30dp"
-                android:layout_below="@+id/txt_B3"
+                android:layout_below="@+id/select_type_b3"
                 android:textSize="20sp"
                 android:inputType="number"
                 android:textColor="@color/Colorfont"
@@ -225,7 +237,7 @@
                 <TextView
                     android:id="@+id/txt_to"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="38sp"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:fontFamily="@font/thaisansneue_bold"
@@ -242,8 +254,8 @@
                     android:hint="กรอกจำนวนท้อง"
                     android:layout_toRightOf="@+id/txt_to"
                     android:inputType="number"
+                    android:layout_below="@+id/select_type_b3"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginTop="60dp"
                     android:textColor="@color/Colorfont"
                     android:textSize="20sp" />
 

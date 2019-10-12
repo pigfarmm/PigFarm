@@ -58,7 +58,7 @@ public class WebView_BredderDad extends AppCompatActivity {
         buffer = new StringBuffer("https://drive.google.com/viewerng/viewer?url=");
         buffer.append(URLEncoder.encode(pdffile)+"?");
         buffer.append(URLEncoder.encode("farm_id=")+farm_id);
-        buffer.append(URLEncoder.encode("&last_day=")+last_day);
+        buffer.append(URLEncoder.encode("&lastday=")+last_day);
         buffer.append(URLEncoder.encode("&ip_number=")+ip_number);
         buffer.append(URLEncoder.encode("&ip_type=")+showtype);
         buffer.append(URLEncoder.encode("&start=")+start);

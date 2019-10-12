@@ -66,6 +66,7 @@ public class Maternity_Fragment extends Fragment {
     private List<String> mStrings_event_date = new ArrayList<String>();
     Calendar myCalendar = Calendar.getInstance();
     Date date_before,date_record;
+    String m,d,getmaxeventid;
 
     private String[] amount_pregnant_array;
     private String[] pig_id_array;
@@ -160,12 +161,64 @@ public class Maternity_Fragment extends Fragment {
         btn_flacAct04.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(getActivity(), amount_pregnant_array[amount_pregnant_index], Toast.LENGTH_SHORT).show();
-                new InsertAsyn().execute("https://pigaboo.xyz/Insert_EventMaternity.php");
+               if (spin_noteId04.getSelectedItem() != null) {
+                    String url3 = "https://pigaboo.xyz/Query_AmountPregnantById.php?farm_id="+farm_id+"&pig_id="+spin_noteId04.getSelectedItem().toString();
+                    StringRequest stringRequest2 = new StringRequest(url3, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            QueryMaxEvent(response);
+                            new InsertAsyn().execute("https://pigaboo.xyz/Insert_EventMaternity.php");
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getActivity(), "Wrong", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    );
+                    RequestQueue requestQueue2 = Volley.newRequestQueue(getActivity().getApplicationContext());
+                    requestQueue2.add(stringRequest2);
+
+              }
+                else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
+                    builder.setCancelable(false);
+                    builder.setMessage("กรุณากรอกข้อมูลให้ครบถ้วน");
+                    builder.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+
             }
         });
 
 
+    }
+
+    private void QueryMaxEvent(String response) {
+        try {
+            JSONObject jsonObject3 = new JSONObject(response);
+            JSONArray result3 = jsonObject3.getJSONArray("result");
+
+            for (int i = 0; i<result3.length(); i++){
+                JSONObject collectData3 = result3.getJSONObject(i);
+
+                if (collectData3.getString("max_eventid") == null){
+                    getmaxeventid = "0";
+                }else{
+                    getmaxeventid = collectData3.getString("max_eventid");
+                }
+
+                Log.d("result getmaxeventid","value: "+getmaxeventid);
+            }
+        }catch (JSONException ex) {
+            ex.printStackTrace();
+        }
     }
 
     private class InsertAsyn extends AsyncTask<String, Void, String> {
@@ -196,7 +249,26 @@ public class Maternity_Fragment extends Fragment {
                     );
                     return null;
 
-                } else {
+                } if (!getmaxeventid.equals("1") && !getmaxeventid.equals("null")){
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
+                            builder1.setCancelable(false);
+                            builder1.setMessage("เหตุการณ์ล่าสุดไม่ใช่เหตุการณ์ผสม");
+                            builder1.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                            AlertDialog dialog = builder1.create();
+                            dialog.show();
+                        }
+                    });
+                    return "not success";
+                }
+                else {
                     amount = Integer.parseInt(amount_pregnant_array[amount_pregnant_index]);
                     amount = amount + 1;
                     OkHttpClient _okHttpClient = new OkHttpClient();
@@ -230,7 +302,7 @@ public class Maternity_Fragment extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            if (result != null){
+            if (result == "successfully"){
                 Toast.makeText(getActivity(), "บันทึกข้อมูลเรียบร้อยแล้ว",Toast.LENGTH_SHORT).show();
                 edit_live04.setText("");
                 edit_die04.setText("");
@@ -323,7 +395,17 @@ public class Maternity_Fragment extends Fragment {
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             monthOfYear = monthOfYear + 1;
-            edit_dateNote04.setText(year+"-"+monthOfYear+"-"+dayOfMonth);
+            if (monthOfYear < 10){
+                m = "0"+monthOfYear;
+            }else{
+                m = String.valueOf(monthOfYear);
+            }
+            if (dayOfMonth < 10){
+                d = "0"+dayOfMonth;
+            }else{
+                d = String.valueOf(dayOfMonth);
+            }
+            edit_dateNote04.setText(year+"-"+m+"-"+d);
         }
     };
 

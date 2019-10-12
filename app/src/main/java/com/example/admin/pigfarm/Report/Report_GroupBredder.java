@@ -26,12 +26,12 @@ import java.util.Locale;
 public class Report_GroupBredder extends AppCompatActivity {
 
     private String farm_id,gettextspn,sendtextspn,pdf;
-    String getfarm_name,getunit_name,getfarm_id;
+    String getfarm_name,getunit_name,getfarm_id,m,d;
     TextView txt_farm, txt_unit;
     EditText edit_B1,edit_B2,pregnant_edt,pregnant_edt2;
     Button btn_A1;
-    Spinner spnlengthtime;
-    ImageView img_B1;
+    Spinner spnlengthtime,select_type_b3;
+    ImageView img_B1,img_back;
     Calendar StartDate = Calendar.getInstance();
 
     @Override
@@ -56,6 +56,8 @@ public class Report_GroupBredder extends AppCompatActivity {
         btn_A1 = findViewById(R.id.btn_A1);
         img_B1 = findViewById(R.id.img_B1);
         spnlengthtime = findViewById(R.id.spnlengthtime);
+        select_type_b3 = findViewById(R.id.select_type_b3);
+        img_back = findViewById(R.id.img_back);
 
         String date_lastday = new SimpleDateFormat("yyyy-MM-dd",
                 Locale.getDefault()).format(new Date());
@@ -68,24 +70,53 @@ public class Report_GroupBredder extends AppCompatActivity {
             }
         });
 
+        img_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Report_GroupBredder.this, Report_Power.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         final String[] eventStr = getResources().getStringArray(R.array.length_time_allperformance);
         ArrayAdapter<String> adapterType = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_dropdown_item, eventStr);
         adapterType.setDropDownViewResource(R.layout.spinner_item);
         spnlengthtime.setAdapter(adapterType);
 
+        final String[] eventStr2 = getResources().getStringArray(R.array.select_type_b3);
+        ArrayAdapter<String> adapterType2 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item, eventStr2);
+        adapterType.setDropDownViewResource(R.layout.spinner_item);
+        select_type_b3.setAdapter(adapterType2);
+
+
         btn_A1.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            pdf = "https://pigaboo.xyz/Report/Performance_breeder.php";
-            Intent intent = new Intent(Report_GroupBredder.this, WebView_GroupBredder.class);
-            intent.putExtra("url",pdf);
-            intent.putExtra("last_day",edit_B1.getText().toString());
-            intent.putExtra("ip_number",edit_B2.getText().toString());
-            intent.putExtra("ip_type",spnlengthtime.getSelectedItem().toString());
-            intent.putExtra("start",pregnant_edt.getText().toString());
-            intent.putExtra("end",pregnant_edt2.getText().toString());
-            startActivity(intent);
+            if (select_type_b3.getSelectedItem().toString().equals("จำแนกเป็นช่วง")){
+                pdf = "https://pigaboo.xyz/Report/Performance_breeder.php";
+                Intent intent = new Intent(Report_GroupBredder.this, WebView_GroupBredder.class);
+                intent.putExtra("url",pdf);
+                intent.putExtra("last_day",edit_B1.getText().toString());
+                intent.putExtra("ip_number",edit_B2.getText().toString());
+                intent.putExtra("ip_type",spnlengthtime.getSelectedItem().toString());
+                intent.putExtra("start",pregnant_edt.getText().toString());
+                intent.putExtra("end",pregnant_edt2.getText().toString());
+                startActivity(intent);
+            }else{
+                pdf = "https://pigaboo.xyz/Report/Performance_breeder_all.php";
+                Intent intent = new Intent(Report_GroupBredder.this, WebView_GroupBredder.class);
+                intent.putExtra("url",pdf);
+                intent.putExtra("last_day",edit_B1.getText().toString());
+                intent.putExtra("ip_number",edit_B2.getText().toString());
+                intent.putExtra("ip_type",spnlengthtime.getSelectedItem().toString());
+                intent.putExtra("start",pregnant_edt.getText().toString());
+                intent.putExtra("end",pregnant_edt2.getText().toString());
+                startActivity(intent);
+            }
+
         }
     });
 
@@ -104,7 +135,17 @@ public class Report_GroupBredder extends AppCompatActivity {
             StartDate.set(Calendar.MONTH, monthOfYear);
             StartDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             monthOfYear = monthOfYear + 1;
-            edit_B1.setText(year+"-"+monthOfYear+"-"+dayOfMonth);
+            if (monthOfYear < 10){
+                m = "0"+monthOfYear;
+            }else{
+                m = String.valueOf(monthOfYear);
+            }
+            if (dayOfMonth < 10){
+                d = "0"+dayOfMonth;
+            }else{
+                d = String.valueOf(dayOfMonth);
+            }
+            edit_B1.setText(year+"-"+m+"-"+d);
         }
     };
 }

@@ -27,12 +27,12 @@ import java.util.Locale;
 public class Report_AllPerformance extends AppCompatActivity {
 
     private String farm_id,gettextspn,sendtextspn,pdf;
-    String getfarm_name,getunit_name,getfarm_id;
+    String getfarm_name,getunit_name,getfarm_id,m,d;
     TextView txt_farm, txt_unit;
     Spinner spnlengthtime,spnsumcolumn;
     EditText edit_B1, edit_B3, edit_B2;
     Button btn_A1;
-    ImageView img_B1;
+    ImageView img_B1,img_back;
     Calendar StartDate = Calendar.getInstance();
     Calendar EndDate = Calendar.getInstance();
 
@@ -61,6 +61,7 @@ public class Report_AllPerformance extends AppCompatActivity {
         edit_B3 = findViewById(R.id.edit_B3);
         btn_A1 = findViewById(R.id.btn_A1);
         img_B1 = findViewById(R.id.img_B1);
+        img_back = findViewById(R.id.img_back);
 
         String date_lastday = new SimpleDateFormat("yyyy-MM-dd",
                 Locale.getDefault()).format(new Date());
@@ -70,6 +71,15 @@ public class Report_AllPerformance extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showDatePicker();
+            }
+        });
+
+        img_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Report_AllPerformance.this, Report_Power.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -121,7 +131,17 @@ public class Report_AllPerformance extends AppCompatActivity {
             StartDate.set(Calendar.MONTH, monthOfYear);
             StartDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             monthOfYear = monthOfYear + 1;
-            edit_B1.setText(year+"-"+monthOfYear+"-"+dayOfMonth);
+            if (monthOfYear < 10){
+                m = "0"+monthOfYear;
+            }else{
+                m = String.valueOf(monthOfYear);
+            }
+            if (dayOfMonth < 10){
+                d = "0"+dayOfMonth;
+            }else{
+                d = String.valueOf(dayOfMonth);
+            }
+            edit_B1.setText(year+"-"+m+"-"+d);
         }
     };
 }

@@ -72,7 +72,7 @@ public class Report_Group extends AppCompatActivity {
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Report_Group.this, Home.class);
+                Intent intent = new Intent(Report_Group.this, Report_Home.class);
                 startActivity(intent);
                 finish();
             }

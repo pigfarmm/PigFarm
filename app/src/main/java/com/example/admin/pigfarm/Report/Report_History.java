@@ -277,7 +277,7 @@ public class Report_History extends AppCompatActivity {
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Report_History.this, Home.class);
+                Intent intent = new Intent(Report_History.this, Report_Home.class);
                 startActivity(intent);
                 finish();
             }
@@ -326,7 +326,7 @@ public class Report_History extends AppCompatActivity {
             JSONArray result2 = jsonObject2.getJSONArray("result");
 
             if (result2.length() == 0) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(Report_History.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                AlertDialog.Builder builder = new AlertDialog.Builder(Report_History.this, R.style.Theme_AppCompat_Light_Dialog_Alert);
                 builder.setCancelable(false);
                 builder.setMessage("ท่านยังไม่ได้เปิดประวัติพ่อพันธุ์");
                 builder.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {

@@ -69,7 +69,7 @@ public class CheckPregnant_Fragment extends Fragment {
     private List<String> mStrings_pig_id = new ArrayList<String>();
     private List<String> mStrings_event_date = new ArrayList<String>();
     private int pig_id_dropdown;
-    String getamount,item;
+    String getamount,item,d,m;
 
 
     public CheckPregnant_Fragment() {
@@ -195,7 +195,17 @@ public class CheckPregnant_Fragment extends Fragment {
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             monthOfYear = monthOfYear + 1;
-            edit_dateNote02.setText(year+"-"+monthOfYear+"-"+dayOfMonth);
+            if (monthOfYear < 10){
+                m = "0"+monthOfYear;
+            }else{
+                m = String.valueOf(monthOfYear);
+            }
+            if (dayOfMonth < 10){
+                d = "0"+dayOfMonth;
+            }else{
+                d = String.valueOf(dayOfMonth);
+            }
+            edit_dateNote02.setText(year+"-"+m+"-"+d);
         }
     };
 

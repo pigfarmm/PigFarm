@@ -243,7 +243,7 @@
                     android:layout_marginLeft="100dp"
                     android:layout_marginTop="2dp"
                     android:fontFamily="@font/thaisansneue_bold"
-                    android:text="รายงานหุ่นแม่พันธุ์ (report_b4)"
+                    android:text="รายงานหุ่นแม่พันธุ์"
                     android:textColor="#808080"
                     android:textSize="24sp" />
 

@@ -26,12 +26,12 @@ import java.util.Locale;
 public class Report_BredderDad extends AppCompatActivity {
 
     private String farm_id,gettextspn,sendtextspn,pdf;
-    String getfarm_name,getunit_name,getfarm_id;
+    String getfarm_name,getunit_name,getfarm_id,m,d;
     TextView txt_farm, txt_unit;
     EditText edit_B1,edit_B2,pregnant_edt,pregnant_edt2;
     Button btn_A1;
     Spinner spnlengthtime;
-    ImageView img_B3;
+    ImageView img_B3,img_back;
     Calendar StartDate = Calendar.getInstance();
     Calendar EndDate = Calendar.getInstance();
 
@@ -58,6 +58,16 @@ public class Report_BredderDad extends AppCompatActivity {
         btn_A1 = findViewById(R.id.btn_A1);
         img_B3 = findViewById(R.id.img_B3);
         spnlengthtime = findViewById(R.id.spnlengthtime);
+        img_back = findViewById(R.id.img_back);
+
+        img_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Report_BredderDad.this, Report_Power.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
 
 
@@ -108,7 +118,17 @@ public class Report_BredderDad extends AppCompatActivity {
             StartDate.set(Calendar.MONTH, monthOfYear);
             StartDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             monthOfYear = monthOfYear + 1;
-            edit_B1.setText(year+"-"+monthOfYear+"-"+dayOfMonth);
+            if (monthOfYear < 10){
+                m = "0"+monthOfYear;
+            }else{
+                m = String.valueOf(monthOfYear);
+            }
+            if (dayOfMonth < 10){
+                d = "0"+dayOfMonth;
+            }else{
+                d = String.valueOf(dayOfMonth);
+            }
+            edit_B1.setText(year+"-"+m+"-"+d);
         }
     };
 }

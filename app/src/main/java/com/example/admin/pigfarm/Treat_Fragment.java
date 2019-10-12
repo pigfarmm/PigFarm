@@ -53,6 +53,7 @@ public class Treat_Fragment extends Fragment {
     ImageView img_calNote19;
     Button btn_flacAct19;
     Calendar myCalendar = Calendar.getInstance();
+    String m,d;
 
 
 
@@ -133,7 +134,17 @@ public class Treat_Fragment extends Fragment {
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             monthOfYear = monthOfYear + 1;
-            edit_dateNote19.setText(year+"-"+monthOfYear+"-"+dayOfMonth);
+            if (monthOfYear < 10){
+                m = "0"+monthOfYear;
+            }else{
+                m = String.valueOf(monthOfYear);
+            }
+            if (dayOfMonth < 10){
+                d = "0"+dayOfMonth;
+            }else{
+                d = String.valueOf(dayOfMonth);
+            }
+            edit_dateNote19.setText(year+"-"+m+"-"+d);
         }
     };
 

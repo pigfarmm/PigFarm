@@ -1,7 +1,9 @@
 package com.example.admin.pigfarm;
 
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -51,7 +53,7 @@ public class Wean_Fragment extends Fragment {
     Spinner spin_noteId06;
     EditText edit_dateNote06, edit_numbaby06, edit_weight06;
     Button btn_flacAct06;
-    String getweight,getamount;
+    String getweight,getamount,m,d,getmaxeventid;
     ImageView img_calNote06;
     Calendar myCalendar = Calendar.getInstance();
 
@@ -145,7 +147,17 @@ public class Wean_Fragment extends Fragment {
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             monthOfYear = monthOfYear + 1;
-            edit_dateNote06.setText(year+"-"+monthOfYear+"-"+dayOfMonth);
+            if (monthOfYear < 10){
+                m = "0"+monthOfYear;
+            }else{
+                m = String.valueOf(monthOfYear);
+            }
+            if (dayOfMonth < 10){
+                d = "0"+dayOfMonth;
+            }else{
+                d = String.valueOf(dayOfMonth);
+            }
+            edit_dateNote06.setText(year+"-"+m+"-"+d);
         }
     };
 
@@ -157,6 +169,7 @@ public class Wean_Fragment extends Fragment {
             for (int i = 0; i<result3.length(); i++){
                 JSONObject collectData3 = result3.getJSONObject(i);
                 getamount = collectData3.getString("pig_amount_pregnant");
+                getmaxeventid = collectData3.getString("max_eventid");
             }
         }catch (JSONException ex) {
             ex.printStackTrace();
@@ -167,19 +180,41 @@ public class Wean_Fragment extends Fragment {
         @Override
         protected String doInBackground(String... strings) {
             try{
-                getweight = edit_numbaby06.getText().toString();
-                OkHttpClient _okHttpClient = new OkHttpClient();
-                RequestBody _requestBody = new FormBody.Builder()
-                        .add("event_id", "6")
-                        .add("event_recorddate", edit_dateNote06.getText().toString())
-                        .add("pig_id", spin_noteId06.getSelectedItem().toString())
-                        .add("pig_amountofwean", edit_numbaby06.getText().toString())
-                        .add("pig_allweight", edit_weight06.getText().toString())
-                        .add("pig_amount_pregnant",getamount)
-                        .build();
 
-                Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();
-                _okHttpClient.newCall(_request).execute();
+                if (!getmaxeventid.equals("4") && !getmaxeventid.equals("null")){
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
+                            builder1.setCancelable(false);
+                            builder1.setMessage("เหตุการณ์ล่าสุดไม่ใช่เหตุการณ์คลอด");
+                            builder1.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                            AlertDialog dialog = builder1.create();
+                            dialog.show();
+                        }
+                    });
+                    return "not success";
+
+                }else{
+                    getweight = edit_numbaby06.getText().toString();
+                    OkHttpClient _okHttpClient = new OkHttpClient();
+                    RequestBody _requestBody = new FormBody.Builder()
+                            .add("event_id", "6")
+                            .add("event_recorddate", edit_dateNote06.getText().toString())
+                            .add("pig_id", spin_noteId06.getSelectedItem().toString())
+                            .add("pig_amountofwean", edit_numbaby06.getText().toString())
+                            .add("pig_allweight", edit_weight06.getText().toString())
+                            .add("pig_amount_pregnant",getamount)
+                            .build();
+
+                    Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();
+                    _okHttpClient.newCall(_request).execute();
+                }
                 return "successfully";
 
             }catch(IOException e){
@@ -191,7 +226,7 @@ public class Wean_Fragment extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            if (result != null){
+            if (result == "successfully"){
                 Toast.makeText(getActivity(), "บันทึกข้อมูลเรียบร้อยแล้ว",Toast.LENGTH_SHORT).show();
                 edit_numbaby06.setText("");
                 edit_weight06.setText("");

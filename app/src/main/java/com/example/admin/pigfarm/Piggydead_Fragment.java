@@ -55,7 +55,7 @@ public class Piggydead_Fragment extends Fragment {
     EditText edit_dateNote11, edit_count11,edit_cause11;
     Button btn_flacAct11;
     ImageView img_calNote11;
-    String getamount;
+    String getamount,m,d;
     Calendar myCalendar = Calendar.getInstance();
 
 
@@ -165,7 +165,17 @@ public class Piggydead_Fragment extends Fragment {
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             monthOfYear = monthOfYear + 1;
-            edit_dateNote11.setText(year+"-"+monthOfYear+"-"+dayOfMonth);
+            if (monthOfYear < 10){
+                m = "0"+monthOfYear;
+            }else{
+                m = String.valueOf(monthOfYear);
+            }
+            if (dayOfMonth < 10){
+                d = "0"+dayOfMonth;
+            }else{
+                d = String.valueOf(dayOfMonth);
+            }
+            edit_dateNote11.setText(year+"-"+m+"-"+d);
         }
     };
 

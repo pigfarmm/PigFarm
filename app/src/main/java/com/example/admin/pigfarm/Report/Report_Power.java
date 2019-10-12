@@ -30,6 +30,15 @@ public class Report_Power extends AppCompatActivity {
         txt_farm = findViewById(R.id.txt_farm);
         txt_unit = findViewById(R.id.txt_unit);
 
+        img_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Report_Power.this, Report_Main.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         SharedPreferences farm = getSharedPreferences("Farm", Context.MODE_PRIVATE);
         getfarm_name = farm.getString("farm_name", "");
         getunit_name = farm.getString("unit_name", "");
