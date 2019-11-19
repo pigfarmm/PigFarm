@@ -36,7 +36,7 @@ import java.util.HashMap;
 
 public class edt_Maternity_Fragment extends Fragment {
 
-    String get_detail_id,getfarm_id,event_recorddate,event_name,pig_alive,pig_die,pig_seedlings,pig_allweight;
+    String get_detail_id,getfarm_id,event_recorddate,event_name,pig_alive,pig_die,pig_seedlings,pig_allweight,getunit_id;
     EditText edt_eventname,edit_dateNote04,edit_live04,edit_die04,edit_baby04,edit_weight04;
     Button btn_flacAct04;
     ImageView img_calNote04;
@@ -62,6 +62,7 @@ public class edt_Maternity_Fragment extends Fragment {
 
         SharedPreferences farm = this.getActivity().getSharedPreferences("Farm", Context.MODE_PRIVATE);
         getfarm_id = farm.getString("farm_id","");
+        getunit_id = farm.getString("unit_id","");
 
 
         Bundle bundle2 = getArguments();

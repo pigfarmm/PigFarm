@@ -196,67 +196,6 @@
                     android:layout_marginBottom="0dp"
                     android:layout_toEndOf="@id/edit_B2" />
 
-                <TextView
-                    android:id="@+id/txt_B1"
-                    android:text="การจำแนกจำนวนท้อง"
-                    android:textColor="@color/Colorfont"
-                    android:textSize="20sp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_below="@id/edit_B2"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/thaisansneue_bold"/>
-
-                <Spinner
-                    android:id="@+id/select_type_b2"
-                    android:layout_width="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_height="30dp"
-                    android:layout_below="@+id/txt_B1"
-                    android:layout_marginBottom="0dp"
-                    android:layout_marginTop="20dp"/>
-
-
-                <EditText
-                    android:id="@+id/pregnant_edt"
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:hint="กรอกจำนวนท้อง"
-                    android:layout_marginRight="30dp"
-                    android:layout_below="@+id/select_type_b2"
-                    android:textSize="20sp"
-                    android:inputType="number"
-                    android:textColor="@color/Colorfont"
-                    android:backgroundTint="@color/Colorfont"
-                    android:fontFamily="@font/thaisansneue_bold"/>
-
-                <TextView
-                    android:id="@+id/txt_to"
-                    android:layout_width="wrap_content"
-                    android:layout_height="38sp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/thaisansneue_bold"
-                    android:layout_toRightOf="@+id/pregnant_edt"
-                    android:text="ถึง"
-                    android:textSize="20sp" />
-
-                <EditText
-                    android:id="@+id/pregnant_edt2"
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/Colorfont"
-                    android:fontFamily="@font/thaisansneue_bold"
-                    android:hint="กรอกจำนวนท้อง"
-                    android:layout_toRightOf="@+id/txt_to"
-                    android:inputType="number"
-                    android:layout_below="@+id/select_type_b2"
-                    android:layout_marginLeft="30dp"
-                    android:textColor="@color/Colorfont"
-                    android:textSize="20sp" />
-
 
             </RelativeLayout>
 
@@ -273,13 +212,7 @@
                 android:text="รายงาน"
                 android:textSize="25dp" />
 
-            <TextView
-                android:layout_marginTop="50dp"
-                android:layout_marginLeft="30dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/Colorfont"
-                android:textSize="20sp" />
+
 
         </LinearLayout>
     </ScrollView>

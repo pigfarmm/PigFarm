@@ -57,6 +57,7 @@ public class Rutnotbreeded_Fragment extends Fragment {
     Button btn_flacAct15;
     Calendar myCalendar = Calendar.getInstance();
     public static String gettextbreed,farm_id,m,d;
+    String unit_id;
 
     public Rutnotbreeded_Fragment() {
         // Required empty public constructor
@@ -72,6 +73,10 @@ public class Rutnotbreeded_Fragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        SharedPreferences farm = this.getActivity().getSharedPreferences("Farm", Context.MODE_PRIVATE);
+        unit_id = farm.getString("unit_id", "");
+
         if (getArguments() != null){
             String gettextbreed = getArguments().getString("textbreed");
             farm_id = getArguments().getString("farm_id");
@@ -89,7 +94,7 @@ public class Rutnotbreeded_Fragment extends Fragment {
 
         edit_dateNote15.setText(date_n);
 
-        String url = "https://pigaboo.xyz/Query_WeanID.php?farm_id="+farm_id;
+        String url = "https://pigaboo.xyz/Query_WeanID.php?farm_id="+farm_id+"&unit_id="+unit_id;
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

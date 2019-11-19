@@ -3,8 +3,10 @@ package com.example.admin.pigfarm;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -69,7 +71,7 @@ public class CheckPregnant_Fragment extends Fragment {
     private List<String> mStrings_pig_id = new ArrayList<String>();
     private List<String> mStrings_event_date = new ArrayList<String>();
     private int pig_id_dropdown;
-    String getamount,item,d,m;
+    String getamount,item,d,m,unit_id;
 
 
     public CheckPregnant_Fragment() {
@@ -89,6 +91,9 @@ public class CheckPregnant_Fragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        SharedPreferences farm = this.getActivity().getSharedPreferences("Farm", Context.MODE_PRIVATE);
+        unit_id = farm.getString("unit_id", "");
 
 
         if (getArguments() != null) {
@@ -120,7 +125,7 @@ public class CheckPregnant_Fragment extends Fragment {
 
 
 
-        String url = "https://pigaboo.xyz/Query_BreedID.php?farm_id=" + farm_id;
+        String url = "https://pigaboo.xyz/Query_BreedID.php?farm_id=" + farm_id+"&unit_id="+unit_id;
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

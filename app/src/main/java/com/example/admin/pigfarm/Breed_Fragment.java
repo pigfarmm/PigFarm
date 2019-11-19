@@ -6,6 +6,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -59,7 +60,7 @@ public class Breed_Fragment extends Fragment {
     Spinner spin_noteId01,spin_dadId01;
     EditText edit_dateNote01;
     Button btn_flacAct01;
-    private String record_date,recorddate,getamount,getmaxeventid,max_count,event_recorddate,group_rut,m,d;
+    private String record_date,recorddate,getamount,getmaxeventid,max_count,event_recorddate,group_rut,m,d,unit_id;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<String> listDad = new ArrayList<>();
     ArrayList<String> listItems = new ArrayList<>();
@@ -97,6 +98,9 @@ public class Breed_Fragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        SharedPreferences farm = this.getActivity().getSharedPreferences("Farm", Context.MODE_PRIVATE);
+        unit_id = farm.getString("unit_id", "");
+
         if (getArguments() != null) {
             gettextbreed = getArguments().getString("textbreed");
             farm_id = getArguments().getString("farm_id");
@@ -114,7 +118,7 @@ public class Breed_Fragment extends Fragment {
 
 
 
-            String url = "https://pigaboo.xyz/Query_pigid.php?farm_id="+farm_id;
+            String url = "https://pigaboo.xyz/Query_pigid.php?farm_id="+farm_id+"&unit_id="+unit_id;
             StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -132,7 +136,7 @@ public class Breed_Fragment extends Fragment {
 
 
 
-            String url2 = "https://pigaboo.xyz/Query_DadID.php?farm_id="+farm_id;
+            String url2 = "https://pigaboo.xyz/Query_DadID.php?farm_id="+farm_id+"&unit_id="+unit_id;
             StringRequest stringRequest1 = new StringRequest(url2, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {

@@ -24,7 +24,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.admin.pigfarm.R;
-import com.example.admin.pigfarm.Home;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,7 +44,7 @@ public class Report_History extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     ArrayAdapter<String> adapter1;
     Button btn_A1;
-    String getfarm_name,getunit_name,getfarm_id;
+    String getfarm_name,getunit_name,getfarm_id,getunit_id;
     TextView txt_farm, txt_unit;
     ImageView img_back;
 
@@ -62,6 +61,7 @@ public class Report_History extends AppCompatActivity {
         getfarm_name = farm.getString("farm_name", "");
         getunit_name = farm.getString("unit_name", "");
         getfarm_id = farm.getString("farm_id","");
+        getunit_id = farm.getString("unit_id","");
         txt_farm.setText(getfarm_name);
         txt_unit.setText(getunit_name);
 
@@ -71,7 +71,7 @@ public class Report_History extends AppCompatActivity {
         txt_A1_8 = findViewById(R.id.txt_A1_8);
         btn_A1 = findViewById(R.id.btn_A1);
 
-        url = "https://pigaboo.xyz/Query_pigid.php?farm_id="+getfarm_id;
+        url = "https://pigaboo.xyz/Query_pigid.php?farm_id="+getfarm_id+"&unit_id="+getunit_id;
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -87,7 +87,7 @@ public class Report_History extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this.getApplicationContext());
         requestQueue.add(stringRequest);
 
-        url2 = "https://pigaboo.xyz/Query_DadID.php?farm_id="+getfarm_id;
+        url2 = "https://pigaboo.xyz/Query_DadID.php?farm_id="+getfarm_id+"&unit_id="+getunit_id;
         StringRequest stringRequest1 = new StringRequest(url2, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -296,7 +296,7 @@ public class Report_History extends AppCompatActivity {
             if (result.length() == 0) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(Report_History.this, R.style.Theme_AppCompat_Light_Dialog_Alert);
                 builder.setCancelable(false);
-                builder.setMessage("ท่านยังไม่ได้เปิดประวัติสุกร");
+                builder.setMessage("ท่านยังไม่ได้เปิดประวัติแม่สุกร");
                 builder.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

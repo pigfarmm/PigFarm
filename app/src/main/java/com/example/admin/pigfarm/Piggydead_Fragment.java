@@ -3,7 +3,9 @@ package com.example.admin.pigfarm;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -55,7 +57,7 @@ public class Piggydead_Fragment extends Fragment {
     EditText edit_dateNote11, edit_count11,edit_cause11;
     Button btn_flacAct11;
     ImageView img_calNote11;
-    String getamount,m,d;
+    String getamount,m,d,unit_id;
     Calendar myCalendar = Calendar.getInstance();
 
 
@@ -73,6 +75,10 @@ public class Piggydead_Fragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        SharedPreferences farm = this.getActivity().getSharedPreferences("Farm", Context.MODE_PRIVATE);
+        unit_id = farm.getString("unit_id", "");
+
         if (getArguments() != null){
             gettextbreed = getArguments().getString("textbreed");
             farm_id = getArguments().getString("farm_id");
@@ -88,9 +94,9 @@ public class Piggydead_Fragment extends Fragment {
 
         String date_n = new SimpleDateFormat("yyyy-MM-dd",
                 Locale.getDefault()).format(new Date());
-
         edit_dateNote11.setText(date_n);
-        String url = "https://pigaboo.xyz/Query_Maternity.php?farm_id="+farm_id;
+
+        String url = "https://pigaboo.xyz/Query_Maternity.php?farm_id="+farm_id+"&unit_id="+unit_id;
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

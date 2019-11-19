@@ -43,7 +43,7 @@ import static com.example.admin.pigfarm.Breed_Fragment.farm_id;
 
 public class edt_Breed_Fragment extends Fragment {
 
-    String get_detail_id,pig_breeder,event_recorddate,event_name,getfarm_id;
+    String get_detail_id,pig_breeder,event_recorddate,event_name,getfarm_id,getunit_id;
     EditText edit_evtname,edit_dateNote01;
     Spinner spin_dadId01;
     ArrayList<String> listDad = new ArrayList<>();
@@ -75,6 +75,7 @@ public class edt_Breed_Fragment extends Fragment {
 
         SharedPreferences farm = this.getActivity().getSharedPreferences("Farm", Context.MODE_PRIVATE);
         getfarm_id = farm.getString("farm_id","");
+        getunit_id = farm.getString("unit_id","");
 
 
         Bundle bundle2 = getArguments();
@@ -139,7 +140,7 @@ public class edt_Breed_Fragment extends Fragment {
 
 
     private void LoadDataDadID() {
-        String url2 = "https://pigaboo.xyz/Query_DadID.php?farm_id="+getfarm_id;
+        String url2 = "https://pigaboo.xyz/Query_DadID.php?farm_id="+getfarm_id+"&unit_id="+getunit_id;
         StringRequest stringRequest1 = new StringRequest(url2, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -162,7 +163,7 @@ public class edt_Breed_Fragment extends Fragment {
             JSONArray result2 = jsonObject2.getJSONArray("result");
 
             if (result2.length() == 0) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
                 builder.setCancelable(false);
                 builder.setMessage("ท่านยังไม่ได้เปิดประวัติพ่อพันธุ์");
                 builder.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
@@ -187,6 +188,7 @@ public class edt_Breed_Fragment extends Fragment {
         listItemsDad.addAll(listDad);
         adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_dropdown_item, listItemsDad);
         spin_dadId01.setAdapter(adapter);
+
     }
 
     private void QueryDataBreed(String response) {
@@ -218,7 +220,7 @@ public class edt_Breed_Fragment extends Fragment {
             }catch(JSONException ex){
                 ex.printStackTrace();
             }
-        }
+    }
 
 
     private void GetDataFromEditText() {

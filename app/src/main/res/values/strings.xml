@@ -147,6 +147,58 @@
     <item>สัปดาห์</item>
 </string-array>
 
+    <string-array name="type_of_unit">
+        <item>พ่อพันธุ์</item>
+        <item>แม่พันธุ์</item>
+        <item>โรงขาย</item>
+        <item>โรงอาหาร</item>
+        <item>สุกรขุน</item>
+        <item>สุกรทดแทน</item>
+        <item>อนุบาล</item>
+    </string-array>
+
+    <string-array name="condition_momexclude1">
+        <item>จัดที่ถูกคักทิ้ง</item>
+        <item>ลักษณะการคัดทิ้ง</item>
+        <item>สาเหตุที่คัดทิ้ง</item>
+        <item>ลำดับท้อง</item>
+        <item>ไม่มีเงื่อนไข</item>
+    </string-array>
+
+    <string-array name="condition_momexclude2">
+        <item>มากกว่า</item>
+        <item>น้อยกว่า</item>
+        <item>เท่ากับ</item>
+    </string-array>
+
+    <string-array name="condition_momexclude3">
+        <item>เข้าฝูง-ผสม</item>
+        <item>หย่านม-ผสม</item>
+        <item>ผสม-คลอด</item>
+        <item>คลอด-หย่านม</item>
+    </string-array>
+
+    <string-array name="condition_momexclude4">
+        <item>ขาย</item>
+        <item>ตาย</item>
+        <item>ทำลาย</item>
+        <item>ย้าย</item>
+        <item>ไม่ทราบ</item>
+    </string-array>
+
+    <string-array name="condition_momexclude5">
+        <item>ไม่เป็นสัด</item>
+        <item>ผสมไม่ติด</item>
+        <item>ตรวจพบไม่ท้อง</item>
+        <item>ท้องลม</item>
+        <item>แท้ง</item>
+        <item>พ่อไม่กำหนัด</item>
+        <item>น้ำเชื้อไม่ดี</item>
+        <item>คลอดยาก</item>
+    </string-array>
+
+
+
     <string-array name="select_type_b3">
         <item>จำแนกเป็นช่วง</item>
         <item>จำแนกรวม</item>

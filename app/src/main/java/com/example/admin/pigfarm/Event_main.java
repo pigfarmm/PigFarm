@@ -40,7 +40,6 @@ public class Event_main extends AppCompatActivity {
         txt_farmName2.setText(getfarm_name);
         txt_unitName2.setText(getunit_name);
 
-
         img_back2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

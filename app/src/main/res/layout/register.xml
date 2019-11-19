@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/thaisansneue_bold"
             android:gravity="center"
-            android:text="สมัครสมาชิก"
+            android:text="เพิ่มฟาร์ม"
             android:textColor="#ffffff"
             android:textSize="28sp" />
 

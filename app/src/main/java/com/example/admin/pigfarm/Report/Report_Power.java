@@ -19,7 +19,7 @@ public class Report_Power extends AppCompatActivity {
     String getfarm_name,getunit_name,getfarm_id;
     TextView txt_farm, txt_unit;
     ImageView img_back;
-    CardView card_allperformance, card_b2,card_b3,card_b5;
+    CardView card_allperformance, card_b2,card_b3,card_b5,card_b6,card_b7,card_b8,card_b9,card_b10,card_b11;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,6 +50,12 @@ public class Report_Power extends AppCompatActivity {
         card_b2 = findViewById(R.id.card_b2);
         card_b3 = findViewById(R.id.card_b3);
         card_b5 = findViewById(R.id.card_b5);
+        card_b6 = findViewById(R.id.card_b6);
+        card_b7 = findViewById(R.id.card_b7);
+        card_b8 = findViewById(R.id.card_b8);
+        card_b9 = findViewById(R.id.card_b9);
+        card_b10 = findViewById(R.id.card_b10);
+        card_b11 = findViewById(R.id.card_b11);
 
         card_allperformance.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,10 +89,21 @@ public class Report_Power extends AppCompatActivity {
             }
         });
 
+        card_b6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Report_Power.this, Report_piggydead.class);  //ยังไม่ทำ
+                startActivity(intent);
+            }
+        });
 
-
-
-
+        card_b7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Report_Power.this, Report_MomExclude.class); //ยังไม่ทำ
+                startActivity(intent);
+            }
+        });
 
     }
 }

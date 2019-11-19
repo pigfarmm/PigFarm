@@ -64,7 +64,7 @@ public class Newpig_Fragment extends Fragment {
 
     Button btnSubmitNewpig;
     EditText edit_id, edit_opendate, edit_birthday, edit_breed, edit_dadId1, edit_momId, edit_form, edit_reserveID,id;
-    String farm_id;
+    String farm_id,m,d,m2,d2,unit_id;
     ImageView img_calOpen1, img_calBD1,qr_code;
     Calendar myCalendar = Calendar.getInstance();
     Calendar myCalendar2 = Calendar.getInstance();
@@ -90,8 +90,10 @@ public class Newpig_Fragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        SharedPreferences shared = getActivity().getSharedPreferences("Login", Context.MODE_PRIVATE);
-        farm_id = shared.getString("farm_id", "missing");
+        SharedPreferences shared = getActivity().getSharedPreferences("Farm", Context.MODE_PRIVATE);
+        farm_id = shared.getString("farm_id", "");
+        unit_id = shared.getString("unit_id", "");
+
 
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) !=
                 PackageManager.PERMISSION_GRANTED) {
@@ -171,7 +173,17 @@ public class Newpig_Fragment extends Fragment {
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             monthOfYear = monthOfYear + 1;
-            edit_opendate.setText(year + "-" + monthOfYear + "-" + dayOfMonth);
+            if (monthOfYear < 10){
+                m = "0"+monthOfYear;
+            }else{
+                m = String.valueOf(monthOfYear);
+            }
+            if (dayOfMonth < 10){
+                d = "0"+dayOfMonth;
+            }else{
+                d = String.valueOf(dayOfMonth);
+            }
+            edit_opendate.setText(year+"-"+m+"-"+d);
         }
     };
 
@@ -188,7 +200,17 @@ public class Newpig_Fragment extends Fragment {
             myCalendar2.set(Calendar.MONTH, monthOfYear);
             myCalendar2.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             monthOfYear = monthOfYear + 1;
-            edit_birthday.setText(year + "-" + monthOfYear + "-" + dayOfMonth);
+            if (monthOfYear < 10){
+                m2 = "0"+monthOfYear;
+            }else{
+                m2 = String.valueOf(monthOfYear);
+            }
+            if (dayOfMonth < 10){
+                d2 = "0"+dayOfMonth;
+            }else{
+                d2 = String.valueOf(dayOfMonth);
+            }
+            edit_birthday.setText(year+"-"+m2+"-"+d2);
         }
     };
 
@@ -200,8 +222,6 @@ public class Newpig_Fragment extends Fragment {
 
         }
     };
-
-
 
 
     public class InsertAsyn extends AsyncTask<String, Void, String> {
@@ -220,6 +240,7 @@ public class Newpig_Fragment extends Fragment {
                         .add("pig_idreserve", edit_reserveID.getText().toString())
                         .add("farm_id", farm_id)
                         .add("idrecordtype_pig", "1")
+                        .add("unit_id", unit_id)
                         .build();
 
                 Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();

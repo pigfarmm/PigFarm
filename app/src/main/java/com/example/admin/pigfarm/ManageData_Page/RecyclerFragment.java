@@ -36,7 +36,7 @@ public class RecyclerFragment extends Fragment implements MyAdapter.OnItemClickL
     private RecyclerView rv;
     MyAdapter adapter;
     List<Model> profilepig;
-    String username, password, pig_id, pig_no,getfarm_name,getunit_name,getfarm_id = "";
+    String username, password, pig_id, pig_no,getfarm_name,getunit_name,getfarm_id,getunit_id;
 
 
 
@@ -58,6 +58,7 @@ public class RecyclerFragment extends Fragment implements MyAdapter.OnItemClickL
         getfarm_name = farm.getString("farm_name", "");
         getunit_name = farm.getString("unit_name", "");
         getfarm_id = farm.getString("farm_id","");
+        getunit_id = farm.getString("unit_id","");
 
 
         rv = rootView.findViewById(R.id.recyclerview);
@@ -86,7 +87,7 @@ public class RecyclerFragment extends Fragment implements MyAdapter.OnItemClickL
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Loading...");
         progressDialog.show();
-        String url = "https://pigaboo.xyz/Query_ProfilePig.php?farm_id="+getfarm_id;
+        String url = "https://pigaboo.xyz/Query_ProfilePig.php?farm_id="+getfarm_id+"&unit_id="+getunit_id;
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -141,10 +142,10 @@ public class RecyclerFragment extends Fragment implements MyAdapter.OnItemClickL
         bundle2.putString("pig_id",clickItem.getPig_id());
         bundle2.putString("pig_no",clickItem.getPig_no());
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-                fragment_datapig.setArguments(bundle2);
-                ft.replace(R.id.container, fragment_datapig);
-                ft.addToBackStack(null);
-                ft.commit();
+        fragment_datapig.setArguments(bundle2);
+        ft.replace(R.id.container, fragment_datapig);
+        ft.addToBackStack(null);
+        ft.commit();
 
     }
 

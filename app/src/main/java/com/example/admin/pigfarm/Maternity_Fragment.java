@@ -3,7 +3,9 @@ package com.example.admin.pigfarm;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -66,7 +68,7 @@ public class Maternity_Fragment extends Fragment {
     private List<String> mStrings_event_date = new ArrayList<String>();
     Calendar myCalendar = Calendar.getInstance();
     Date date_before,date_record;
-    String m,d,getmaxeventid;
+    String m,d,getmaxeventid,unit_id;
 
     private String[] amount_pregnant_array;
     private String[] pig_id_array;
@@ -86,6 +88,11 @@ public class Maternity_Fragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        SharedPreferences farm = this.getActivity().getSharedPreferences("Farm", Context.MODE_PRIVATE);
+        unit_id = farm.getString("unit_id", "");
+
+
         if (getArguments() != null){
             gettextbreed = getArguments().getString("textbreed");
             farm_id = getArguments().getString("farm_id");
@@ -118,7 +125,7 @@ public class Maternity_Fragment extends Fragment {
                 Locale.getDefault()).format(new Date());
         edit_dateNote04.setText(date_n);
 
-        String url = "https://pigaboo.xyz/Query_BreedID.php?farm_id="+farm_id;
+        String url = "https://pigaboo.xyz/Query_BreedID.php?farm_id=" + farm_id+"&unit_id="+unit_id;
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -135,7 +142,7 @@ public class Maternity_Fragment extends Fragment {
         requestQueue.add(stringRequest);
 
 
-        String url2 = "https://pigaboo.xyz/Query_AmountPregnant.php?farm_id="+farm_id;
+        String url2 = "https://pigaboo.xyz/Query_AmountPregnant.php?farm_id="+farm_id+"&unit_id="+unit_id;
         StringRequest stringRequest2 = new StringRequest(url2, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

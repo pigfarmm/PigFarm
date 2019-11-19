@@ -53,7 +53,7 @@ public class Newbredder_Fragment extends Fragment {
 
     EditText edit_id3, edit_opendate3, edit_birthday3, edit_breed3, edit_dadId3, edit_momId3, edit_form3, edit_reserveID3;
     Button btn_saveBio3;
-    String farm_id;
+    String farm_id,m,d,m2,d2,unit_id;
     ImageView img_calOpen3, img_calBD3,qr_code2;
     Calendar myCalendar = Calendar.getInstance();
     Calendar myCalendar2 = Calendar.getInstance();
@@ -78,8 +78,9 @@ public class Newbredder_Fragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        SharedPreferences shared = getActivity().getSharedPreferences("Login", Context.MODE_PRIVATE);
-        farm_id = shared.getString("farm_id", "missing");
+        SharedPreferences shared = getActivity().getSharedPreferences("Farm", Context.MODE_PRIVATE);
+        farm_id = shared.getString("farm_id", "");
+        unit_id = shared.getString("unit_id", "");
 
 
         bindWidget();
@@ -158,7 +159,17 @@ public class Newbredder_Fragment extends Fragment {
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             monthOfYear = monthOfYear + 1;
-            edit_opendate3.setText(year+"-"+monthOfYear+"-"+dayOfMonth);
+            if (monthOfYear < 10){
+                m = "0"+monthOfYear;
+            }else{
+                m = String.valueOf(monthOfYear);
+            }
+            if (dayOfMonth < 10){
+                d = "0"+dayOfMonth;
+            }else{
+                d = String.valueOf(dayOfMonth);
+            }
+            edit_opendate3.setText(year+"-"+m+"-"+d);
         }
     };
 
@@ -175,7 +186,17 @@ public class Newbredder_Fragment extends Fragment {
             myCalendar2.set(Calendar.MONTH, monthOfYear);
             myCalendar2.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             monthOfYear = monthOfYear + 1;
-            edit_birthday3.setText(year+"-"+monthOfYear+"-"+dayOfMonth);
+            if (monthOfYear < 10){
+                m2 = "0"+monthOfYear;
+            }else{
+                m2 = String.valueOf(monthOfYear);
+            }
+            if (dayOfMonth < 10){
+                d2 = "0"+dayOfMonth;
+            }else{
+                d2 = String.valueOf(dayOfMonth);
+            }
+            edit_birthday3.setText(year+"-"+m2+"-"+d2);
         }
     };
 
@@ -203,6 +224,7 @@ public class Newbredder_Fragment extends Fragment {
                         .add("pig_idreserve", edit_reserveID3.getText().toString())
                         .add("farm_id",farm_id)
                         .add("idrecordtype_pig","3")
+                        .add("unit_id", unit_id)
                         .build();
 
                 Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();

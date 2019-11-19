@@ -53,8 +53,6 @@ public class Report_BredderDad extends AppCompatActivity {
 
         edit_B1 = findViewById(R.id.edit_B1);
         edit_B2 = findViewById(R.id.edit_B2);
-        pregnant_edt = findViewById(R.id.pregnant_edt);
-        pregnant_edt2 = findViewById(R.id.pregnant_edt2);
         btn_A1 = findViewById(R.id.btn_A1);
         img_B3 = findViewById(R.id.img_B3);
         spnlengthtime = findViewById(R.id.spnlengthtime);
@@ -97,8 +95,6 @@ public class Report_BredderDad extends AppCompatActivity {
                 intent.putExtra("last_day",edit_B1.getText().toString());
                 intent.putExtra("ip_number",edit_B2.getText().toString());
                 intent.putExtra("ip_type",spnlengthtime.getSelectedItem().toString());
-                intent.putExtra("start",pregnant_edt.getText().toString());
-                intent.putExtra("end",pregnant_edt2.getText().toString());
                 startActivity(intent);
             }
         });

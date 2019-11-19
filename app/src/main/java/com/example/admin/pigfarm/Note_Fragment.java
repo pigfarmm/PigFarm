@@ -2,6 +2,8 @@ package com.example.admin.pigfarm;
 
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -52,7 +54,7 @@ public class Note_Fragment extends Fragment {
     EditText edit_dateNote10, edit_msg10;
     Button btn_flacAct10;
     ImageView img_calNote10;
-    String m,d;
+    String m,d,unit_id;
     Calendar myCalendar = Calendar.getInstance();
 
     public Note_Fragment() {
@@ -68,6 +70,10 @@ public class Note_Fragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        SharedPreferences farm = this.getActivity().getSharedPreferences("Farm", Context.MODE_PRIVATE);
+        unit_id = farm.getString("unit_id", "");
+
         if (getArguments() != null){
             gettextbreed = getArguments().getString("textbreed");
             farm_id = getArguments().getString("farm_id");
@@ -85,7 +91,7 @@ public class Note_Fragment extends Fragment {
 
         edit_dateNote10.setText(date_n);
 
-        String url = "https://pigaboo.xyz/Query_pigid.php?farm_id="+farm_id;
+        String url = "https://pigaboo.xyz/Query_pigid.php?farm_id="+farm_id+"&unit_id="+unit_id;
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

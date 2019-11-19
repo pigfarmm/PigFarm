@@ -62,7 +62,7 @@ public class Report_Home extends AppCompatActivity {
         card_history_of_dadmom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Report_Home.this, Report_History.class);
+                Intent intent = new Intent(Report_Home.this, Report_History.class);  //Report_History
                 startActivity(intent);
             }
         });

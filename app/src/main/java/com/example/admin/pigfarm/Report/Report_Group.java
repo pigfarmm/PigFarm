@@ -45,7 +45,7 @@ public class Report_Group extends AppCompatActivity {
     Calendar StartDate = Calendar.getInstance();
     Calendar EndDate = Calendar.getInstance();
     ImageView calendar_start, calendar_end;
-    String getfarm_name,getunit_name,getfarm_id;
+    String getfarm_name,getunit_name,getfarm_id,m,d,m2,d2;
     TextView txt_farm, txt_unit;
     ImageView img_back;
 
@@ -221,7 +221,17 @@ public class Report_Group extends AppCompatActivity {
             StartDate.set(Calendar.MONTH, monthOfYear);
             StartDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             monthOfYear = monthOfYear + 1;
-            edt_startdate.setText(year+"-"+monthOfYear+"-"+dayOfMonth);
+            if (monthOfYear < 10){
+                m = "0"+monthOfYear;
+            }else{
+                m = String.valueOf(monthOfYear);
+            }
+            if (dayOfMonth < 10){
+                d = "0"+dayOfMonth;
+            }else{
+                d = String.valueOf(dayOfMonth);
+            }
+            edt_startdate.setText(year+"-"+m+"-"+d);
         }
     };
 
@@ -238,7 +248,17 @@ public class Report_Group extends AppCompatActivity {
             EndDate.set(Calendar.MONTH, monthOfYear);
             EndDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             monthOfYear = monthOfYear + 1;
-            edt_enddate.setText(year+"-"+monthOfYear+"-"+dayOfMonth);
+            if (monthOfYear < 10){
+                m2 = "0"+monthOfYear;
+            }else{
+                m2 = String.valueOf(monthOfYear);
+            }
+            if (dayOfMonth < 10){
+                d2 = "0"+dayOfMonth;
+            }else{
+                d2 = String.valueOf(dayOfMonth);
+            }
+            edt_enddate.setText(year+"-"+m2+"-"+d2);
         }
     };
 

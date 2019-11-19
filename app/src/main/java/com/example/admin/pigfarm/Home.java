@@ -22,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.admin.pigfarm.BodyAnalyze.CameraAPI;
 import com.example.admin.pigfarm.ManageData_Page.MainActivity_ManageData;
 import com.example.admin.pigfarm.Report.PigData_Report;
 import com.example.admin.pigfarm.Report.Report_Home;
@@ -34,11 +35,11 @@ import org.json.JSONObject;
 
 
 
-public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
+public class Home extends AppCompatActivity{
 
     TextView txt_user, txt_farm, txt_unit;
-    CardView card_settings, card_profile, card_event, card_report, card_data;
-    String farm_owner,farm_name,farm_id,unit_name,username,password  = "";
+    CardView card_settings, card_profile, card_event, card_report, card_data,card_pigimgpro;
+    String farm_name,farm_id,unit_name,username,password,owner,getfarm_id,LoginStatus,url;
     private SwipeRefreshLayout mSwipeRefresh;
 
     @Override
@@ -49,137 +50,136 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
         SharedPreferences shared = getSharedPreferences("Login", Context.MODE_PRIVATE);
         username = shared.getString("username", "");
         password = shared.getString("pass", "");
+        owner = shared.getString("owner", "");
 
-        mSwipeRefresh = findViewById(R.id.swiperefresh);
-        mSwipeRefresh.setOnRefreshListener(this);
+        SharedPreferences farm = getSharedPreferences("Farm", Context.MODE_PRIVATE);
+        farm_name = farm.getString("farm_name","");
+        getfarm_id = farm.getString("farm_id","");
+        unit_name = farm.getString("unit_name","");
 
-        txt_user = findViewById(R.id.txt_user);
-        txt_farm = findViewById(R.id.txt_farm);
-        txt_unit = findViewById(R.id.txt_unit);
 
-        String url = "https://pigaboo.xyz/Query_Farm.php?username="+username+"&password="+password;
+        url = "https://pigaboo.xyz/login2.php?username="+username+"&password="+password;
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                showJSON(response);
+                CheckStatus(response);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "ไม่สามารถดึงข้อมูลได้ โปรดตรวจสอบการเชื่อมต่อ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Home.this, "เชื่อมต่อ Server ไม่ได้ โปรดลองอีกครั้ง", Toast.LENGTH_SHORT).show();
             }
         }
         );
-        RequestQueue requestQueue = Volley.newRequestQueue(this.getApplicationContext());
+        RequestQueue requestQueue = Volley.newRequestQueue(Home.this.getApplicationContext());
         requestQueue.add(stringRequest);
+
+
+//        mSwipeRefresh = findViewById(R.id.swiperefresh);
+//        mSwipeRefresh.setOnRefreshListener(this);
+
+        txt_user = findViewById(R.id.txt_user);
+        txt_farm = findViewById(R.id.txt_farm);
+        txt_unit = findViewById(R.id.txt_unit);
+        card_profile = findViewById(R.id.card_profile);
+        card_event = findViewById(R.id.card_event);
+        card_data = findViewById(R.id.card_data);
+        card_report = findViewById(R.id.card_report);
+        card_settings = findViewById(R.id.card_settings);
+        card_pigimgpro = findViewById(R.id.card_pigimgpro);
+
+        txt_user.setText(owner);
+        txt_farm.setText(farm_name);
+        txt_unit.setText(unit_name);
+
+        card_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Home.this, Open_Profile.class);
+                startActivity(intent);
+            }
+        });
+
+        card_event.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Home.this, Event_main.class);
+                startActivity(intent);
+            }
+        });
+
+        card_data.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Home.this, MainActivity_ManageData.class);
+                startActivity(intent);
+            }
+        });
+
+        card_report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Home.this, Report_Main.class);
+                startActivity(intent);
+            }
+        });
+
+        card_settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Home.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        card_pigimgpro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Home.this, CameraAPI.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
+    private void CheckStatus(String response) {
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            JSONArray result = jsonObject.getJSONArray("result");
+
+                for (int i = 0; i<result.length(); i++){
+                    JSONObject collectData = result.getJSONObject(i);
+                    LoginStatus = collectData.getString("LoginStatus");
+
+                    if (LoginStatus.equals("1")){
+                        android.app.AlertDialog.Builder builder2 = new android.app.AlertDialog.Builder(Home.this, R.style.Theme_AppCompat_Light_Dialog_Alert);
+                        builder2.setCancelable(false);
+                        builder2.setMessage("ขณะนี้กำลังปรับปรุงระบบ ขออภัยในความไม่สะดวก");
+                        builder2.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                                System.exit(0);
+                            }
+                        });
+
+                        android.app.AlertDialog dialog = builder2.create();
+                        dialog.show();
+
+
+                    }
+            }
+
+        }catch (JSONException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
     }
 
-    public void showJSON(String response){
-            try {
-                JSONObject jsonObject = new JSONObject(response);
-                JSONArray result = jsonObject.getJSONArray("result");
-
-
-                for (int i = 0; i<result.length(); i++){
-                    JSONObject collectData = result.getJSONObject(i);
-                    farm_owner = collectData.getString("farm_owner");
-                    farm_name = collectData.getString("farm_name");
-                    unit_name = collectData.getString("unit_name");
-                    farm_id = collectData.getString("farm_id");
-                    txt_user.setText(farm_owner);
-                    txt_farm.setText(farm_name);
-                    txt_unit.setText(unit_name);
-
-                    card_profile = findViewById(R.id.card_profile);
-                    card_event = findViewById(R.id.card_event);
-                    card_data = findViewById(R.id.card_data);
-                    card_report = findViewById(R.id.card_report);
-                    card_settings = findViewById(R.id.card_settings);
-
-
-
-                    card_profile.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(Home.this, Open_Profile.class);
-                            SharedPreferences farm = getSharedPreferences("Farm", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor2 = farm.edit();
-                            editor2.putString("farm_name",farm_name);
-                            editor2.putString("unit_name",unit_name);
-                            editor2.putString("farm_id",farm_id);
-                            editor2.commit();
-                            startActivity(intent);
-                        }
-                    });
-
-                    card_event.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(Home.this, Event_main.class);
-                            SharedPreferences farm = getSharedPreferences("Farm", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor2 = farm.edit();
-                            editor2.putString("farm_name",farm_name);
-                            editor2.putString("unit_name",unit_name);
-                            editor2.putString("farm_id",farm_id);
-                            editor2.commit();
-                            startActivity(intent);
-                        }
-                    });
-
-                    card_data.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(Home.this, MainActivity_ManageData.class);
-                            SharedPreferences farm = getSharedPreferences("Farm", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor2 = farm.edit();
-                            editor2.putString("farm_name",farm_name);
-                            editor2.putString("unit_name",unit_name);
-                            editor2.putString("farm_id",farm_id);
-                            editor2.commit();
-                            startActivity(intent);
-                        }
-                    });
-
-                    card_report.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(Home.this, Report_Main.class);
-                            SharedPreferences farm = getSharedPreferences("Farm", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor2 = farm.edit();
-                            editor2.putString("farm_name",farm_name);
-                            editor2.putString("unit_name",unit_name);
-                            editor2.putString("farm_id",farm_id);
-                            editor2.commit();
-                            startActivity(intent);
-                        }
-                    });
-
-                    card_settings.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(Home.this, SettingsActivity.class);
-                            SharedPreferences farm = getSharedPreferences("Farm", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor2 = farm.edit();
-                            editor2.putString("farm_name",farm_name);
-                            editor2.putString("unit_name",unit_name);
-                            editor2.putString("farm_id",farm_id);
-                            editor2.commit();
-                            startActivity(intent);
-                        }
-                    });
-
-                }
-            }catch (JSONException ex) {
-                ex.printStackTrace();
-            }
-        }
 
         public void onLogoutClick(View v) {
             AlertDialog.Builder builder = new AlertDialog.Builder(Home.this, R.style.Theme_AppCompat_Light_Dialog_Alert);
@@ -197,7 +197,7 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
                             SharedPreferences farm = getSharedPreferences("Farm", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor2 = farm.edit();
                             editor2.clear();
-                            editor2.apply();
+                            editor2.commit();
 
                             Intent intent = new Intent(Home.this, LoginActivity.class);
                             startActivity(intent);
@@ -249,13 +249,13 @@ public class Home extends AppCompatActivity implements SwipeRefreshLayout.OnRefr
     }
 
 
-    @Override
-    public void onRefresh() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mSwipeRefresh.setRefreshing(false);
-            }
-        },2000);
-    }
+//    @Override
+//    public void onRefresh() {
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                mSwipeRefresh.setRefreshing(false);
+//            }
+//        },2000);
+//    }
 }

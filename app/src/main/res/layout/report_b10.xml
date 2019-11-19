@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/thaisansneue_bold"
             android:gravity="center"
-            android:text="แม่พันธุ์ที่คัดทิ้ง"
+            android:text="แม่พันธุ์ที่เข้าคลอด"
             android:layout_marginTop="3dp"
             android:textColor="#ffffff"
             android:textSize="28sp" />
