@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.text.InputFilter;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -82,6 +83,8 @@ public class Report_AllPerformance extends AppCompatActivity {
                 finish();
             }
         });
+
+        edit_B3.setFilters(new InputFilter[]{new InputFilterMinMax("1","12")});
 
 
 

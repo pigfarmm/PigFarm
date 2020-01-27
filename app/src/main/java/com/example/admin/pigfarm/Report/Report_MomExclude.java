@@ -1,18 +1,22 @@
 package com.example.admin.pigfarm.Report;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.admin.pigfarm.R;
 
@@ -28,7 +32,7 @@ public class Report_MomExclude extends AppCompatActivity {
     TextView txt_farm, txt_unit;
     EditText edit_B1,edit_B2,edit_B5;
     Button btn_A1;
-    Spinner spin_B3,spin_B4;
+    Spinner spin_B3,spin_B4,spin_B5;
     ImageView img_B1,img_back,img_B2;
     Calendar StartDate = Calendar.getInstance();
     Calendar StartDate2 = Calendar.getInstance();
@@ -55,11 +59,81 @@ public class Report_MomExclude extends AppCompatActivity {
         img_B2 = findViewById(R.id.img_B2);
         spin_B3 = findViewById(R.id.spin_B3);
         spin_B4 = findViewById(R.id.spin_B4);
+        spin_B5 = findViewById(R.id.spin_B5);
         btn_A1 = findViewById(R.id.btn_A1);
+        img_back = findViewById(R.id.img_back);
 
         String date_lastday = new SimpleDateFormat("yyyy-MM-dd",
                 Locale.getDefault()).format(new Date());
-        edit_B1.setText(date_lastday);
+        edit_B2.setText(date_lastday);
+
+        final String[] eventStr = getResources().getStringArray(R.array.condition_exclude);
+        ArrayAdapter<String> adapterType = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item, eventStr);
+        adapterType.setDropDownViewResource(R.layout.spinner_item);
+        spin_B3.setAdapter(adapterType);
+
+        final String[] eventStr1 = getResources().getStringArray(R.array.condition_style);
+        ArrayAdapter<String> adapterType1 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item, eventStr1);
+        adapterType1.setDropDownViewResource(R.layout.spinner_item);
+        spin_B4.setAdapter(adapterType1);
+
+        spin_B3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 0:
+                        spin_B4.setEnabled(true);
+                        spin_B5.setEnabled(true);
+
+                        final String[] eventStr2 = getResources().getStringArray(R.array.condition_value_1);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, eventStr2);
+                        spin_B5.setAdapter(adapter);
+                        break;
+
+                    case 1:
+                        spin_B4.setEnabled(true);
+                        spin_B5.setEnabled(true);
+
+                        final String[] eventStr3 = getResources().getStringArray(R.array.condition_value_3);
+                        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, eventStr3);
+                        spin_B5.setAdapter(adapter2);
+                        break;
+
+                    case 2:
+                        spin_B4.setEnabled(true);
+                        spin_B5.setEnabled(true);
+
+                        final String[] eventStr4 = getResources().getStringArray(R.array.condition_value_2);
+                        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, eventStr4);
+                        spin_B5.setAdapter(adapter3);
+                        break;
+
+                    case 3:
+                        spin_B4.setEnabled(true);
+                        spin_B5.setEnabled(true);
+
+                        final String[] eventStr5 = getResources().getStringArray(R.array.condition_value_4);
+                        ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, eventStr5);
+                        spin_B5.setAdapter(adapter4);
+                        break;
+
+                    case 4:
+                        spin_B4.setEnabled(false);
+                        spin_B5.setEnabled(false);
+                        break;
+
+                }
+            }
+
+
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         img_B1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,11 +158,112 @@ public class Report_MomExclude extends AppCompatActivity {
             }
         });
 
-        final String[] eventStr = getResources().getStringArray(R.array.length_time_allperformance);
-        ArrayAdapter<String> adapterType = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_dropdown_item, eventStr);
-        adapterType.setDropDownViewResource(R.layout.spinner_item);
-        spin_B3.setAdapter(adapterType);
+        btn_A1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (String.valueOf(spin_B3.getSelectedItem()).equals("จุดที่ถูกคัดทิ้ง") && String.valueOf(spin_B4.getSelectedItem()).equals("น้อยกว่า") && String.valueOf(spin_B5.getSelectedItem()).equals("เข้าฝูง-ผสม")){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Report_MomExclude.this, R.style.Theme_AppCompat_Light_Dialog_Alert);
+                    builder.setCancelable(false);
+                    builder.setMessage("ไม่มีรายงานนี้");
+                    builder.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }else if (String.valueOf(spin_B3.getSelectedItem()).equals("ลักษณะการคัดทิ้ง") && String.valueOf(spin_B4.getSelectedItem()).equals("น้อยกว่า") && String.valueOf(spin_B5.getSelectedItem()).equals("ขาย")){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Report_MomExclude.this, R.style.Theme_AppCompat_Light_Dialog_Alert);
+                    builder.setCancelable(false);
+                    builder.setMessage("ไม่มีรายงานนี้");
+                    builder.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }else if (String.valueOf(spin_B3.getSelectedItem()).equals("สาเหตุที่คัดทิ้ง") && String.valueOf(spin_B4.getSelectedItem()).equals("น้อยกว่า") && String.valueOf(spin_B5.getSelectedItem()).equals("ไม่เป็นสัด")){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Report_MomExclude.this, R.style.Theme_AppCompat_Light_Dialog_Alert);
+                    builder.setCancelable(false);
+                    builder.setMessage("ไม่มีรายงานนี้");
+                    builder.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }else if (String.valueOf(spin_B3.getSelectedItem()).equals("ลำดับท้อง") && String.valueOf(spin_B4.getSelectedItem()).equals("น้อยกว่า") && String.valueOf(spin_B5.getSelectedItem()).equals("0")){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Report_MomExclude.this, R.style.Theme_AppCompat_Light_Dialog_Alert);
+                    builder.setCancelable(false);
+                    builder.setMessage("ไม่มีรายงานนี้");
+                    builder.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+                else if(String.valueOf(spin_B3.getSelectedItem()).equals("จุดที่ถูกคัดทิ้ง")){
+                    pdf = "https://pigaboo.xyz/Report/Mom_exclude_place.php";
+                    Intent intent = new Intent(Report_MomExclude.this, WebView_MomExclude.class);
+                    intent.putExtra("url",pdf);
+                    intent.putExtra("start_date",edit_B1.getText().toString());
+                    intent.putExtra("end_date",edit_B2.getText().toString());
+                    intent.putExtra("condition_one",spin_B3.getSelectedItem().toString());
+                    intent.putExtra("condition_two",spin_B4.getSelectedItem().toString());
+                    intent.putExtra("condition_three",spin_B5.getSelectedItem().toString());
+
+                    startActivity(intent);
+
+                }else if(String.valueOf(spin_B3.getSelectedItem()).equals("ลักษณะการคัดทิ้ง")){
+                    pdf = "https://pigaboo.xyz/Report/Mom_exclude_style.php";
+                    Intent intent = new Intent(Report_MomExclude.this, WebView_MomExclude.class);
+                    intent.putExtra("url",pdf);
+                    intent.putExtra("start_date",edit_B1.getText().toString());
+                    intent.putExtra("end_date",edit_B2.getText().toString());
+                    intent.putExtra("condition_one",spin_B3.getSelectedItem().toString());
+                    intent.putExtra("condition_two",spin_B4.getSelectedItem().toString());
+                    intent.putExtra("condition_three",spin_B5.getSelectedItem().toString());
+
+                    startActivity(intent);
+
+                }else if(String.valueOf(spin_B3.getSelectedItem()).equals("สาเหตุที่คัดทิ้ง")){
+                    pdf = "https://pigaboo.xyz/Report/Mom_exclude_cause.php";
+                    Intent intent = new Intent(Report_MomExclude.this, WebView_MomExclude.class);
+                    intent.putExtra("url",pdf);
+                    intent.putExtra("start_date",edit_B1.getText().toString());
+                    intent.putExtra("end_date",edit_B2.getText().toString());
+                    intent.putExtra("condition_one",spin_B3.getSelectedItem().toString());
+                    intent.putExtra("condition_two",spin_B4.getSelectedItem().toString());
+                    intent.putExtra("condition_three",spin_B5.getSelectedItem().toString());
+
+                    startActivity(intent);
+
+                }else if(String.valueOf(spin_B3.getSelectedItem()).equals("ลำดับท้อง")){
+                    pdf = "https://pigaboo.xyz/Report/Mom_exclude_listpregnant.php";
+                    Intent intent = new Intent(Report_MomExclude.this, WebView_MomExclude.class);
+                    intent.putExtra("url",pdf);
+                    intent.putExtra("start_date",edit_B1.getText().toString());
+                    intent.putExtra("end_date",edit_B2.getText().toString());
+                    intent.putExtra("condition_one",spin_B3.getSelectedItem().toString());
+                    intent.putExtra("condition_two",spin_B4.getSelectedItem().toString());
+                    intent.putExtra("condition_three",spin_B5.getSelectedItem().toString());
+
+                    startActivity(intent);
+
+                }
+//
+            }
+        });
+
+
 
 
     }

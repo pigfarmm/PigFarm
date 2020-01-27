@@ -95,15 +95,28 @@ public class Report_Exclude extends AppCompatActivity {
         btn_A1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pdf = "https://pigaboo.xyz/Report/Performance_exclude.php";
-                Intent intent = new Intent(Report_Exclude.this, WebView_Exclude.class);
-                intent.putExtra("url",pdf);
-                intent.putExtra("last_day",edit_B1.getText().toString());
-                intent.putExtra("ip_number",edit_B2.getText().toString());
-                intent.putExtra("ip_type",spnlengthtime.getSelectedItem().toString());
-                intent.putExtra("start",pregnant_edt.getText().toString());
-                intent.putExtra("end",pregnant_edt2.getText().toString());
-                startActivity(intent);
+                if (select_type_b3.getSelectedItem().toString().equals("จำแนกเป็นช่วง")){
+                    pdf = "https://pigaboo.xyz/Report/Analyse_exclude.php";
+                    Intent intent = new Intent(Report_Exclude.this, WebView_Exclude.class);
+                    intent.putExtra("url",pdf);
+                    intent.putExtra("last_day",edit_B1.getText().toString());
+                    intent.putExtra("ip_number",edit_B2.getText().toString());
+                    intent.putExtra("ip_type",spnlengthtime.getSelectedItem().toString());
+                    intent.putExtra("start",pregnant_edt.getText().toString());
+                    intent.putExtra("end",pregnant_edt2.getText().toString());
+                    startActivity(intent);
+                }else{
+                    pdf = "https://pigaboo.xyz/Report/Analyse_exclude_all.php";
+                    Intent intent = new Intent(Report_Exclude.this, WebView_Exclude.class);
+                    intent.putExtra("url",pdf);
+                    intent.putExtra("last_day",edit_B1.getText().toString());
+                    intent.putExtra("ip_number",edit_B2.getText().toString());
+                    intent.putExtra("ip_type",spnlengthtime.getSelectedItem().toString());
+                    intent.putExtra("start",pregnant_edt.getText().toString());
+                    intent.putExtra("end",pregnant_edt2.getText().toString());
+                    startActivity(intent);
+                }
+
             }
         });
     }

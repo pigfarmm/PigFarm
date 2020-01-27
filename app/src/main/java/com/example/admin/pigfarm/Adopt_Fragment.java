@@ -158,7 +158,7 @@ public class Adopt_Fragment extends Fragment {
                         .add("event_id", "7")
                         .add("event_recorddate", edit_dateNote07.getText().toString())
                         .add("pig_id", spin_noteId07.getSelectedItem().toString())
-                        .add("pig_amountofadopt", edit_numbaby07.getText().toString())
+                        .add("pig_amountofentrustment", edit_numbaby07.getText().toString())  //ฝากเลี้ยงลูก
                         .build();
 
                 Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();

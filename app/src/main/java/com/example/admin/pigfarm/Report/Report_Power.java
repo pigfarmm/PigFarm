@@ -19,7 +19,7 @@ public class Report_Power extends AppCompatActivity {
     String getfarm_name,getunit_name,getfarm_id;
     TextView txt_farm, txt_unit;
     ImageView img_back;
-    CardView card_allperformance, card_b2,card_b3,card_b5,card_b6,card_b7,card_b8,card_b9,card_b10,card_b11;
+    CardView card_allperformance, card_b2,card_b3,card_b5,card_b6,card_b7,card_b8,card_b9,card_b10,card_b11,card_b12;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,6 +56,7 @@ public class Report_Power extends AppCompatActivity {
         card_b9 = findViewById(R.id.card_b9);
         card_b10 = findViewById(R.id.card_b10);
         card_b11 = findViewById(R.id.card_b11);
+        card_b12 = findViewById(R.id.card_b12);
 
         card_allperformance.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +98,14 @@ public class Report_Power extends AppCompatActivity {
             }
         });
 
+        card_b12.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Report_Power.this, Report_compareunit.class);
+                startActivity(intent);
+            }
+        });
+
         card_b7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,6 +113,41 @@ public class Report_Power extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        card_b8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Report_Power.this, Report_Breeder.class); //ยังไม่ทำ
+                startActivity(intent);
+            }
+        });
+
+        card_b9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Report_Power.this, Report_Momwean.class); //ยังไม่ทำ
+                startActivity(intent);
+            }
+        });
+
+        card_b10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Report_Power.this, Report_MomGiveBirth.class); //ยังไม่ทำ
+                startActivity(intent);
+            }
+        });
+
+        card_b11.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Report_Power.this, Report_MomAbort.class); //ยังไม่ทำ
+                startActivity(intent);
+            }
+        });
+
+
+
 
     }
 }

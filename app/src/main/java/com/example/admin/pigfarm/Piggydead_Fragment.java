@@ -53,7 +53,7 @@ public class Piggydead_Fragment extends Fragment {
     ArrayList<String> list = new ArrayList<>();
     ArrayList<String> listItems = new ArrayList<>();
     ArrayAdapter<String> adapter;
-    Spinner spin_noteId11;
+    Spinner spin_noteId11,spin_result08;
     EditText edit_dateNote11, edit_count11,edit_cause11;
     Button btn_flacAct11;
     ImageView img_calNote11;
@@ -91,10 +91,16 @@ public class Piggydead_Fragment extends Fragment {
         btn_flacAct11 = getView().findViewById(R.id.btn_flacAct11);
         img_calNote11 = getView().findViewById(R.id.img_calNote11);
         edit_cause11 = getView().findViewById(R.id.edit_cause11);
+        spin_result08 = getView().findViewById(R.id.spin_result08);
 
         String date_n = new SimpleDateFormat("yyyy-MM-dd",
                 Locale.getDefault()).format(new Date());
         edit_dateNote11.setText(date_n);
+
+        final String[] eventStr = getResources().getStringArray(R.array.piggydead_event);
+        ArrayAdapter<String> adapterEvent = new ArrayAdapter<String>(this.getActivity(),
+                android.R.layout.simple_dropdown_item_1line, eventStr);
+        spin_result08.setAdapter(adapterEvent);
 
         String url = "https://pigaboo.xyz/Query_Maternity.php?farm_id="+farm_id+"&unit_id="+unit_id;
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
@@ -208,8 +214,8 @@ public class Piggydead_Fragment extends Fragment {
                         .add("event_id", "11")
                         .add("event_recorddate", edit_dateNote11.getText().toString())
                         .add("pig_id", spin_noteId11.getSelectedItem().toString())
-                        .add("note", edit_cause11.getText().toString())
-                        .add("pig_die", edit_count11.getText().toString())
+                        .add("note", spin_result08.getSelectedItem().toString())
+                        .add("pig_dieafter", edit_count11.getText().toString())
                         .add("pig_amount_pregnant",getamount)
                         .build();
 
@@ -228,7 +234,6 @@ public class Piggydead_Fragment extends Fragment {
 
             if (result != null){
                 Toast.makeText(getActivity(), "บันทึกข้อมูลเรียบร้อยแล้ว",Toast.LENGTH_SHORT).show();
-                edit_cause11.setText("");
                 edit_count11.setText("");
 
             }else {

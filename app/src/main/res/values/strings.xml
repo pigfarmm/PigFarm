@@ -11,7 +11,7 @@
         <item>คลอด</item>
         <item>ฝากเลี้ยง</item>
         <item>หย่านม</item>
-        <item>รับเลี้ยงลูก</item>
+        <item>เลี้ยงลูก</item>
         <item>คัดทิ้ง</item>
         <item>หมายเหตุ</item>
         <item>ลูกหมูตาย</item>
@@ -22,9 +22,111 @@
         <item>ป่วยเป็นโรค</item>
     </string-array>
 
+    <string-array name="unit_item">
+        <item>A1</item>
+        <item>A2</item>
+    </string-array>
+
     <string-array name="checkpreg">
         <item>ท้อง</item>
         <item>ไม่ท้อง</item>
+    </string-array>
+
+    <string-array name="condition_exclude">
+        <item>จุดที่ถูกคัดทิ้ง</item>
+        <item>ลักษณะการคัดทิ้ง</item>
+        <item>สาเหตุที่คัดทิ้ง</item>
+        <item>ลำดับท้อง</item>
+        <item>ไม่มีเงื่อนไข</item>
+    </string-array>
+
+    <string-array name="condition_style">
+    <item>มากกว่า</item>
+    <item>น้อยกว่า</item>
+    <item>เท่ากับ</item>
+</string-array>
+
+    <string-array name="condition_value_1">
+        <item>เข้าฝูง-ผสม</item>
+        <item>หย่านม-ผสม</item>
+        <item>ผสม-คลอด</item>
+        <item>คลอด-หย่านม</item>
+    </string-array>
+
+    <string-array name="condition_value_2">
+        <item>ไม่เป็นสัด</item>
+        <item>ผสมไม่ติด</item>
+        <item>ตรวจพบไม่ท้อง</item>
+        <item>ท้องลม</item>
+        <item>แท้ง</item>
+        <item>พ่อไม่กำหนัด</item>
+        <item>น้ำเชื้อไม่ดี</item>
+        <item>คลอดยาก</item>
+        <item>ช่องคลอดทะลัก</item>
+        <item>มดลูกทะลัก</item>
+        <item>ทวารทะลัก</item>
+        <item>มดลูกเป็นหนอง</item>
+        <item>ให้ลูกตาย/มัมมี่</item>
+        <item>ให้ลูกพิการ</item>
+        <item>ให้ลูกตัวเล็ก</item>
+        <item>ขนาดครอกเล็ก</item>
+        <item>เลี้ยงลูกไม่ดี</item>
+        <item>ครอกป่วยเป็นโรค</item>
+        <item>เต้านมอักเสบ</item>
+        <item>หนองไหล</item>
+        <item>ไม่มีน้ำนม</item>
+        <item>ปัญหาเต้านม</item>
+        <item>ลักษณะไม่ดี</item>
+        <item>เดินขากระเผลก</item>
+        <item>เจ็บส่วนขา</item>
+        <item>เจ็บส่วนกีบ</item>
+        <item>ล้มไม่ลุก</item>
+        <item>บาดเจ็บอื่นๆ</item>
+        <item>เป็นฝี</item>
+        <item>เป็นแผลหลุม</item>
+        <item>ตัวผอมบาง</item>
+        <item>ตัวใหญ่เกิน</item>
+        <item>อายุมาก</item>
+        <item>ขี้เรือน</item>
+        <item>โรคทางเดินปัสสาวะ</item>
+        <item>โรคระบบไหลเวียนโลหิต</item>
+        <item>โรคทางเดินอาหาร</item>
+        <item>โรคผิวหนัง</item>
+        <item>โรคระบบประสาท</item>
+        <item>โรคระบบหายใจ</item>
+        <item>โรคระบบกล้ามเนื้อ</item>
+        <item>โรคอื่นๆ</item>
+        <item>ตายกระทันหัน</item>
+        <item>พฤติกรรมดุร้าย</item>
+        <item>เพื่อการจัดการ</item>
+        <item>ล้างฝูง</item>
+        <item>ทดสอบและคัดทิ้ง</item>
+        <item>โตช้า</item>
+        <item>คุณภาพซากไม่ดี</item>
+        <item>ปัญหาเลือดชิด</item>
+        <item>ไม่ทราบสาเหตุ</item>
+    </string-array>
+
+    <string-array name="condition_value_3">
+        <item>ขาย</item>
+        <item>ตาย</item>
+        <item>ทำลาย</item>
+        <item>ย้าย</item>
+        <item>ไม่ทราบ</item>
+    </string-array>
+
+    <string-array name="condition_value_4">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
     </string-array>
 
     <string-array name="howtocheckpreg">
@@ -39,6 +141,87 @@
         <item>ทำลาย</item>
         <item>ย้าย</item>
         <item>ไม่ทราบ</item>
+    </string-array>
+
+    <string-array name="piggydead_event">
+        <item>อ่อนแอ</item>
+        <item>แม่ทับ</item>
+        <item>ขาดอาหาร</item>
+        <item>ท้องเสีย</item>
+        <item>ทุบทิ้ง</item>
+        <item>ขาถ่าง</item>
+        <item>ตัวสั่น</item>
+        <item>บาดเจ็บ</item>
+        <item>ข้อบวม</item>
+        <item>โรคทีจีอี</item>
+        <item>พิษสุนัขบ้าเทียม</item>
+        <item>ลำไส้ทะลุ</item>
+        <item>ขี้เรื้อน</item>
+        <item>ปอดบวม</item>
+        <item>สมองอักเสบ</item>
+        <item>สาเหตุอื่นๆ</item>
+        <item>ไม่ทราบ</item>
+
+
+    </string-array>
+
+    <string-array name="cause_exclude_event">
+        <item>ไม่เป็นสัด</item>
+        <item>ผสมไม่ติด</item>
+        <item>ตรวจพบไม่ท้อง</item>
+        <item>ท้องลม</item>
+        <item>แท้ง</item>
+        <item>พ่อไม่กำหนัด</item>
+        <item>น้ำเชื้อไม่ดี</item>
+        <item>คลอดยาก</item>
+        <item>ช่องคลอดทะลัก</item>
+        <item>มดลูกทะลัก</item>
+        <item>ทวารทะลัก</item>
+        <item>มดลูกเป็นหนอง</item>
+        <item>ให้ลูกตาย/มัมมี่</item>
+        <item>ให้ลูกพิการ</item>
+        <item>ให้ลูกตัวเล็ก</item>
+        <item>ขนาดครอกเล็ก</item>
+        <item>เลี้ยงลูกไม่ดี</item>
+        <item>ครอกป่วยเป็นโรค</item>
+        <item>เต้านมอักเสบ</item>
+        <item>หนองไหล</item>
+        <item>ไม่มีน้ำนม</item>
+        <item>ปัญหาเต้านม</item>
+        <item>ลักษณะไม่ดี</item>
+        <item>เดินขากระเผลก</item>
+        <item>เจ็บส่วนขา</item>
+        <item>เจ็บส่วนกีบ</item>
+        <item>ล้มไม่ลุก</item>
+        <item>บาดเจ็บอื่นๆ</item>
+        <item>เป็นฝี</item>
+        <item>เป็นแผลหลุม</item>
+        <item>ตัวผอมบาง</item>
+        <item>ตัวใหญ่เกิน</item>
+        <item>อายุมาก</item>
+        <item>ขี้เรือน</item>
+        <item>โรคทางเดินปัสสาวะ</item>
+        <item>โรคระบบไหลเวียนโลหิต</item>
+        <item>โรคทางเดินอาหาร</item>
+        <item>โรคผิวหนัง</item>
+        <item>โรคระบบประสาท</item>
+        <item>โรคระบบหายใจ</item>
+        <item>โรคระบบกล้ามเนื้อ</item>
+        <item>โรคอื่นๆ</item>
+        <item>ตายกระทันหัน</item>
+        <item>พฤติกรรมดุร้าย</item>
+        <item>เพื่อการจัดการ</item>
+        <item>ล้างฝูง</item>
+        <item>ทดสอบและคัดทิ้ง</item>
+        <item>โตช้า</item>
+        <item>คุณภาพซากไม่ดี</item>
+        <item>ปัญหาเลือดชิด</item>
+        <item>ไม่ทราบสาเหตุ</item>
+
+
+
+
+
     </string-array>
 
     <string-array name="type_of_report">

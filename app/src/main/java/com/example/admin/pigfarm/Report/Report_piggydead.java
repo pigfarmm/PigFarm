@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputFilter;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -83,6 +84,8 @@ public class Report_piggydead extends AppCompatActivity {
                 finish();
             }
         });
+
+        edit_B5.setFilters(new InputFilter[]{new InputFilterMinMax("1","12")});
 
         final String[] eventStr = getResources().getStringArray(R.array.length_time_allperformance);
         ArrayAdapter<String> adapterType = new ArrayAdapter<String>(this,

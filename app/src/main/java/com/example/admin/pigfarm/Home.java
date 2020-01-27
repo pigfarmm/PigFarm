@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -37,7 +38,7 @@ import org.json.JSONObject;
 
 public class Home extends AppCompatActivity{
 
-    TextView txt_user, txt_farm, txt_unit;
+    TextView txt_user, txt_farm, txt_unit,txt_profile,txt_event,txt_data,txt_pigimgpro,txt_reportXX,txt_adduser,txt_report;
     CardView card_settings, card_profile, card_event, card_report, card_data,card_pigimgpro;
     String farm_name,farm_id,unit_name,username,password,owner,getfarm_id,LoginStatus,url;
     private SwipeRefreshLayout mSwipeRefresh;
@@ -81,6 +82,14 @@ public class Home extends AppCompatActivity{
         txt_user = findViewById(R.id.txt_user);
         txt_farm = findViewById(R.id.txt_farm);
         txt_unit = findViewById(R.id.txt_unit);
+        txt_profile = findViewById(R.id.txt_profile);
+        txt_event = findViewById(R.id.txt_event);
+        txt_data = findViewById(R.id.txt_data);
+        txt_pigimgpro = findViewById(R.id.txt_pigimgpro);
+        txt_reportXX = findViewById(R.id.txt_reportXX);
+        txt_adduser = findViewById(R.id.txt_adduser);
+        txt_report = findViewById(R.id.txt_report);
+
         card_profile = findViewById(R.id.card_profile);
         card_event = findViewById(R.id.card_event);
         card_data = findViewById(R.id.card_data);
@@ -91,6 +100,17 @@ public class Home extends AppCompatActivity{
         txt_user.setText(owner);
         txt_farm.setText(farm_name);
         txt_unit.setText(unit_name);
+
+        txt_user.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f);
+        txt_farm.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f);
+        txt_unit.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f);
+        txt_profile.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f);
+        txt_event.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f);
+        txt_data.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f);
+        txt_pigimgpro.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f);
+        txt_reportXX.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f);
+        txt_adduser.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f);
+        txt_report.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25f);
 
         card_profile.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -100,6 +100,14 @@
         <activity android:name=".BodyAnalyze.PictureActivity"/>
         <activity android:name=".BodyAnalyze.ResultActivity"/>
         <activity android:name=".BodyAnalyze.InsertBodyActivity"/>
+        <activity android:name=".Report.Report_compareunit"/>
+        <activity android:name=".Report.WebView_CompareUnit"/>
+        <activity android:name=".Report.Report_MomExclude"/>
+        <activity android:name=".Report.WebView_MomExclude"/>
+        <activity android:name=".Report.Report_Breeder"/>
+        <activity android:name=".Report.Report_Momwean"/>
+        <activity android:name=".Report.Report_MomGiveBirth"/>
+        <activity android:name=".Report.Report_MomAbort"/>
     </application>
 
 </manifest>

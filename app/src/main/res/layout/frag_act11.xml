@@ -117,14 +117,27 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/thaisansneue_bold"/>
 
-            <EditText
-                android:id="@+id/edit_cause11"
+            <RelativeLayout
                 android:layout_width="325dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:textSize="20sp"
-                android:textColor="@color/Colorfont"
-                android:backgroundTint="@color/Colorfont"/>
+                android:layout_height="45dp"
+                android:background="#d2d2d2"
+                android:layout_marginLeft="30dp">
+
+                <Spinner
+                    android:id="@+id/spin_result08"
+                    android:layout_width="325dp"
+                    android:layout_height="45dp"
+                    android:spinnerMode="dropdown" />
+
+                <ImageView
+                    android:id="@+id/img_resual09"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp"
+                    android:src="@drawable/dropdown" />
+            </RelativeLayout>
 
             <Button
                 android:id="@+id/btn_flacAct11"

@@ -213,7 +213,7 @@ public class Entrustment_Fragment extends Fragment {
                         .add("event_recorddate", edit_dateNote05.getText().toString())
                         .add("pig_id", spin_noteId05.getSelectedItem().toString())
                         .add("pig_amountofentrustment", edit_numbaby05.getText().toString())
-                        .add("pig_amountofadopt",edit_numbaby06.getText().toString())
+                        .add("pig_amountofadopt",edit_numbaby06.getText().toString())  //รับเลี้ยงลูก
                         .add("pig_amount_pregnant",getamount)
                         .build();
 

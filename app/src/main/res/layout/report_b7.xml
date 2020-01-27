@@ -223,7 +223,6 @@
 
                 <Spinner
                     android:id="@+id/spin_B3"
-                    android:layout_marginLeft="30dp"
                     android:layout_width="325dp"
                     android:layout_height="45dp"
                     android:spinnerMode="dropdown" />
@@ -253,8 +252,7 @@
 
                 <Spinner
                     android:id="@+id/spin_B4"
-                    android:layout_marginLeft="30dp"
-                    android:layout_width="325dp"
+                    android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:spinnerMode="dropdown" />
             </RelativeLayout>
@@ -270,15 +268,20 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/thaisansneue_bold"/>
 
-            <EditText
-                android:id="@+id/edit_B5"
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@color/ColorBox"
                 android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:textSize="20sp"
-                android:textColor="@color/Colorfont"
-                android:backgroundTint="@color/Colorfont"/>
+                android:layout_marginRight="30dp">
+
+                <Spinner
+                    android:id="@+id/spin_B5"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:spinnerMode="dropdown" />
+            </RelativeLayout>
 
 
 

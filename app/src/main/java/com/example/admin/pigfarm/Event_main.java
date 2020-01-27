@@ -155,7 +155,7 @@ public class Event_main extends AppCompatActivity {
                     transaction.commit();
                 }
 
-                else if (String.valueOf(event_spinner.getSelectedItem()).equals("รับเลี้ยงลูก")){
+                else if (String.valueOf(event_spinner.getSelectedItem()).equals("เลี้ยงลูก")){
                     String textbreed = event_spinner.getSelectedItem().toString();
                     Bundle bundle = new Bundle();
                     Adopt_Fragment adopt_fragment = new Adopt_Fragment();

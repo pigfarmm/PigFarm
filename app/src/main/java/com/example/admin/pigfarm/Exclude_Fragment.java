@@ -1,8 +1,10 @@
 package com.example.admin.pigfarm;
 
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -49,11 +51,11 @@ public class Exclude_Fragment extends Fragment {
     ArrayList<String> list = new ArrayList<>();
     ArrayList<String> listItems = new ArrayList<>();
     ArrayAdapter<String> adapter;
-    Spinner spin_noteId08,spin_result08;
+    Spinner spin_noteId08,spin_result08,spin_result09;
     EditText edit_dateNote08, edit_desc08;
     Button btn_flacAct08;
     ImageView img_calNote08;
-    String getamount,m,d,unit_id;
+    String getamount,m,d,unit_id,getmaxeventid;
     Calendar myCalendar = Calendar.getInstance();
 
 
@@ -83,6 +85,7 @@ public class Exclude_Fragment extends Fragment {
 
         spin_noteId08 = getView().findViewById(R.id.spin_noteId08);
         spin_result08 = getView().findViewById(R.id.spin_result08);
+        spin_result09 = getView().findViewById(R.id.spin_result09);
         edit_dateNote08 = getView().findViewById(R.id.edit_dateNote08);
         edit_desc08 = getView().findViewById(R.id.edit_desc08);
         btn_flacAct08 = getView().findViewById(R.id.btn_flacAct08);
@@ -97,6 +100,11 @@ public class Exclude_Fragment extends Fragment {
                 android.R.layout.simple_dropdown_item_1line, eventStr);
         spin_result08.setAdapter(adapterEvent);
 
+        final String[] eventStr2 = getResources().getStringArray(R.array.cause_exclude_event);
+        ArrayAdapter<String> adapterEvent2 = new ArrayAdapter<String>(this.getActivity(),
+                android.R.layout.simple_spinner_dropdown_item, eventStr2);
+        spin_result09.setAdapter(adapterEvent2);
+
         String url = "https://pigaboo.xyz/Query_pigid.php?farm_id="+farm_id+"&unit_id="+unit_id;
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
@@ -106,7 +114,7 @@ public class Exclude_Fragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "Wrong", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "เชื่อมต่อ Server ไม่สำเร็จ", Toast.LENGTH_SHORT).show();
             }
         }
         );
@@ -179,6 +187,7 @@ public class Exclude_Fragment extends Fragment {
             for (int i = 0; i<result3.length(); i++){
                 JSONObject collectData3 = result3.getJSONObject(i);
                 getamount = collectData3.getString("pig_amount_pregnant");
+                getmaxeventid = collectData3.getString("max_eventid");
             }
         }catch (JSONException ex) {
             ex.printStackTrace();
@@ -189,18 +198,40 @@ public class Exclude_Fragment extends Fragment {
         @Override
         protected String doInBackground(String... strings) {
             try{
-                OkHttpClient _okHttpClient = new OkHttpClient();
-                RequestBody _requestBody = new FormBody.Builder()
-                        .add("event_id", "8")
-                        .add("event_recorddate", edit_dateNote08.getText().toString())
-                        .add("pig_id", spin_noteId08.getSelectedItem().toString())
-                        .add("pig_resultofexclude", spin_result08.getSelectedItem().toString())
-                        .add("pig_reasonofexclude", edit_desc08.getText().toString())
-                        .add("pig_amount_pregnant",getamount)
-                        .build();
 
-                Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();
-                _okHttpClient.newCall(_request).execute();
+                if (getmaxeventid.equals("8")){
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
+                            builder1.setCancelable(false);
+                            builder1.setMessage("สุกรตัวนี้ได้ทำการคัดทิ้งไปแล้ว");
+                            builder1.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                            AlertDialog dialog = builder1.create();
+                            dialog.show();
+                        }
+                    });
+                    return "not success";
+                }else{
+                    OkHttpClient _okHttpClient = new OkHttpClient();
+                    RequestBody _requestBody = new FormBody.Builder()
+                            .add("event_id", "8")
+                            .add("event_recorddate", edit_dateNote08.getText().toString())
+                            .add("pig_id", spin_noteId08.getSelectedItem().toString())
+                            .add("pig_resultofexclude", spin_result08.getSelectedItem().toString())
+                            .add("pig_reasonofexclude", spin_result09.getSelectedItem().toString())
+                            .add("pig_amount_pregnant",getamount)
+                            .build();
+
+                    Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();
+                    _okHttpClient.newCall(_request).execute();
+
+                }
                 return "successfully";
 
             }catch(IOException e){
@@ -212,9 +243,9 @@ public class Exclude_Fragment extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            if (result != null){
+            if (result == "successfully"){
                 Toast.makeText(getActivity(), "บันทึกข้อมูลเรียบร้อยแล้ว",Toast.LENGTH_SHORT).show();
-                edit_desc08.setText("");
+
 
             }else {
                 Toast.makeText(getActivity(), "ไม่สามารถบันทึกข้อมูลได้",Toast.LENGTH_SHORT).show();

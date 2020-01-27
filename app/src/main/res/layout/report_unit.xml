@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/thaisansneue_bold"
             android:gravity="center"
-            android:text="ประสิทธิภาพโดยรวม"
+            android:text="เปรียบเทียบยูนิต"
             android:layout_marginTop="3dp"
             android:textColor="#ffffff"
             android:textSize="28sp" />
@@ -105,6 +105,7 @@
             android:layout_marginTop="10dp"
             android:orientation="vertical" >
 
+
             <TextView
                 android:id="@+id/txt_ฺB1"
                 android:text="วันสุดท้าย"
@@ -145,38 +146,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="180dp"
-                    android:layout_marginRight="30dp">
+                    android:layout_marginRight="30dp"
+                    >
 
                 </RelativeLayout>
 
 
             </RelativeLayout>
-
-            <TextView
-                android:id="@+id/txt_B3"
-                android:text="จำนวนช่วง"
-                android:textColor="@color/Colorfont"
-                android:textSize="20sp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="30dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/thaisansneue_bold"/>
-
-            <EditText
-                android:id="@+id/edit_B3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:backgroundTint="@color/Colorfont"
-                android:fontFamily="@font/thaisansneue_bold"
-                android:hint=""
-                android:inputType="number"
-                android:textColor="@color/Colorfont"
-                android:textSize="20sp" />
-
-
 
 
 
@@ -193,56 +169,74 @@
 
 
             <RelativeLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true">
 
                 <EditText
                     android:id="@+id/edit_B2"
-                    android:layout_width="250dp"
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:hint="เริ่ม"
                     android:textSize="20sp"
-                    android:inputType="number"
                     android:textColor="@color/Colorfont"
                     android:fontFamily="@font/thaisansneue_bold"
                     android:backgroundTint="@color/Colorfont"/>
 
-
-                   <Spinner
-                       android:id="@+id/spnlengthtime"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_toRightOf="@id/edit_B2"
-                       android:layout_marginBottom="0dp"
-                       android:layout_marginTop="20dp"/>
+                <Spinner
+                    android:id="@+id/spnlengthtime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/edit_B2"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="-2dp"
+                    android:layout_marginBottom="0dp"/>
 
             </RelativeLayout>
 
-
-            <TextView
-                android:id="@+id/txt_B4"
-                android:text="คอลัมป์สรุป"
-                android:textColor="@color/Colorfont"
-                android:textSize="20sp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="30dp"
+            <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/thaisansneue_bold"/>
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/txt_B3"
+                    android:text="ชื่อยูนิตที่ต้องการเปรียบเทียบ"
+                    android:textColor="@color/Colorfont"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/thaisansneue_bold"/>
+
+                <Button
+                    android:id="@+id/btn_chooseunit"
+                    android:layout_width="300dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:background="#2E8B57"
+                    android:textColor="@color/ColorBox"
+                    android:fontFamily="@font/thaisansneue_bold"
+                    android:layout_below="@+id/txt_B3"
+                    android:text="กดปุ่มเพื่อเลือกยูนิต"
+                    android:textSize="25dp" />
+
+                <TextView
+                    android:id="@+id/txt_showunit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/btn_chooseunit"
+                    android:layout_marginTop="25dp"
+                    android:fontFamily="@font/thaisansneue_bold"
+                    android:layout_centerHorizontal="true"
+                    />
 
 
-           <Spinner
-               android:id="@+id/spnsumcolumn"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_marginLeft="30dp"
-               android:layout_marginTop="15dp"/>
-
-
-
-
+            </RelativeLayout>
 
 
             <Button
@@ -252,9 +246,9 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="50dp"
                 android:background="@color/ColorNavBar"
-                android:textColor="@color/ColorBox"
                 android:fontFamily="@font/thaisansneue_bold"
                 android:text="รายงาน"
+                android:textColor="@color/ColorBox"
                 android:textSize="25dp" />
 
             <TextView
