@@ -141,7 +141,6 @@ public class LoginActivity extends Activity {
 
                 android.app.AlertDialog dialog = builder.create();
                 dialog.show();
-
             }else{
                 for (int i = 0; i<result.length(); i++){
                     JSONObject collectData = result.getJSONObject(i);
@@ -153,6 +152,7 @@ public class LoginActivity extends Activity {
                     farm_name = collectData.getString("farm_name");
                     LoginStatus = collectData.getString("LoginStatus");
 //                String unit_name = collectData.getString("unit_name");
+
 
                     if (LoginStatus.equals("1")){
                         progressbar.dismiss();

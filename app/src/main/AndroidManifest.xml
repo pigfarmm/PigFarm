@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.admin.pigfarm">
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.NFC" />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
-
 
     <application
         android:allowBackup="true"
@@ -19,12 +19,14 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <uses-library
             android:name="org.apache.http.legacy"
-            android:required="false"/>
+            android:required="false" />
+
         <activity
             android:name=".CheckScreen"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -40,74 +42,130 @@
         <activity
             android:name=".Event_main"
             android:screenOrientation="portrait" />
-        <activity android:name=".ManageData_Page.MainActivity_ManageData"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".about_activity"
+        <activity
+            android:name=".ManageData_Page.MainActivity_ManageData"
             android:screenOrientation="portrait" />
-        <activity android:name=".Register"
+        <activity
+            android:name=".about_activity"
             android:screenOrientation="portrait" />
-        <activity android:name=".Report.Report_Home"
+        <activity
+            android:name=".Register"
             android:screenOrientation="portrait" />
-        <activity android:name=".Report.Report_Group"
+        <activity
+            android:name=".Report.Report_Home"
             android:screenOrientation="portrait" />
-        <activity android:name=".Report.Report_Status"
+        <activity
+            android:name=".Report.Report_Group"
             android:screenOrientation="portrait" />
-        <activity android:name=".Report.PigData_Report"
+        <activity
+            android:name=".Report.Report_Status"
             android:screenOrientation="portrait" />
-        <activity android:name=".Report.WebView_Report_Status"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Report.Report_History"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Settings.SettingsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Report.WebView_Report_History"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Report.Report_Main"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Report.Report_Power"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Report.Report_AllPerformance"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Report.WebView_AllPerformance"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ScanActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Report.WebView_BredderDad"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Report.Report_BredderDad"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Report.Report_GroupBredder"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Report.WebView_GroupBredder"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Report.WebView_Exclude"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Report.Report_Exclude"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Settings.AddFarm"
+        <activity
+            android:name=".Report.PigData_Report"
             android:screenOrientation="portrait" />
-        <activity android:name=".Settings.EditFarm"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Settings.EditUnit"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Settings.AddUnit"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Report.Report_piggydead"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Report.WebView_Piggydead"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".BodyAnalyze.CameraAPI"/>
-        <activity android:name=".BodyAnalyze.PictureActivity"/>
-        <activity android:name=".BodyAnalyze.ResultActivity"/>
-        <activity android:name=".BodyAnalyze.InsertBodyActivity"/>
-        <activity android:name=".Report.Report_compareunit"/>
-        <activity android:name=".Report.WebView_CompareUnit"/>
-        <activity android:name=".Report.Report_MomExclude"/>
-        <activity android:name=".Report.WebView_MomExclude"/>
-        <activity android:name=".Report.Report_Breeder"/>
-        <activity android:name=".Report.Report_Momwean"/>
-        <activity android:name=".Report.Report_MomGiveBirth"/>
-        <activity android:name=".Report.Report_MomAbort"/>
+        <activity
+            android:name=".Report.WebView_Report_Status"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Report.Report_History"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Settings.SettingsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Report.WebView_Report_History"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Report.Report_Main"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Report.Report_Power"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Report.Report_AllPerformance"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Report.WebView_AllPerformance"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ScanActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Report.WebView_BredderDad"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Report.Report_BredderDad"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Report.Report_GroupBredder"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Report.WebView_GroupBredder"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Report.WebView_Exclude"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Report.Report_Exclude"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Settings.AddFarm"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Settings.EditFarm"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Settings.EditUnit"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Settings.AddUnit"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Report.Report_piggydead"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Report.WebView_Piggydead"
+            android:screenOrientation="portrait" />
+        <activity android:name=".BodyAnalyze.CameraAPI" />
+        <activity android:name=".BodyAnalyze.PictureActivity" />
+        <activity android:name=".BodyAnalyze.ResultActivity" />
+        <activity android:name=".BodyAnalyze.InsertBodyActivity" />
+        <activity android:name=".Report.Report_compareunit" />
+        <activity android:name=".Report.WebView_CompareUnit"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Report.Report_MomExclude" />
+        <activity android:name=".Report.WebView_MomExclude"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Report.Report_Breeder" />
+        <activity android:name=".Report.Report_Momwean" />
+        <activity android:name=".Report.Report_MomGiveBirth" />
+        <activity android:name=".Report.Report_MomAbort" />
+        <activity android:name=".BodyAnalyze.CameraActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Report.WebView_MomBreed"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Report.WebView_MomWean"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Report.WebView_MomGiveBirth"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Report.WebView_MomAbort"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Report.Report_BreedAfterWean"/>
+        <activity android:name=".Report.WebView_BreedAfterWean"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Report.WebView_CauseExclude"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Report.Report_CauseExclude" />
+        <activity android:name=".TestRecyclerView"/>
+        <activity android:name=".BodyAnalyze.HomeBCS"/>
+        <activity android:name=".BodyAnalyze.CameraActivity2"/>
+        <activity android:name=".BodyAnalyze.PictureActivity2"/>
+        <activity android:name=".BodyAnalyze.ResultActivity2"/>
+        <activity android:name=".Report.Report_BCS"/>
+        <activity
+            android:name=".Settings.MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>

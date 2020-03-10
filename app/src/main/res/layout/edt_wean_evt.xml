@@ -37,6 +37,7 @@
                 android:layout_marginLeft="30dp"
                 android:inputType="date"
                 android:textSize="20sp"
+                android:maxLines="1"
                 android:fontFamily="@font/thaisansneue_regular"
                 android:textColor="@color/Colorfont"
                 android:backgroundTint="@color/Colorfont"/>
@@ -63,6 +64,7 @@
                 android:layout_marginLeft="30dp"
                 android:inputType="date"
                 android:textSize="20sp"
+                android:maxLines="1"
                 android:textColor="@color/Colorfont"
                 android:backgroundTint="@color/Colorfont"/>
 
@@ -93,6 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:textSize="20sp"
+                android:maxLines="1"
                 android:textColor="@color/Colorfont"
                 android:backgroundTint="@color/Colorfont"/>
 
@@ -113,6 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:textSize="20sp"
+                android:maxLines="1"
                 android:textColor="@color/Colorfont"
                 android:backgroundTint="@color/Colorfont"
                 android:inputType="numberDecimal"/>

@@ -42,17 +42,13 @@ public class Report_Status extends AppCompatActivity {
         txt_unit.setText(getunit_name);
         card_dadmom = findViewById(R.id.card_dadmom);
 
-        card_dadmom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Report_Status_a1_Fragment report_status_a1_fragment = new Report_Status_a1_Fragment();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.setCustomAnimations(R.anim.left_to_right, R.anim.right_to_left, R.anim.left_to_right, R.anim.right_to_left);
-                transaction.replace(R.id.report_status_fragment, report_status_a1_fragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
+        Report_Status_a1_Fragment report_status_a1_fragment = new Report_Status_a1_Fragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.left_to_right, R.anim.right_to_left, R.anim.left_to_right, R.anim.right_to_left);
+        transaction.replace(R.id.report_status_fragment, report_status_a1_fragment);
+//        transaction.addToBackStack(null);
+        transaction.commit();
+
 
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override

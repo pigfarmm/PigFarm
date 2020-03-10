@@ -135,6 +135,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:hint=""
+                    android:maxLines="1"
                     android:textSize="20sp"
                     android:textColor="@color/Colorfont"
                     android:fontFamily="@font/thaisansneue_bold"
@@ -179,6 +180,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:hint=""
+                    android:maxLines="1"
                     android:textSize="20sp"
                     android:textColor="@color/Colorfont"
                     android:fontFamily="@font/thaisansneue_bold"
@@ -218,14 +220,14 @@
                 android:layout_centerHorizontal="true"
                 android:background="@color/ColorBox"
                 android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                >
+                android:layout_marginRight="30dp">
 
                 <Spinner
                     android:id="@+id/spin_B3"
-                    android:layout_marginLeft="30dp"
                     android:layout_width="325dp"
                     android:layout_height="45dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
                     android:spinnerMode="dropdown" />
             </RelativeLayout>
 
@@ -248,14 +250,14 @@
                 android:layout_centerHorizontal="true"
                 android:background="@color/ColorBox"
                 android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                >
+                android:layout_marginRight="30dp">
 
                 <Spinner
                     android:id="@+id/spin_B4"
-                    android:layout_marginLeft="30dp"
                     android:layout_width="325dp"
                     android:layout_height="45dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
                     android:spinnerMode="dropdown" />
             </RelativeLayout>
 
@@ -276,61 +278,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
+                android:maxLines="1"
                 android:textSize="20sp"
                 android:textColor="@color/Colorfont"
                 android:backgroundTint="@color/Colorfont"/>
-
-            <TextView
-                android:id="@+id/txt_spinB6"
-                android:text="จำนวนผลสรุปโดย"
-                android:textColor="@color/Colorfont"
-                android:textSize="20sp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="30dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/thaisansneue_bold"/>
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:background="@color/ColorBox"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                >
-
-                <Spinner
-                    android:id="@+id/spin_B6"
-                    android:layout_marginLeft="30dp"
-                    android:layout_width="325dp"
-                    android:layout_height="45dp"
-                    android:spinnerMode="dropdown" />
-            </RelativeLayout>
-
-
-            <TextView
-                android:id="@+id/txt_B7"
-                android:text="การจำแนกจำนวนท้อง"
-                android:textColor="@color/Colorfont"
-                android:textSize="20sp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="30dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/thaisansneue_bold"/>
-
-            <EditText
-                android:id="@+id/edit_B7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:hint="ตัวอย่าง 0..2,3-6,7+"
-                android:layout_marginRight="30dp"
-                android:textSize="20sp"
-                android:textColor="@color/Colorfont"
-                android:backgroundTint="@color/Colorfont"
-                android:fontFamily="@font/thaisansneue_bold"/>
 
 
             <Button
@@ -351,10 +302,6 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/Colorfont"
                 android:textSize="20sp" />
-
-
-
-
 
         </LinearLayout>
     </ScrollView>

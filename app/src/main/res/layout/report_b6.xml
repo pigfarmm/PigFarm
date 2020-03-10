@@ -128,6 +128,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:hint="วันสุดท้าย"
+                    android:maxLines="1"
                     android:textSize="20sp"
                     android:textColor="@color/Colorfont"
                     android:fontFamily="@font/thaisansneue_bold"
@@ -185,6 +186,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"
                         android:textSize="20sp"
+                        android:maxLines="1"
                         android:textColor="@color/Colorfont"
                         android:fontFamily="@font/thaisansneue_bold"
                         android:backgroundTint="@color/Colorfont"/>
@@ -205,151 +207,151 @@
             </RelativeLayout>
 
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="10dp"
-                android:background="@android:color/darker_gray"/>
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:background="@android:color/darker_gray"/>-->
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true">
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerHorizontal="true">-->
 
-            <TextView
-                android:id="@+id/txt_ฺtype"
-                android:text="เลือกประเภทของการจำแนกผล"
-                android:textColor="@color/Colorfont"
-                android:textSize="20sp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/thaisansneue_bold"/>
+            <!--<TextView-->
+                <!--android:id="@+id/txt_ฺtype"-->
+                <!--android:text="เลือกประเภทของการจำแนกผล"-->
+                <!--android:textColor="@color/Colorfont"-->
+                <!--android:textSize="20sp"-->
+                <!--android:layout_marginLeft="30dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:fontFamily="@font/thaisansneue_bold"/>-->
 
-            <Spinner
-                android:id="@+id/select_type_age_piggy"
-                android:layout_width="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_height="30dp"
-                android:layout_below="@+id/txt_ฺtype"
-                android:layout_marginBottom="0dp"
-                android:layout_marginTop="15dp"/>
+            <!--<Spinner-->
+                <!--android:id="@+id/select_type_age_piggy"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_marginLeft="30dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--android:layout_below="@+id/txt_ฺtype"-->
+                <!--android:layout_marginBottom="0dp"-->
+                <!--android:layout_marginTop="15dp"/>-->
 
-            <TextView
-                android:id="@+id/txt_ฺB3"
-                android:text="การจำแนกผลตามอายุลูกหมู"
-                android:textColor="@color/Colorfont"
-                android:textSize="20sp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="10dp"
-                android:layout_below="@+id/select_type_age_piggy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/thaisansneue_bold"/>
-
-
-                <EditText
-                    android:id="@+id/pregnant_edt3_1"
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="35dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_below="@+id/select_type_age_piggy"
-                    android:textSize="20sp"
-                    android:inputType="number"
-                    android:textColor="@color/Colorfont"
-                    android:backgroundTint="@color/Colorfont"
-                    android:fontFamily="@font/thaisansneue_bold"/>
-
-                <TextView
-                    android:id="@+id/txt_to3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="140dp"
-                    android:fontFamily="@font/thaisansneue_bold"
-                    android:layout_toRightOf="@+id/pregnant_edt3_1"
-                    android:text="ถึง"
-                    android:textSize="20sp" />
-
-                <EditText
-                    android:id="@+id/pregnant_edt3_2"
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="35dp"
-                    android:backgroundTint="@color/Colorfont"
-                    android:fontFamily="@font/thaisansneue_bold"
-                    android:layout_toRightOf="@+id/txt_to3"
-                    android:inputType="number"
-                    android:layout_below="@+id/select_type_age_piggy"
-                    android:layout_marginLeft="30dp"
-                    android:textColor="@color/Colorfont"
-                    android:textSize="20sp" />
+            <!--<TextView-->
+                <!--android:id="@+id/txt_ฺB3"-->
+                <!--android:text="การจำแนกผลตามอายุลูกหมู"-->
+                <!--android:textColor="@color/Colorfont"-->
+                <!--android:textSize="20sp"-->
+                <!--android:layout_marginLeft="30dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_below="@+id/select_type_age_piggy"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:fontFamily="@font/thaisansneue_bold"/>-->
 
 
-            <TextView
-                android:id="@+id/txt_ฺB4"
-                android:text="การจำแนกจำนวนท้อง"
-                android:textColor="@color/Colorfont"
-                android:textSize="20sp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_width="wrap_content"
-                android:layout_below="@+id/pregnant_edt3_1"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/thaisansneue_bold"/>
+                <!--<EditText-->
+                    <!--android:id="@+id/pregnant_edt3_1"-->
+                    <!--android:layout_width="130dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="35dp"-->
+                    <!--android:layout_marginLeft="30dp"-->
+                    <!--android:layout_marginRight="30dp"-->
+                    <!--android:layout_below="@+id/select_type_age_piggy"-->
+                    <!--android:textSize="20sp"-->
+                    <!--android:inputType="number"-->
+                    <!--android:textColor="@color/Colorfont"-->
+                    <!--android:backgroundTint="@color/Colorfont"-->
+                    <!--android:fontFamily="@font/thaisansneue_bold"/>-->
 
-                <EditText
-                    android:id="@+id/pregnant_edt4_1"
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginTop="210dp"
-                    android:layout_below="@+id/txt_B4"
-                    android:textSize="20sp"
-                    android:inputType="number"
-                    android:textColor="@color/Colorfont"
-                    android:backgroundTint="@color/Colorfont"
-                    android:fontFamily="@font/thaisansneue_bold"/>
+                <!--<TextView-->
+                    <!--android:id="@+id/txt_to3"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_centerHorizontal="true"-->
+                    <!--android:layout_marginTop="140dp"-->
+                    <!--android:fontFamily="@font/thaisansneue_bold"-->
+                    <!--android:layout_toRightOf="@+id/pregnant_edt3_1"-->
+                    <!--android:text="ถึง"-->
+                    <!--android:textSize="20sp" />-->
 
-                <TextView
-                    android:id="@+id/txt_to4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/thaisansneue_bold"
-                    android:layout_toRightOf="@+id/pregnant_edt4_1"
-                    android:text="ถึง"
-                    android:textSize="20sp" />
-
-                <EditText
-                    android:id="@+id/pregnant_edt4_2"
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/Colorfont"
-                    android:fontFamily="@font/thaisansneue_bold"
-                    android:layout_toRightOf="@+id/txt_to4"
-                    android:inputType="number"
-                    android:layout_below="@+id/txt_B4"
-                    android:layout_marginTop="210dp"
-                    android:layout_marginLeft="30dp"
-                    android:textColor="@color/Colorfont"
-                    android:textSize="20sp" />
+                <!--<EditText-->
+                    <!--android:id="@+id/pregnant_edt3_2"-->
+                    <!--android:layout_width="130dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="35dp"-->
+                    <!--android:backgroundTint="@color/Colorfont"-->
+                    <!--android:fontFamily="@font/thaisansneue_bold"-->
+                    <!--android:layout_toRightOf="@+id/txt_to3"-->
+                    <!--android:inputType="number"-->
+                    <!--android:layout_below="@+id/select_type_age_piggy"-->
+                    <!--android:layout_marginLeft="30dp"-->
+                    <!--android:textColor="@color/Colorfont"-->
+                    <!--android:textSize="20sp" />-->
 
 
+            <!--<TextView-->
+                <!--android:id="@+id/txt_ฺB4"-->
+                <!--android:text="การจำแนกจำนวนท้อง"-->
+                <!--android:textColor="@color/Colorfont"-->
+                <!--android:textSize="20sp"-->
+                <!--android:layout_marginLeft="30dp"-->
+                <!--android:layout_marginTop="20dp"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_below="@+id/pregnant_edt3_1"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:fontFamily="@font/thaisansneue_bold"/>-->
+
+                <!--<EditText-->
+                    <!--android:id="@+id/pregnant_edt4_1"-->
+                    <!--android:layout_width="130dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="30dp"-->
+                    <!--android:layout_marginRight="30dp"-->
+                    <!--android:layout_marginTop="210dp"-->
+                    <!--android:layout_below="@+id/txt_B4"-->
+                    <!--android:textSize="20sp"-->
+                    <!--android:inputType="number"-->
+                    <!--android:textColor="@color/Colorfont"-->
+                    <!--android:backgroundTint="@color/Colorfont"-->
+                    <!--android:fontFamily="@font/thaisansneue_bold"/>-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/txt_to4"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentBottom="true"-->
+                    <!--android:layout_centerHorizontal="true"-->
+                    <!--android:fontFamily="@font/thaisansneue_bold"-->
+                    <!--android:layout_toRightOf="@+id/pregnant_edt4_1"-->
+                    <!--android:text="ถึง"-->
+                    <!--android:textSize="20sp" />-->
+
+                <!--<EditText-->
+                    <!--android:id="@+id/pregnant_edt4_2"-->
+                    <!--android:layout_width="130dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:backgroundTint="@color/Colorfont"-->
+                    <!--android:fontFamily="@font/thaisansneue_bold"-->
+                    <!--android:layout_toRightOf="@+id/txt_to4"-->
+                    <!--android:inputType="number"-->
+                    <!--android:layout_below="@+id/txt_B4"-->
+                    <!--android:layout_marginTop="210dp"-->
+                    <!--android:layout_marginLeft="30dp"-->
+                    <!--android:textColor="@color/Colorfont"-->
+                    <!--android:textSize="20sp" />-->
 
 
-            </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="10dp"
-                android:background="@android:color/darker_gray"/>
+
+            <!--</RelativeLayout>-->
+
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:background="@android:color/darker_gray"/>-->
 
             <TextView
                 android:id="@+id/txt_ฺB5"
@@ -369,6 +371,7 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:textSize="20sp"
+                android:maxLines="1"
                 android:textColor="@color/Colorfont"
                 android:backgroundTint="@color/Colorfont"
                 android:fontFamily="@font/thaisansneue_bold"/>

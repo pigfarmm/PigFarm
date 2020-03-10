@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.admin.pigfarm.Home;
 import com.example.admin.pigfarm.R;
 
 public class Report_Main extends AppCompatActivity {
@@ -27,6 +28,7 @@ public class Report_Main extends AppCompatActivity {
         img_back = findViewById(R.id.img_back);
         txt_farm = findViewById(R.id.txt_farm);
         txt_unit = findViewById(R.id.txt_unit);
+        img_back = findViewById(R.id.img_back);
 
         SharedPreferences farm = getSharedPreferences("Farm", Context.MODE_PRIVATE);
         getfarm_name = farm.getString("farm_name", "");
@@ -37,6 +39,14 @@ public class Report_Main extends AppCompatActivity {
 
         status_pig = findViewById(R.id.status_pig);
         power_pig = findViewById(R.id.power_pig);
+
+        img_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Report_Main.this, Home.class);
+                startActivity(intent);
+            }
+        });
 
         status_pig.setOnClickListener(new View.OnClickListener() {
             @Override

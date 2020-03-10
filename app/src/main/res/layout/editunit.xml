@@ -64,6 +64,7 @@
                 android:textSize="20dp"
                 android:fontFamily="@font/thaisansneue_regular"
                 android:textColor="@color/Colorfont"
+                android:maxLines="1"
                 android:backgroundTint="@color/Colorfont"/>
 
 

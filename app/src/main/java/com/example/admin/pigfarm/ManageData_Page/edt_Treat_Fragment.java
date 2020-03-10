@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -44,6 +45,7 @@ public class edt_Treat_Fragment extends Fragment {
     ArrayList<String> listItemsDad = new ArrayList<>();
     private String finalResult;
     ProgressDialog progressDialog;
+    Spinner spin_drugId01;
     private HttpParse httpParse = new HttpParse();
     ArrayAdapter<String> adapter;
     Calendar myCalendar = Calendar.getInstance();
@@ -74,6 +76,12 @@ public class edt_Treat_Fragment extends Fragment {
         edit_msg19 = getView().findViewById(R.id.edit_msg19);
         btn_flacAct19 = getView().findViewById(R.id.btn_flacAct19);
         img_calNote19 = getView().findViewById(R.id.img_calNote19);
+        spin_drugId01 = getView().findViewById(R.id.spin_drugId01);
+
+        final String[] eventStr = getResources().getStringArray(R.array.treat_event);
+        ArrayAdapter<String> adapterEvent = new ArrayAdapter<String>(this.getActivity(),
+                android.R.layout.simple_dropdown_item_1line, eventStr);
+        spin_drugId01.setAdapter(adapterEvent);
 
         img_calNote19.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,7 +166,7 @@ public class edt_Treat_Fragment extends Fragment {
 
     private void GetDataFromEditText() {
         event_recorddate = edit_dateNote19.getText().toString();
-        drug_group = edit_drugG19.getText().toString();
+        drug_group = spin_drugId01.getSelectedItem().toString();
         note = edit_msg19.getText().toString();
 
     }

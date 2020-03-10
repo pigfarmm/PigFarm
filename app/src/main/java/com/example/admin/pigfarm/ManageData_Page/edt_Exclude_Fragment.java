@@ -39,7 +39,7 @@ public class edt_Exclude_Fragment extends Fragment {
 
     String get_detail_id,getfarm_id,event_recorddate,event_name,pig_resultofexclude,pig_reasonofexclude,getunit_id;
     EditText edit_eventname,edit_dateNote08,edit_desc08;
-    Spinner spin_result08;
+    Spinner spin_result08,spin_result09;
     Button btn_flacAct08;
     ImageView img_calNote08;
     ArrayList<String> listDad = new ArrayList<>();
@@ -72,15 +72,20 @@ public class edt_Exclude_Fragment extends Fragment {
 
         edit_eventname = getView().findViewById(R.id.edit_eventname);
         edit_dateNote08 = getView().findViewById(R.id.edit_dateNote08);
-        edit_desc08 = getView().findViewById(R.id.edit_desc08);
         btn_flacAct08 = getView().findViewById(R.id.btn_flacAct08);
         img_calNote08 = getView().findViewById(R.id.img_calNote08);
         spin_result08 = getView().findViewById(R.id.spin_result08);
+        spin_result09 = getView().findViewById(R.id.spin_result09);
 
         final String[] eventStr = getResources().getStringArray(R.array.exclude_event);
         ArrayAdapter<String> adapterEvent = new ArrayAdapter<String>(this.getActivity(),
                 android.R.layout.simple_dropdown_item_1line, eventStr);
         spin_result08.setAdapter(adapterEvent);
+
+        final String[] eventStr2 = getResources().getStringArray(R.array.cause_exclude_event);
+        ArrayAdapter<String> adapterEvent2 = new ArrayAdapter<String>(this.getActivity(),
+                android.R.layout.simple_spinner_dropdown_item, eventStr2);
+        spin_result09.setAdapter(adapterEvent2);
 
         img_calNote08.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,7 +169,7 @@ public class edt_Exclude_Fragment extends Fragment {
 
     private void GetDataFromEditText() {
         event_recorddate = edit_dateNote08.getText().toString();
-        pig_reasonofexclude = edit_desc08.getText().toString();
+        pig_reasonofexclude = spin_result09.getSelectedItem().toString();
         pig_resultofexclude = spin_result08.getSelectedItem().toString();
     }
 

@@ -128,6 +128,7 @@
                     android:layout_marginLeft="30dp"
                     android:hint="วันสุดท้าย"
                     android:textSize="20sp"
+                    android:maxLines="1"
                     android:textColor="@color/Colorfont"
                     android:fontFamily="@font/thaisansneue_bold"
                     android:backgroundTint="@color/Colorfont"/>
@@ -178,9 +179,9 @@
                     android:layout_width="230dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
-                    android:hint="กรอกตัวเลขจำนวนวัน"
                     android:textSize="20sp"
                     android:inputType="number"
+                    android:maxLines="1"
                     android:textColor="@color/Colorfont"
                     android:fontFamily="@font/thaisansneue_bold"
                     android:backgroundTint="@color/Colorfont"/>

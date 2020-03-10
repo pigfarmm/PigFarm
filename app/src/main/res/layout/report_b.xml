@@ -118,7 +118,7 @@
                     android:layout_width="70dp"
                     android:layout_height="48dp"
                     android:layout_marginLeft="20dp"
-                    android:src="@drawable/a4" />
+                    android:src="@drawable/b_report" />
 
                 <TextView
                     android:id="@+id/txt_IDb1"
@@ -156,7 +156,7 @@
                                 android:layout_width="70dp"
                                 android:layout_height="48dp"
                                 android:layout_marginLeft="20dp"
-                                android:src="@drawable/a4" />
+                                android:src="@drawable/b_report" />
 
                             <TextView
                                 android:id="@+id/txt_b2"
@@ -194,7 +194,7 @@
                     android:layout_width="70dp"
                     android:layout_height="48dp"
                     android:layout_marginLeft="20dp"
-                    android:src="@drawable/a4" />
+                    android:src="@drawable/b_report" />
 
                 <TextView
                     android:id="@+id/txt_b3"
@@ -210,6 +210,44 @@
 
                 <ImageView
                     android:id="@+id/img_arw3"
+                    android:layout_marginTop="12dp"
+                    android:layout_width="35dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/arow_right" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_b3_1"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/ColorBackground"
+                card_view:cardBackgroundColor="#ffff">
+
+                <ImageView
+                    android:id="@+id/img_b3_1"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="70dp"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/b_report" />
+
+                <TextView
+                    android:id="@+id/txt_b3_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/card_about"
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/thaisansneue_bold"
+                    android:text="วิเคราะห์ผสมหลังหย่านม"
+                    android:textColor="#808080"
+                    android:textSize="24sp" />
+
+                <ImageView
+                    android:id="@+id/img_arw3_1"
                     android:layout_marginTop="12dp"
                     android:layout_width="35dp"
                     android:layout_height="40dp"
@@ -233,7 +271,7 @@
                     android:layout_width="70dp"
                     android:layout_height="48dp"
                     android:layout_marginLeft="20dp"
-                    android:src="@drawable/a4" />
+                    android:src="@drawable/b_report" />
 
                 <TextView
                     android:id="@+id/txt_IDb4"
@@ -243,7 +281,7 @@
                     android:layout_marginLeft="100dp"
                     android:layout_marginTop="2dp"
                     android:fontFamily="@font/thaisansneue_bold"
-                    android:text="รายงานหุ่นแม่พันธุ์ (report_b4)"
+                    android:text="รายงานหุ่นแม่พันธุ์"
                     android:textColor="#808080"
                     android:textSize="24sp" />
 
@@ -272,7 +310,7 @@
                     android:layout_width="70dp"
                     android:layout_height="48dp"
                     android:layout_marginLeft="20dp"
-                    android:src="@drawable/a4" />
+                    android:src="@drawable/b_report" />
 
                 <TextView
                     android:id="@+id/txt_IDb5"
@@ -297,6 +335,45 @@
 
             </android.support.v7.widget.CardView>
 
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_b5_1"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/ColorBackground"
+                card_view:cardBackgroundColor="#ffff">
+
+                <ImageView
+                    android:id="@+id/img_b5_1"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="70dp"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/b_report" />
+
+                <TextView
+                    android:id="@+id/txt_IDb5_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/card_about"
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/thaisansneue_bold"
+                    android:text="สาเหตุการคัดทิ้ง"
+                    android:textColor="#808080"
+                    android:textSize="24sp" />
+
+                <ImageView
+                    android:id="@+id/img_arw5_1"
+                    android:layout_marginTop="12dp"
+                    android:layout_width="35dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/arow_right" />
+
+            </android.support.v7.widget.CardView>
+
 
             <android.support.v7.widget.CardView
                 android:id="@+id/card_b6"
@@ -312,7 +389,7 @@
                     android:layout_width="70dp"
                     android:layout_height="48dp"
                     android:layout_marginLeft="20dp"
-                    android:src="@drawable/a4" />
+                    android:src="@drawable/b_report" />
 
                 <TextView
                     android:id="@+id/txt_IDb6"
@@ -351,7 +428,7 @@
                     android:layout_width="70dp"
                     android:layout_height="48dp"
                     android:layout_marginLeft="20dp"
-                    android:src="@drawable/a4" />
+                    android:src="@drawable/b_report" />
 
                 <TextView
                     android:id="@+id/txt_IDb12"
@@ -391,7 +468,7 @@
                     android:layout_width="70dp"
                     android:layout_height="48dp"
                     android:layout_marginLeft="20dp"
-                    android:src="@drawable/a4" />
+                    android:src="@drawable/b_report" />
 
                 <TextView
                     android:id="@+id/txt_IDb7"
@@ -430,7 +507,7 @@
                     android:layout_width="70dp"
                     android:layout_height="48dp"
                     android:layout_marginLeft="20dp"
-                    android:src="@drawable/a4" />
+                    android:src="@drawable/b_report" />
 
                 <TextView
                     android:id="@+id/txt_IDb8"
@@ -469,7 +546,7 @@
                     android:layout_width="70dp"
                     android:layout_height="48dp"
                     android:layout_marginLeft="20dp"
-                    android:src="@drawable/a4" />
+                    android:src="@drawable/b_report" />
 
                 <TextView
                     android:id="@+id/txt_IDb9"
@@ -508,7 +585,7 @@
                     android:layout_width="70dp"
                     android:layout_height="48dp"
                     android:layout_marginLeft="20dp"
-                    android:src="@drawable/a4" />
+                    android:src="@drawable/b_report" />
 
                 <TextView
                     android:id="@+id/txt_IDb10"
@@ -547,7 +624,7 @@
                     android:layout_width="70dp"
                     android:layout_height="48dp"
                     android:layout_marginLeft="20dp"
-                    android:src="@drawable/a4" />
+                    android:src="@drawable/b_report" />
 
                 <TextView
                     android:id="@+id/txt_IDb11"

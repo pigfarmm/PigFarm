@@ -304,7 +304,7 @@ public class Breed_Fragment extends Fragment {
 
             for (int i = 0; i<result3.length(); i++){
                 JSONObject collectData3 = result3.getJSONObject(i);
-                if (collectData3.getString("pig_amount_pregnant") == "null"){
+                if (collectData3.getString("pig_amount_pregnant") == null){
                     getamount = "0";
                 }else{
                     getamount = collectData3.getString("pig_amount_pregnant");
@@ -351,7 +351,7 @@ public class Breed_Fragment extends Fragment {
                     );
                     return null;
                 }
-                if (!getmaxeventid.equals("6") && !getmaxeventid.equals("1") && !getmaxeventid.equals("null")){
+                if (!getmaxeventid.equals("6") && !getmaxeventid.equals("1") && !getmaxeventid.equals("null") && !getmaxeventid.equals("3")){
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

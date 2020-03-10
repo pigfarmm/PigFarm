@@ -21,6 +21,7 @@
             android:fontFamily="@font/thaisansneue_bold"
             android:gravity="center"
             android:text="เพิ่มยูนิต"
+            android:maxLines="1"
             android:textColor="#ffffff"
             android:textSize="28sp" />
 

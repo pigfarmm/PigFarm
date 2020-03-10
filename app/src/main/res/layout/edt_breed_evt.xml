@@ -40,6 +40,7 @@
                     android:layout_alignParentTop="true"
                     android:backgroundTint="@color/Colorfont"
                     android:enabled="false"
+                    android:maxLines="1"
                     android:fontFamily="@font/thaisansneue_regular"
                     android:textColor="@color/Colorfont"
                     android:textSize="20sp" />
@@ -70,6 +71,7 @@
                     android:backgroundTint="@color/Colorfont"
                     android:fontFamily="@font/thaisansneue_regular"
                     android:inputType="date"
+                    android:maxLines="1"
                     android:textColor="@color/Colorfont"
                     android:textSize="20sp" />
 

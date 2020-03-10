@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/ColorBackground"
     android:orientation="vertical">
 
 
@@ -26,6 +27,7 @@
         android:layout_marginTop="10dp"
         android:layout_width="230dp"
         android:layout_marginRight="30dp"
+        android:maxLines="1"
         android:textColor="@color/Colorfont"
         android:backgroundTint="@color/Colorfont"
         android:inputType="text"/>
@@ -49,6 +51,7 @@
         android:layout_width="230dp"
         android:layout_marginRight="30dp"
         android:textColor="@color/Colorfont"
+        android:maxLines="1"
         android:backgroundTint="@color/Colorfont"
         android:inputType="date"
         android:layout_below="@+id/edit_earID"/>
@@ -72,6 +75,7 @@
         android:layout_width="230dp"
         android:layout_marginRight="30dp"
         android:textColor="@color/Colorfont"
+        android:maxLines="1"
         android:backgroundTint="@color/Colorfont"
         android:layout_below="@id/edit_new"
         android:inputType="date"/>
@@ -95,6 +99,7 @@
         android:layout_width="230dp"
         android:layout_marginRight="30dp"
         android:textColor="@color/Colorfont"
+        android:maxLines="1"
         android:backgroundTint="@color/Colorfont"
         android:layout_below="@id/edit_bd"/>
 
@@ -117,6 +122,7 @@
         android:layout_width="230dp"
         android:layout_marginRight="30dp"
         android:textColor="@color/Colorfont"
+        android:maxLines="1"
         android:backgroundTint="@color/Colorfont"
         android:layout_below="@id/edit_gene" />
 
@@ -139,6 +145,7 @@
         android:layout_width="230dp"
         android:layout_marginRight="30dp"
         android:textColor="@color/Colorfont"
+        android:maxLines="1"
         android:backgroundTint="@color/Colorfont"
         android:layout_below="@id/edit_dadNo" />
 
@@ -161,6 +168,7 @@
         android:layout_width="230dp"
         android:layout_marginRight="30dp"
         android:textColor="@color/Colorfont"
+        android:maxLines="1"
         android:backgroundTint="@color/Colorfont"
         android:layout_below="@id/edit_momNo" />
 
@@ -184,6 +192,7 @@
         android:layout_marginRight="30dp"
         android:textColor="@color/Colorfont"
         android:backgroundTint="@color/Colorfont"
+        android:maxLines="1"
         android:layout_below="@id/edit_location" />
 
     <TextView
@@ -206,6 +215,7 @@
         android:layout_marginRight="30dp"
         android:textColor="@color/Colorfont"
         android:backgroundTint="@color/Colorfont"
+        android:maxLines="1"
         android:layout_below="@id/edit_spareID" />
 
         <Button

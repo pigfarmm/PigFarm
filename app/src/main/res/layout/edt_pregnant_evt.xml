@@ -35,6 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:inputType="date"
+                android:maxLines="1"
                 android:textSize="20sp"
                 android:fontFamily="@font/thaisansneue_regular"
                 android:textColor="@color/Colorfont"
@@ -57,10 +58,11 @@
 
             <EditText
                 android:id="@+id/edit_dateNote03"
-                android:layout_width="325dp"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:inputType="date"
+                android:maxLines="1"
                 android:textSize="20sp"
                 android:fontFamily="@font/thaisansneue_regular"
                 android:textColor="@color/Colorfont"
@@ -92,6 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:textSize="20sp"
+                android:maxLines="1"
                 android:fontFamily="@font/thaisansneue_regular"
                 android:textColor="@color/Colorfont"
                 android:backgroundTint="@color/Colorfont"/>

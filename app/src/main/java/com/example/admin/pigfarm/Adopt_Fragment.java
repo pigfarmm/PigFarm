@@ -1,14 +1,17 @@
 package com.example.admin.pigfarm;
 
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +57,7 @@ public class Adopt_Fragment extends Fragment {
     Button btn_flacAct07;
     ImageView img_calNote07;
     Calendar myCalendar = Calendar.getInstance();
-    String m,d,unit_id;
+    String m,d,unit_id,getmaxeventid;
 
     public Adopt_Fragment() {
     }
@@ -109,7 +112,24 @@ public class Adopt_Fragment extends Fragment {
         btn_flacAct07.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new InsertAsyn().execute("https://pigaboo.xyz/Insert_EventAdopt.php");
+                String url4 = "https://pigaboo.xyz/Query_AmountPregnantById.php?farm_id=" + farm_id+"&pig_id="+spin_noteId07.getSelectedItem().toString();
+                StringRequest stringRequest = new StringRequest(url4, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        QueryMaxID(response);
+                        new InsertAsyn().execute("https://pigaboo.xyz/Insert_EventAdopt.php");
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getActivity(), "ไม่สามารถดึงข้อมูลได้", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                );
+                RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+                requestQueue.add(stringRequest);
+
+
         }
         });
 
@@ -119,6 +139,29 @@ public class Adopt_Fragment extends Fragment {
                 showDatePickerDialog();
             }
         });
+    }
+
+    private void QueryMaxID(String response) {
+        try {
+            JSONObject jsonObject3 = new JSONObject(response);
+            JSONArray result3 = jsonObject3.getJSONArray("result");
+
+            for (int i = 0; i<result3.length(); i++){
+                JSONObject collectData3 = result3.getJSONObject(i);
+
+                if (collectData3.getString("max_eventid") == null){
+                    getmaxeventid = "0";
+                    Log.d("ev_id",getmaxeventid);
+                }else{
+                    getmaxeventid = collectData3.getString("max_eventid");
+                    Log.d("ev_id",getmaxeventid);
+                }
+
+
+            }
+        }catch (JSONException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public void showDatePickerDialog(){
@@ -153,17 +196,39 @@ public class Adopt_Fragment extends Fragment {
         @Override
         protected String doInBackground(String... strings) {
             try{
-                OkHttpClient _okHttpClient = new OkHttpClient();
-                RequestBody _requestBody = new FormBody.Builder()
-                        .add("event_id", "7")
-                        .add("event_recorddate", edit_dateNote07.getText().toString())
-                        .add("pig_id", spin_noteId07.getSelectedItem().toString())
-                        .add("pig_amountofentrustment", edit_numbaby07.getText().toString())  //ฝากเลี้ยงลูก
-                        .build();
 
-                Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();
-                _okHttpClient.newCall(_request).execute();
-                return "successfully";
+                if (!getmaxeventid.equals("4") || getmaxeventid.equals("0")){
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
+                            builder1.setCancelable(false);
+                            builder1.setMessage("เหตุการณ์ล่าสุดไม่ใช่เหตุการณ์คลอด");
+                            builder1.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                            AlertDialog dialog = builder1.create();
+                            dialog.show();
+                        }
+                    });
+                    return "not success";
+                }else{
+                    OkHttpClient _okHttpClient = new OkHttpClient();
+                    RequestBody _requestBody = new FormBody.Builder()
+                            .add("event_id", "7")
+                            .add("event_recorddate", edit_dateNote07.getText().toString())
+                            .add("pig_id", spin_noteId07.getSelectedItem().toString())
+                            .add("pig_amountofentrustment", edit_numbaby07.getText().toString())  //ฝากเลี้ยงลูก
+                            .build();
+
+                    Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();
+                    _okHttpClient.newCall(_request).execute();
+                    return "successfully";
+                }
+
 
             }catch(IOException e){
                 e.printStackTrace();
@@ -174,7 +239,7 @@ public class Adopt_Fragment extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            if (result != null){
+            if (result == "successfully"){
                 Toast.makeText(getActivity(), "บันทึกข้อมูลเรียบร้อยแล้ว",Toast.LENGTH_SHORT).show();
                 edit_numbaby07.setText("");
 

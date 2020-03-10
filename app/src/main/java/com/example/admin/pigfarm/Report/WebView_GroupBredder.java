@@ -32,7 +32,7 @@ import java.net.URLEncoder;
 
 public class WebView_GroupBredder extends AppCompatActivity {
 
-    String farm_id,last_day,ip_number,ip_type , showtype,start,end;
+    String farm_id,last_day,ip_number,ip_type,showtype,start,end;
     private WebView webview;
     ProgressDialog pDialog;
     String pdffile,pig_id,unit_id,unit_name;

@@ -39,10 +39,11 @@
                 android:layout_marginLeft="30dp"
                 android:textSize="20sp"
                 android:maxLines="1"
-                android:inputType="text"
                 android:fontFamily="@font/thaisansneue_regular"
                 android:textColor="@color/Colorfont"
-                android:backgroundTint="@color/Colorfont" />
+                android:backgroundTint="@color/Colorfont"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890_"
+                android:inputType="textFilter"/>
 
                 <ImageView
                     android:id="@+id/img_qr3"
@@ -75,7 +76,9 @@
                 android:maxLines="1"
                 android:fontFamily="@font/thaisansneue_regular"
                 android:textColor="@color/Colorfont"
-                android:backgroundTint="@color/Colorfont"/>
+                android:backgroundTint="@color/Colorfont"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890_"
+                android:inputType="textFilter"/>
 
             <TextView
                 android:id="@+id/txt_opendate2"
@@ -172,7 +175,9 @@
                 android:fontFamily="@font/thaisansneue_regular"
                 android:maxLines="1"
                 android:textColor="@color/Colorfont"
-                android:backgroundTint="@color/Colorfont"/>
+                android:backgroundTint="@color/Colorfont"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890_"
+                android:inputType="textFilter"/>
 
             <TextView
                 android:id="@+id/txt_dadId2"
@@ -194,7 +199,9 @@
                 android:fontFamily="@font/thaisansneue_regular"
                 android:textColor="@color/Colorfont"
                 android:maxLines="1"
-                android:backgroundTint="@color/Colorfont"/>
+                android:backgroundTint="@color/Colorfont"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890_"
+                android:inputType="textFilter"/>
 
 
             <TextView
@@ -216,7 +223,10 @@
                 android:textSize="20sp"
                 android:fontFamily="@font/thaisansneue_regular"
                 android:textColor="@color/Colorfont"
-                android:backgroundTint="@color/Colorfont"/>
+                android:maxLines="1"
+                android:backgroundTint="@color/Colorfont"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890_"
+                android:inputType="textFilter"/>
 
             <TextView
                 android:id="@+id/txt_farm2"
@@ -260,7 +270,9 @@
                 android:textSize="20sp"
                 android:fontFamily="@font/thaisansneue_regular"
                 android:textColor="@color/Colorfont"
-                android:backgroundTint="@color/Colorfont"/>
+                android:backgroundTint="@color/Colorfont"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890_"
+                android:inputType="textFilter"/>
 
             <Button
                 android:id="@+id/btn_saveBio2"

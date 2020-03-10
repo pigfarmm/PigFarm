@@ -45,7 +45,7 @@ public class PigData_Report extends AppCompatActivity {
     String farm_id,unit_id;
     private WebView webview;
     ProgressDialog pDialog;
-    String pdffile,getstart_date,getend_date,unit_name;
+    String pdffile,ip_number,ip_type,unit_name,showtype;
     SwipeRefreshLayout mySwipeRefreshLayout;
     CardView download;
     PDFView p;
@@ -70,17 +70,27 @@ public class PigData_Report extends AppCompatActivity {
 
         Intent intent = getIntent();
         pdffile = intent.getStringExtra("url");
-        getstart_date = intent.getStringExtra("start_date");
-        getend_date = intent.getStringExtra("end_date");
+        ip_number = intent.getStringExtra("ip_number");
+        ip_type = intent.getStringExtra("ip_type");
+
+        if(ip_type.equals("วัน")){
+            showtype = "DAY";
+        }else if(ip_type.equals("เดือน")){
+            showtype = "MONTH";
+        }else if(ip_type.equals("ปี")){
+            showtype = "YEAR";
+        }else if(ip_type.equals("สัปดาห์")){
+            showtype = "WEEK";
+        }
 
 
         buffer=new StringBuffer(pdffile);
         buffer.append("?");
         buffer.append(("farm_id=")+farm_id);
         buffer.append(("&unit_id=")+unit_id);
-        buffer.append(("&start_date=")+getstart_date);
-        buffer.append(("&end_date=")+getend_date);
-        buffer.append(("&unit_name=")+unit_name);
+        buffer.append(("&ip_number=")+ip_number);
+        buffer.append(("&ip_type=")+showtype);
+//        buffer.append(("&unit_name=")+unit_name);
 
         new ShowPDF().execute();
         Log.d("show url" ,buffer.toString());

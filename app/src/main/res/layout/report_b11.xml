@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/thaisansneue_bold"
             android:gravity="center"
-            android:text="แม่พันธุ์ที่แท้งลูก"
+            android:text="แม่พันธุ์ที่แท้ง"
             android:layout_marginTop="3dp"
             android:textColor="#ffffff"
             android:textSize="28sp" />
@@ -92,6 +92,13 @@
     </android.support.v7.widget.CardView>
     <!--endNavBar-->
 
+
+
+
+
+
+
+
     <ScrollView android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -104,6 +111,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
             android:orientation="vertical" >
+
 
             <TextView
                 android:id="@+id/txt_ฺB1"
@@ -129,6 +137,7 @@
                     android:hint="วันสุดท้าย"
                     android:textSize="20sp"
                     android:textColor="@color/Colorfont"
+                    android:maxLines="1"
                     android:fontFamily="@font/thaisansneue_bold"
                     android:backgroundTint="@color/Colorfont"/>
 
@@ -172,60 +181,45 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true">
 
-                <EditText
-                    android:id="@+id/edit_B2"
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:hint="เริ่ม"
-                    android:textSize="20sp"
-                    android:textColor="@color/Colorfont"
-                    android:fontFamily="@font/thaisansneue_bold"
-                    android:backgroundTint="@color/Colorfont"/>
-
-                <ImageView
-                    android:id="@+id/img_B2"
-                    android:layout_width="30dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_height="35dp"
-                    android:layout_toRightOf="@+id/edit_B2"
-                    android:src="@drawable/calendar" />
-
-
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="180dp"
-                    android:layout_marginRight="30dp"
-                    >
+                    android:layout_centerHorizontal="true">
 
                     <EditText
-                        android:id="@+id/edit_B2_2"
-                        android:layout_width="130dp"
+                        android:id="@+id/edit_B2"
+                        android:layout_width="230dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"
-                        android:hint="สิ้นสุด"
+                        android:hint="เริ่ม"
                         android:textSize="20sp"
+                        android:maxLines="1"
                         android:textColor="@color/Colorfont"
                         android:fontFamily="@font/thaisansneue_bold"
                         android:backgroundTint="@color/Colorfont"/>
 
-                    <ImageView
-                        android:id="@+id/img_B2_2"
-                        android:layout_width="30dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_height="35dp"
-                        android:layout_toRightOf="@+id/edit_B2_2"
-                        android:src="@drawable/calendar" />
+                    <Spinner
+                        android:id="@+id/spnlengthtime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/edit_B2"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="-2dp"
+                        android:layout_marginBottom="0dp"/>
 
                 </RelativeLayout>
 
 
             </RelativeLayout>
 
+
+
+
+
             <TextView
-                android:id="@+id/txt_B3"
-                android:text="การจำแนกลำดับท้อง"
+                android:id="@+id/txt_ฺB4"
+                android:text="การจำแนกจำนวนท้อง"
                 android:textColor="@color/Colorfont"
                 android:textSize="20sp"
                 android:layout_marginLeft="30dp"
@@ -234,20 +228,66 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/thaisansneue_bold"/>
 
-            <EditText
-                android:id="@+id/edit_B3"
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:hint="ตัวอย่าง 0..2,3-6,7+"
-                android:layout_marginRight="30dp"
-                android:textSize="20sp"
-                android:textColor="@color/Colorfont"
-                android:backgroundTint="@color/Colorfont"
-                android:fontFamily="@font/thaisansneue_bold"/>
+                android:layout_centerHorizontal="true">
+
+                <Spinner
+                    android:id="@+id/select_type_b4"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/txt_B3"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginTop="20dp"/>
+
+                <EditText
+                    android:id="@+id/pregnant_edt4_1"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:hint="กรอกจำนวนท้อง"
+                    android:layout_marginRight="30dp"
+                    android:layout_below="@+id/select_type_b4"
+                    android:textSize="20sp"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:textColor="@color/Colorfont"
+                    android:backgroundTint="@color/Colorfont"
+                    android:fontFamily="@font/thaisansneue_bold"/>
+
+                <TextView
+                    android:id="@+id/txt_to4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/thaisansneue_bold"
+                    android:layout_toRightOf="@+id/pregnant_edt4_1"
+                    android:text="ถึง"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/pregnant_edt4_2"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/Colorfont"
+                    android:fontFamily="@font/thaisansneue_bold"
+                    android:hint="กรอกจำนวนท้อง"
+                    android:layout_toRightOf="@+id/txt_to4"
+                    android:inputType="number"
+                    android:layout_below="@+id/select_type_b4"
+                    android:layout_marginLeft="30dp"
+                    android:maxLines="1"
+                    android:textColor="@color/Colorfont"
+                    android:textSize="20sp" />
+
+            </RelativeLayout>
+
 
             <TextView
-                android:id="@+id/txt_spinB4"
+                android:id="@+id/txt_spinB6"
                 android:text="ต้องการรายงานแม่แท้ง"
                 android:textColor="@color/Colorfont"
                 android:textSize="20sp"
@@ -261,16 +301,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:background="@color/ColorBox"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                >
+                android:background="@color/ColorBox">
 
                 <Spinner
-                    android:id="@+id/spin_B4"
-                    android:layout_marginLeft="30dp"
-                    android:layout_width="325dp"
+                    android:id="@+id/spin_B1"
+                    android:layout_width="294dp"
                     android:layout_height="45dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
                     android:spinnerMode="dropdown" />
             </RelativeLayout>
 

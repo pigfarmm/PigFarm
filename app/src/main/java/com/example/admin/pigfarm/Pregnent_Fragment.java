@@ -1,8 +1,10 @@
 package com.example.admin.pigfarm;
 
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -63,7 +65,7 @@ public class Pregnent_Fragment extends Fragment {
     private int pig_id_dropdown;
     ImageView img_calNote03;
     Calendar myCalendar = Calendar.getInstance();
-    String d,m,unit_id;
+    String d,m,unit_id,getmaxeventid,event_recorddate;
 
 
 
@@ -100,21 +102,22 @@ public class Pregnent_Fragment extends Fragment {
                 Locale.getDefault()).format(new Date());
         edit_dateNote03.setText(date_n);
 
-            String url = "https://pigaboo.xyz/Query_BreedID.php?farm_id=" + farm_id+"&unit_id="+unit_id;
-            StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    QueryAbort(response);
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(getActivity(), "ไม่สามารถดึงข้อมูลได้", Toast.LENGTH_SHORT).show();
-                }
+        String url = "https://pigaboo.xyz/Query_pigid.php?farm_id="+farm_id+"&unit_id="+unit_id;
+        StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                showJSON(response);
             }
-            );
-            RequestQueue requestQueue = Volley.newRequestQueue(this.getActivity().getApplicationContext());
-            requestQueue.add(stringRequest);
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity(), "Wrong", Toast.LENGTH_SHORT).show();
+            }
+        }
+        );
+        RequestQueue requestQueue = Volley.newRequestQueue(this.getActivity().getApplicationContext());
+        requestQueue.add(stringRequest);
+
 
             btn_flacAct03.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -124,7 +127,26 @@ public class Pregnent_Fragment extends Fragment {
                         @Override
                         public void onResponse(String response) {
                             QueryAmountPregnant(response);
-                            new InsertAsyn().execute("https://pigaboo.xyz/Insert_EventPregnant.php");
+
+                            String url4 = "https://pigaboo.xyz/Query_BreedID.php?farm_id=" + farm_id+"&unit_id="+unit_id+"&pig_id="+spin_noteId03.getSelectedItem().toString();
+                            StringRequest stringRequest = new StringRequest(url4, new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    QueryAbort(response);
+                                    new InsertAsyn().execute("https://pigaboo.xyz/Insert_EventPregnant.php");
+                                }
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Toast.makeText(getActivity(), "ไม่สามารถดึงข้อมูลได้", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            );
+                            RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+                            requestQueue.add(stringRequest);
+
+
+
                         }
                     }, new Response.ErrorListener() {
                         @Override
@@ -147,6 +169,29 @@ public class Pregnent_Fragment extends Fragment {
         });
     }
 
+    private void showJSON(String response) {
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            JSONArray result = jsonObject.getJSONArray("result");
+
+
+            for (int i = 0; i<result.length(); i++){
+                JSONObject collectData = result.getJSONObject(i);
+                list.add(collectData.getString("pig_id"));
+            }
+        }catch (JSONException ex) {
+            ex.printStackTrace();
+        }
+
+        listItems.addAll(list);
+        adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_dropdown_item, listItems);
+        spin_noteId03.setAdapter(adapter);
+
+
+
+
+    }
+
     private void QueryAmountPregnant(String response) {
         try {
             JSONObject jsonObject3 = new JSONObject(response);
@@ -154,6 +199,13 @@ public class Pregnent_Fragment extends Fragment {
 
             for (int i = 0; i<result3.length(); i++){
                 JSONObject collectData3 = result3.getJSONObject(i);
+
+                if (collectData3.getString("max_eventid") == null){
+                    getmaxeventid = "0";
+                }else{
+                    getmaxeventid = collectData3.getString("max_eventid");
+                }
+
                 if (collectData3.getString("pig_amount_pregnant") == null){
                     getamount = "0";
                 }else{
@@ -182,19 +234,42 @@ public class Pregnent_Fragment extends Fragment {
                     public void onNothingSelected(AdapterView<?> adapterView) {
                     }
                 });
-                OkHttpClient _okHttpClient = new OkHttpClient();
-                RequestBody _requestBody = new FormBody.Builder()
-                        .add("event_id", "3")
-                        .add("event_recorddate", edit_dateNote03.getText().toString())
-                        .add("pig_id", spin_noteId03.getSelectedItem().toString())
-                        .add("note", edit_msg03.getText().toString())
-                        .add("event_recorddate_for_abort", event_date_array[pig_id_dropdown])
-                        .add("pig_amount_pregnant", getamount)
-                        .build();
 
-                Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();
-                _okHttpClient.newCall(_request).execute();
-                return "successfully";
+                if (!getmaxeventid.equals("1") && !getmaxeventid.equals("null")){
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
+                            builder1.setCancelable(false);
+                            builder1.setMessage("เหตุการณ์ล่าสุดไม่ใช่เหตุการณ์ผสม");
+                            builder1.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                            AlertDialog dialog = builder1.create();
+                            dialog.show();
+                        }
+                    });
+                    return "not success";
+                }else{
+
+
+                    OkHttpClient _okHttpClient = new OkHttpClient();
+                    RequestBody _requestBody = new FormBody.Builder()
+                            .add("event_id", "3")
+                            .add("event_recorddate", edit_dateNote03.getText().toString())
+                            .add("pig_id", spin_noteId03.getSelectedItem().toString())
+                            .add("note", edit_msg03.getText().toString())
+                            .add("event_recorddate_for_abort", event_recorddate)
+                            .add("pig_amount_pregnant", getamount)
+                            .build();
+
+                    Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();
+                    _okHttpClient.newCall(_request).execute();
+                    return "successfully";
+                }
             }catch(IOException e){
                 e.printStackTrace();
             }
@@ -204,7 +279,7 @@ public class Pregnent_Fragment extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            if (result != null){
+            if (result == "successfully"){
                 Toast.makeText(getActivity(), "บันทึกข้อมูลเรียบร้อยแล้ว",Toast.LENGTH_SHORT).show();
                 edit_msg03.setText("");
 
@@ -222,23 +297,15 @@ public class Pregnent_Fragment extends Fragment {
 
             for (int i = 0; i < result.length(); i++) {
                 JSONObject collectData = result.getJSONObject(i);
-                mStrings_pig_id.add(collectData.getString("pig_id")) ;
-                pig_id_array = new String[mStrings_pig_id.size()];
-                pig_id_array = mStrings_pig_id.toArray(pig_id_array);
-                list.add(collectData.getString("pig_id"));
 
-                mStrings_event_date.add(collectData.getString("event_recorddate"));
-                event_date_array = new String[mStrings_event_date.size()];
-                event_date_array = mStrings_event_date.toArray(event_date_array);
+                event_recorddate = collectData.getString("event_recorddate");
+
             }
 
         }catch (JSONException ex) {
             ex.printStackTrace();
         }
 
-        listItems.addAll(list);
-        adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_dropdown_item, listItems);
-        spin_noteId03.setAdapter(adapter);
     }
 
     public void showDatePickerDialog(){

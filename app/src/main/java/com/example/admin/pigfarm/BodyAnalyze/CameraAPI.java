@@ -129,6 +129,7 @@ public class CameraAPI extends AppCompatActivity {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+
     private void takePicture() {
         if(cameraDevice == null)
             return;
@@ -141,8 +142,8 @@ public class CameraAPI extends AppCompatActivity {
                         .getOutputSizes(ImageFormat.JPEG);
 
             //Capture image with custom size
-            int width = 640;
-            int height = 480;
+            int width = 1280;
+            int height = 960;
 //            if(jpegSizes != null && jpegSizes.length > 0)
 //            {
 //                width = jpegSizes[0].getWidth();
@@ -180,6 +181,7 @@ public class CameraAPI extends AppCompatActivity {
                         if (capturedImage == null){
                             Log.e(TAG,"bitmap is null");
                         }
+
 
                         Intent intent = new Intent(CameraAPI.this,PictureActivity.class);
                         intent.putExtra("path",file.toString());

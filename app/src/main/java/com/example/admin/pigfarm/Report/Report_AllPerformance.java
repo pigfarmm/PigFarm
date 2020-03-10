@@ -30,7 +30,7 @@ public class Report_AllPerformance extends AppCompatActivity {
     private String farm_id,gettextspn,sendtextspn,pdf;
     String getfarm_name,getunit_name,getfarm_id,m,d;
     TextView txt_farm, txt_unit;
-    Spinner spnlengthtime,spnsumcolumn;
+    Spinner spnlengthtime;
     EditText edit_B1, edit_B3, edit_B2;
     Button btn_A1;
     ImageView img_B1,img_back;
@@ -56,7 +56,6 @@ public class Report_AllPerformance extends AppCompatActivity {
         txt_unit.setText(getunit_name);
 
         spnlengthtime = findViewById(R.id.spnlengthtime);
-        spnsumcolumn = findViewById(R.id.spnsumcolumn);
         edit_B1 = findViewById(R.id.edit_B1);
         edit_B2 = findViewById(R.id.edit_B2);
         edit_B3 = findViewById(R.id.edit_B3);
@@ -95,12 +94,6 @@ public class Report_AllPerformance extends AppCompatActivity {
         adapterType.setDropDownViewResource(R.layout.spinner_item);
         spnlengthtime.setAdapter(adapterType);
 
-
-        final String[] eventStr2 = getResources().getStringArray(R.array.time_allperformance);
-        ArrayAdapter<String> adapterType2 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_dropdown_item, eventStr2);
-        adapterType2.setDropDownViewResource(R.layout.spinner_item);
-        spnsumcolumn.setAdapter(adapterType2);
 
         btn_A1.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -41,10 +41,10 @@ public class Report_Group extends AppCompatActivity {
     private String farm_id,pdf;
     Spinner spin_type_of_report;
     Button btn_submit_report;
-    EditText edt_startdate, edt_enddate;
+    EditText edit_B2;
     Calendar StartDate = Calendar.getInstance();
     Calendar EndDate = Calendar.getInstance();
-    ImageView calendar_start, calendar_end;
+    Spinner spnlengthtime;
     String getfarm_name,getunit_name,getfarm_id,m,d,m2,d2;
     TextView txt_farm, txt_unit;
     ImageView img_back;
@@ -60,6 +60,9 @@ public class Report_Group extends AppCompatActivity {
         img_back = findViewById(R.id.img_back);
         txt_farm = findViewById(R.id.txt_farm);
         txt_unit = findViewById(R.id.txt_unit);
+        edit_B2 = findViewById(R.id.edit_B2);
+        spnlengthtime = findViewById(R.id.spnlengthtime);
+
 
         SharedPreferences farm = getSharedPreferences("Farm", Context.MODE_PRIVATE);
         getfarm_name = farm.getString("farm_name", "");
@@ -81,38 +84,21 @@ public class Report_Group extends AppCompatActivity {
 
         spin_type_of_report = findViewById(R.id.spin_type_of_report);
         btn_submit_report = findViewById(R.id.btn_submit_report);
-        edt_startdate = findViewById(R.id.edt_startdate);
-        edt_enddate = findViewById(R.id.edt_enddate);
-        calendar_start = findViewById(R.id.calendar_start);
-        calendar_end = findViewById(R.id.calendar_end);
 
-        String date_start = new SimpleDateFormat("yyyy-MM-dd",
-                Locale.getDefault()).format(new Date());
-        edt_startdate.setText(date_start);
 
-        String date_end = new SimpleDateFormat("yyyy-MM-dd",
-                Locale.getDefault()).format(new Date());
-        edt_enddate.setText(date_end);
-
-        calendar_start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDatePicker_Start();
-            }
-        });
-
-        calendar_end.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDatePicker_End();
-            }
-        });
 
         final String[] eventStr = getResources().getStringArray(R.array.type_of_report);
         ArrayAdapter<String> adapterType = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_dropdown_item, eventStr);
         adapterType.setDropDownViewResource(R.layout.spinner_item);
         spin_type_of_report.setAdapter(adapterType);
+
+
+        final String[] eventStr2 = getResources().getStringArray(R.array.length_time_allperformance);
+        ArrayAdapter<String> adapterType2 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item, eventStr2);
+        adapterType.setDropDownViewResource(R.layout.spinner_item);
+        spnlengthtime.setAdapter(adapterType2);
 
 
         btn_submit_report.setOnClickListener(new View.OnClickListener() {
@@ -123,8 +109,8 @@ public class Report_Group extends AppCompatActivity {
                             pdf = "https://pigaboo.xyz/Report/All_Report.php";
                             Intent intent = new Intent(Report_Group.this, PigData_Report.class);
                             intent.putExtra("url",pdf);
-                            intent.putExtra("start_date",edt_startdate.getText().toString());
-                            intent.putExtra("end_date",edt_enddate.getText().toString());
+                            intent.putExtra("ip_number",edit_B2.getText().toString());
+                            intent.putExtra("ip_type",spnlengthtime.getSelectedItem().toString());
                             startActivity(intent);
                         }
 
@@ -133,11 +119,9 @@ public class Report_Group extends AppCompatActivity {
                             pdf = "https://pigaboo.xyz/Report/Momnotbreed_Report.php";
                             Intent intent = new Intent(Report_Group.this, PigData_Report.class);
                             intent.putExtra("url",pdf);
-                            intent.putExtra("start_date",edt_startdate.getText().toString());
-                            intent.putExtra("end_date",edt_enddate.getText().toString());
+                            intent.putExtra("ip_number",edit_B2.getText().toString());
+                            intent.putExtra("ip_type",spnlengthtime.getSelectedItem().toString());
                             startActivity(intent);
-
-
                             }
 
 
@@ -146,8 +130,8 @@ public class Report_Group extends AppCompatActivity {
                             pdf = "https://pigaboo.xyz/Report/Mombreed_Report.php";
                             Intent intent = new Intent(Report_Group.this, PigData_Report.class);
                             intent.putExtra("url",pdf);
-                            intent.putExtra("start_date",edt_startdate.getText().toString());
-                            intent.putExtra("end_date",edt_enddate.getText().toString());
+                            intent.putExtra("ip_number",edit_B2.getText().toString());
+                            intent.putExtra("ip_type",spnlengthtime.getSelectedItem().toString());
                             startActivity(intent);
 
                         }
@@ -157,8 +141,8 @@ public class Report_Group extends AppCompatActivity {
                             pdf = "https://pigaboo.xyz/Report/NoPregnant_Report.php";
                             Intent intent = new Intent(Report_Group.this, PigData_Report.class);
                             intent.putExtra("url",pdf);
-                            intent.putExtra("start_date",edt_startdate.getText().toString());
-                            intent.putExtra("end_date",edt_enddate.getText().toString());
+                            intent.putExtra("ip_number",edit_B2.getText().toString());
+                            intent.putExtra("ip_type",spnlengthtime.getSelectedItem().toString());
                             startActivity(intent);
 
                         }
@@ -168,8 +152,8 @@ public class Report_Group extends AppCompatActivity {
                             pdf = "https://pigaboo.xyz/Report/DueDate_Pregnant_Report.php";
                             Intent intent = new Intent(Report_Group.this, PigData_Report.class);
                             intent.putExtra("url",pdf);
-                            intent.putExtra("start_date",edt_startdate.getText().toString());
-                            intent.putExtra("end_date",edt_enddate.getText().toString());
+                            intent.putExtra("ip_number",edit_B2.getText().toString());
+                            intent.putExtra("ip_type",spnlengthtime.getSelectedItem().toString());
                             startActivity(intent);
 
                         }
@@ -183,8 +167,8 @@ public class Report_Group extends AppCompatActivity {
                             pdf = "https://pigaboo.xyz/Report/Maternity_but_notwean_Report.php";
                             Intent intent = new Intent(Report_Group.this, PigData_Report.class);
                             intent.putExtra("url",pdf);
-                            intent.putExtra("start_date",edt_startdate.getText().toString());
-                            intent.putExtra("end_date",edt_enddate.getText().toString());
+                            intent.putExtra("ip_number",edit_B2.getText().toString());
+                            intent.putExtra("ip_type",spnlengthtime.getSelectedItem().toString());
                             startActivity(intent);
                         }
 
@@ -193,8 +177,8 @@ public class Report_Group extends AppCompatActivity {
                             pdf = "https://pigaboo.xyz/Report/Wean_not_Breed_Report.php";
                             Intent intent = new Intent(Report_Group.this, PigData_Report.class);
                             intent.putExtra("url",pdf);
-                            intent.putExtra("start_date",edt_startdate.getText().toString());
-                            intent.putExtra("end_date",edt_enddate.getText().toString());
+                            intent.putExtra("ip_number",edit_B2.getText().toString());
+                            intent.putExtra("ip_type",spnlengthtime.getSelectedItem().toString());
                             startActivity(intent);
                         }
 
@@ -208,59 +192,6 @@ public class Report_Group extends AppCompatActivity {
 
     }
 
-    public void showDatePicker_Start(){
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(Report_Group.this, date, StartDate.get(Calendar.YEAR), StartDate.get(Calendar.MONTH), StartDate.get(Calendar.DAY_OF_MONTH));
-        datePickerDialog.show();
-    }
-
-    DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            StartDate.set(Calendar.YEAR, year);
-            StartDate.set(Calendar.MONTH, monthOfYear);
-            StartDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            monthOfYear = monthOfYear + 1;
-            if (monthOfYear < 10){
-                m = "0"+monthOfYear;
-            }else{
-                m = String.valueOf(monthOfYear);
-            }
-            if (dayOfMonth < 10){
-                d = "0"+dayOfMonth;
-            }else{
-                d = String.valueOf(dayOfMonth);
-            }
-            edt_startdate.setText(year+"-"+m+"-"+d);
-        }
-    };
-
-    public void showDatePicker_End(){
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(Report_Group.this, datee, EndDate.get(Calendar.YEAR), EndDate.get(Calendar.MONTH), EndDate.get(Calendar.DAY_OF_MONTH));
-        datePickerDialog.show();
-    }
-
-    DatePickerDialog.OnDateSetListener datee = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            EndDate.set(Calendar.YEAR, year);
-            EndDate.set(Calendar.MONTH, monthOfYear);
-            EndDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            monthOfYear = monthOfYear + 1;
-            if (monthOfYear < 10){
-                m2 = "0"+monthOfYear;
-            }else{
-                m2 = String.valueOf(monthOfYear);
-            }
-            if (dayOfMonth < 10){
-                d2 = "0"+dayOfMonth;
-            }else{
-                d2 = String.valueOf(dayOfMonth);
-            }
-            edt_enddate.setText(year+"-"+m2+"-"+d2);
-        }
-    };
 
     @Override
     public void onBackPressed() {

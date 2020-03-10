@@ -274,6 +274,19 @@ public class Event_main extends AppCompatActivity {
                     transaction.commit();
                 }
 
+                else if (String.valueOf(event_spinner.getSelectedItem()).equals("หุ่นสุกร")){
+                    String textbreed = event_spinner.getSelectedItem().toString();
+                    Bundle bundle = new Bundle();
+                    BCS_Fragment bcs_fragment = new BCS_Fragment();
+                    bundle.putString("textbreed", textbreed);
+                    bundle.putString("farm_id", getfarm_id);
+                    bcs_fragment.setArguments(bundle);
+
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.content_event, bcs_fragment);
+                    transaction.commit();
+                }
+
             }
 
             @Override

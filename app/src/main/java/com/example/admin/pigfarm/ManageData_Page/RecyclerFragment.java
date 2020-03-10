@@ -123,7 +123,6 @@ public class RecyclerFragment extends Fragment implements MyAdapter.OnItemClickL
             }
 
 
-
             adapter = new MyAdapter(getActivity(), profilepig);
             rv.setAdapter(adapter);
             adapter.setOnItemClickListener(RecyclerFragment.this);

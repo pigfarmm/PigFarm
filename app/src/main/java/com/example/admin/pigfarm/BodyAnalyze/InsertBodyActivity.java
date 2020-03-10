@@ -48,7 +48,7 @@ import okhttp3.RequestBody;
 
 public class InsertBodyActivity extends AppCompatActivity{
 
-    EditText edit_A1;
+    EditText edit_A1,result_bcs;
     Button btn_A1;
     TextView txt_farm,txt_unit;
     String unit_name,farm_name,farm_id,unit_id;
@@ -78,9 +78,13 @@ public class InsertBodyActivity extends AppCompatActivity{
         spin_A1_1 = findViewById(R.id.spin_A1_1);
         btn_A1 = findViewById(R.id.btn_A1);
         edit_A1 = findViewById(R.id.edit_A1);
+        result_bcs = findViewById(R.id.result_bcs);
 
         txt_farm.setText(farm_name);
         txt_unit.setText(unit_name);
+
+        result_bcs.setFocusable(false);
+        result_bcs.setText(getscore);
 
         //วันที่ปัจจุบัน
         date_n = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
@@ -107,6 +111,17 @@ public class InsertBodyActivity extends AppCompatActivity{
         btn_A1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                SharedPreferences shared = getSharedPreferences("score", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = shared.edit();
+                editor.remove("score1");
+                editor.commit();
+
+                SharedPreferences shared2 = getSharedPreferences("score2", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor2 = shared2.edit();
+                editor2.remove("score2");
+                editor2.commit();
+
                 new InsertAsyn().execute("https://pigaboo.xyz/Insert_bcsscore.php");
             }
         });
@@ -197,7 +212,7 @@ public class InsertBodyActivity extends AppCompatActivity{
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent2 = new Intent(InsertBodyActivity.this, CameraAPI.class);
+                        Intent intent2 = new Intent(InsertBodyActivity.this, HomeBCS.class);
                         startActivity(intent2);
                         finish();
                     }

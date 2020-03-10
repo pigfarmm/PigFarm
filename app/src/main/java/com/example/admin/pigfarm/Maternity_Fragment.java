@@ -125,7 +125,7 @@ public class Maternity_Fragment extends Fragment {
                 Locale.getDefault()).format(new Date());
         edit_dateNote04.setText(date_n);
 
-        String url = "https://pigaboo.xyz/Query_BreedID.php?farm_id=" + farm_id+"&unit_id="+unit_id;
+        String url = "https://pigaboo.xyz/Query_Breed.php?farm_id=" + farm_id+"&unit_id="+unit_id;
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -235,6 +235,7 @@ public class Maternity_Fragment extends Fragment {
                 DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                 date_before = formatter.parse(event_date_array[amount_pregnant_index]);
                 date_record = formatter.parse(edit_dateNote04.getText().toString());
+                int difference =  ((int)((date_record.getTime()/(24*60*60*1000)) - (int)(date_before.getTime()/(24*60*60*1000))));
 
                 if (date_record.getTime() <= date_before.getTime()) {
                     getActivity().runOnUiThread(new Runnable() {
@@ -242,6 +243,26 @@ public class Maternity_Fragment extends Fragment {
                                                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
                                                         builder.setCancelable(false);
                                                         builder.setMessage("กรอกวันที่น้อยกว่าวันที่ผสมพันธุ์ไม่ได้");
+                                                        builder.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(DialogInterface dialog, int which) {
+                                                                dialog.cancel();
+                                                            }
+                                                        });
+                                                        AlertDialog dialog = builder.create();
+                                                        dialog.show();
+
+                                                    }
+                                                }
+                    );
+                    return null;
+
+                } if (difference < 114) {
+                    getActivity().runOnUiThread(new Runnable() {
+                                                    public void run() {
+                                                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
+                                                        builder.setCancelable(false);
+                                                        builder.setMessage("คลอดก่อนกำหนด 114 วัน");
                                                         builder.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
                                                             @Override
                                                             public void onClick(DialogInterface dialog, int which) {

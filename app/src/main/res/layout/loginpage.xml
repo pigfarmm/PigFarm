@@ -13,7 +13,7 @@
         android:layout_height="165dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="79dp"
-        android:src="@drawable/piglogo" />
+        android:src="@drawable/piglogo2" />
 
     <TextView
         android:id="@+id/titlelogin"

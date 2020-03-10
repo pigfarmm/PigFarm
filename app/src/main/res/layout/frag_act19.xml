@@ -73,6 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:inputType="date"
+                android:maxLines="1"
                 android:textSize="20sp"
                 android:textColor="@color/Colorfont"
                 android:backgroundTint="#000"/>
@@ -97,14 +98,26 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="30dp"/>
 
-            <EditText
-                android:id="@+id/edit_drugG19"
+            <RelativeLayout
                 android:layout_width="325dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:textSize="20sp"
-                android:textColor="@color/Colorfont"
-                android:backgroundTint="@color/Colorfont"/>
+                android:layout_height="45dp"
+                android:background="#d2d2d2"
+                android:layout_marginLeft="30dp">
+
+                <Spinner
+                    android:id="@+id/spin_drugId01"
+                    android:layout_width="325dp"
+                    android:layout_height="45dp"
+                    android:spinnerMode="dropdown" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp"
+                    android:src="@drawable/dropdown" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/txt_dateNote19"
@@ -123,8 +136,51 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:textSize="20sp"
+                android:maxLines="1"
                 android:textColor="@color/Colorfont"
                 android:backgroundTint="@color/Colorfont"/>
+
+            <TextView
+                android:id="@+id/txt_imgpro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/thaisansneue_bold"
+                android:text="ระดับหุ่นสุกร"
+                android:textColor="@color/Colorfont"
+                android:textSize="20sp" />
+
+
+            <EditText
+                android:id="@+id/edit_imgpro"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:inputType="date"
+                android:textSize="20sp"
+                android:fontFamily="@font/thaisansneue_regular"
+                android:textColor="@color/Colorfont"
+                android:backgroundTint="@color/Colorfont"/>
+
+            <ImageView
+                android:id="@+id/img_process"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="50dp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/imgprocess"
+                android:layout_gravity="center"/>
+            <TextView
+                android:id="@+id/txt_imgprocess"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/thaisansneue_bold"
+                android:text="ถ่ายรูปประเมินหุ่นสุกร"
+                android:textColor="@color/Colorfont"
+                android:textSize="20sp" />
 
             <Button
                 android:id="@+id/btn_flacAct19"

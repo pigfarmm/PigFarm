@@ -87,7 +87,6 @@ public class Exclude_Fragment extends Fragment {
         spin_result08 = getView().findViewById(R.id.spin_result08);
         spin_result09 = getView().findViewById(R.id.spin_result09);
         edit_dateNote08 = getView().findViewById(R.id.edit_dateNote08);
-        edit_desc08 = getView().findViewById(R.id.edit_desc08);
         btn_flacAct08 = getView().findViewById(R.id.btn_flacAct08);
         img_calNote08 = getView().findViewById(R.id.img_calNote08);
 

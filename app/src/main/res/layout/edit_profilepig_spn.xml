@@ -36,6 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
+                android:maxLines="1"
                 android:textSize="20sp"
                 android:textColor="@color/Colorfont"
                 android:backgroundTint="@color/Colorfont"/>
@@ -63,6 +64,7 @@
                     android:layout_marginLeft="30dp"
                     android:hint=""
                     android:textSize="20sp"
+                    android:maxLines="1"
                     android:textColor="@color/Colorfont"
                     android:fontFamily="@font/thaisansneue_bold"
                     android:backgroundTint="@color/Colorfont"/>
@@ -111,6 +113,7 @@
                     android:layout_marginLeft="30dp"
                     android:hint=""
                     android:textSize="20sp"
+                    android:maxLines="1"
                     android:textColor="@color/Colorfont"
                     android:fontFamily="@font/thaisansneue_bold"
                     android:backgroundTint="@color/Colorfont"/>
@@ -155,6 +158,7 @@
                 android:layout_marginRight="30dp"
                 android:textSize="20sp"
                 android:textColor="@color/Colorfont"
+                android:maxLines="1"
                 android:backgroundTint="@color/Colorfont"/>
 
             <TextView
@@ -176,6 +180,7 @@
                 android:layout_marginRight="30dp"
                 android:textSize="20sp"
                 android:textColor="@color/Colorfont"
+                android:maxLines="1"
                 android:backgroundTint="@color/Colorfont"/>
 
             <TextView
@@ -197,6 +202,7 @@
                 android:layout_marginRight="30dp"
                 android:textSize="20sp"
                 android:textColor="@color/Colorfont"
+                android:maxLines="1"
                 android:backgroundTint="@color/Colorfont"/>
 
             <TextView
@@ -218,6 +224,7 @@
                 android:layout_marginRight="30dp"
                 android:textSize="20sp"
                 android:textColor="@color/Colorfont"
+                android:maxLines="1"
                 android:backgroundTint="@color/Colorfont"/>
 
             <TextView
@@ -239,6 +246,7 @@
                 android:layout_marginRight="30dp"
                 android:textSize="20sp"
                 android:textColor="@color/Colorfont"
+                android:maxLines="1"
                 android:backgroundTint="@color/Colorfont"/>
 
             <!--<TextView-->

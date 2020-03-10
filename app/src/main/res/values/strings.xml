@@ -3,6 +3,22 @@
     <color name="bg">#F76196</color>
     <color name="black">#000</color>
 
+    <string name="picture">Picture</string>
+    <string name="description_info">Info</string>
+    <string name="request_permission">This sample needs camera permission.</string>
+    <string name="camera_error">This device doesn\'t support Camera2 API.</string>
+
+    <string name="intro_message">
+        <![CDATA[
+
+
+            This sample demonstrates the basic use of Camera2 API. Check the source code to see how
+            you can display camera preview and take pictures.
+
+
+        ]]>
+    </string>
+
     <string-array name="Event_pig">
         <item>โปรดเลือกเหตุการณ์</item>
         <item>ผสมพันธุ์</item>
@@ -20,6 +36,7 @@
         <item>แยกหย่านม</item>
         <item>ได้รับยารักษา</item>
         <item>ป่วยเป็นโรค</item>
+        <item>หุ่นสุกร</item>
     </string-array>
 
     <string-array name="unit_item">
@@ -41,10 +58,10 @@
     </string-array>
 
     <string-array name="condition_style">
-    <item>มากกว่า</item>
-    <item>น้อยกว่า</item>
-    <item>เท่ากับ</item>
-</string-array>
+        <item>มากกว่า</item>
+        <item>น้อยกว่า</item>
+        <item>เท่ากับ</item>
+    </string-array>
 
     <string-array name="condition_value_1">
         <item>เข้าฝูง-ผสม</item>
@@ -74,38 +91,40 @@
         <item>ครอกป่วยเป็นโรค</item>
         <item>เต้านมอักเสบ</item>
         <item>หนองไหล</item>
-        <item>ไม่มีน้ำนม</item>
-        <item>ปัญหาเต้านม</item>
-        <item>ลักษณะไม่ดี</item>
-        <item>เดินขากระเผลก</item>
-        <item>เจ็บส่วนขา</item>
-        <item>เจ็บส่วนกีบ</item>
-        <item>ล้มไม่ลุก</item>
-        <item>บาดเจ็บอื่นๆ</item>
-        <item>เป็นฝี</item>
-        <item>เป็นแผลหลุม</item>
-        <item>ตัวผอมบาง</item>
-        <item>ตัวใหญ่เกิน</item>
-        <item>อายุมาก</item>
-        <item>ขี้เรือน</item>
-        <item>โรคทางเดินปัสสาวะ</item>
-        <item>โรคระบบไหลเวียนโลหิต</item>
-        <item>โรคทางเดินอาหาร</item>
-        <item>โรคผิวหนัง</item>
-        <item>โรคระบบประสาท</item>
-        <item>โรคระบบหายใจ</item>
-        <item>โรคระบบกล้ามเนื้อ</item>
-        <item>โรคอื่นๆ</item>
-        <item>ตายกระทันหัน</item>
-        <item>พฤติกรรมดุร้าย</item>
-        <item>เพื่อการจัดการ</item>
-        <item>ล้างฝูง</item>
-        <item>ทดสอบและคัดทิ้ง</item>
-        <item>โตช้า</item>
-        <item>คุณภาพซากไม่ดี</item>
-        <item>ปัญหาเลือดชิด</item>
-        <item>ไม่ทราบสาเหตุ</item>
     </string-array>
+
+    <string-array name="condition_report_bredder">
+        <item>ครั้งที่ผสม</item>
+        <item>พ่อพันธุ์</item>
+        <item>ลำดับท้อง</item>
+        <item>หย่านม-ผสม</item>
+        <item>ไม่มีเงื่อนไข</item>
+    </string-array>
+
+    <string-array name="condition_report_wean">
+        <item>จำนวนหย่านม</item>
+        <item>นน.หย่านม</item>
+        <item>ระยะเลี้ยงลูก</item>
+        <item>ลำดับท้อง</item>
+        <item>ไม่มีเงื่อนไข</item>
+    </string-array>
+
+    <string-array name="Report_BCS">
+        <item>ผสมพันธุ์</item>
+        <item>คลอด</item>
+        <item>หย่านม</item>
+    </string-array>
+
+    <string-array name="condition_report_givebirth">
+        <item>ลูกเป็น</item>
+        <item>ลูกตาย</item>
+        <item>ลูกกรอก</item>
+        <item>นน.ครอก</item>
+        <item>เฉลี่ย นน.แรกเกิด</item>
+        <item>ลำดับท้อง</item>
+        <item>ไม่มีเงื่อนไข</item>
+    </string-array>
+
 
     <string-array name="condition_value_3">
         <item>ขาย</item>
@@ -141,6 +160,16 @@
         <item>ทำลาย</item>
         <item>ย้าย</item>
         <item>ไม่ทราบ</item>
+    </string-array>
+
+    <string-array name="treat_event">
+        <item>ยาปฏิชีวนะ</item>
+        <item>ยากระตุ้น</item>
+        <item>ยาสูตรผสม</item>
+        <item>สารอาหาร</item>
+        <item>ถ่ายพยาธิ</item>
+        <item>ยาให้ตามอาการ</item>
+        <item>ฉีดวัคซีน</item>
     </string-array>
 
     <string-array name="piggydead_event">
@@ -186,42 +215,6 @@
         <item>ครอกป่วยเป็นโรค</item>
         <item>เต้านมอักเสบ</item>
         <item>หนองไหล</item>
-        <item>ไม่มีน้ำนม</item>
-        <item>ปัญหาเต้านม</item>
-        <item>ลักษณะไม่ดี</item>
-        <item>เดินขากระเผลก</item>
-        <item>เจ็บส่วนขา</item>
-        <item>เจ็บส่วนกีบ</item>
-        <item>ล้มไม่ลุก</item>
-        <item>บาดเจ็บอื่นๆ</item>
-        <item>เป็นฝี</item>
-        <item>เป็นแผลหลุม</item>
-        <item>ตัวผอมบาง</item>
-        <item>ตัวใหญ่เกิน</item>
-        <item>อายุมาก</item>
-        <item>ขี้เรือน</item>
-        <item>โรคทางเดินปัสสาวะ</item>
-        <item>โรคระบบไหลเวียนโลหิต</item>
-        <item>โรคทางเดินอาหาร</item>
-        <item>โรคผิวหนัง</item>
-        <item>โรคระบบประสาท</item>
-        <item>โรคระบบหายใจ</item>
-        <item>โรคระบบกล้ามเนื้อ</item>
-        <item>โรคอื่นๆ</item>
-        <item>ตายกระทันหัน</item>
-        <item>พฤติกรรมดุร้าย</item>
-        <item>เพื่อการจัดการ</item>
-        <item>ล้างฝูง</item>
-        <item>ทดสอบและคัดทิ้ง</item>
-        <item>โตช้า</item>
-        <item>คุณภาพซากไม่ดี</item>
-        <item>ปัญหาเลือดชิด</item>
-        <item>ไม่ทราบสาเหตุ</item>
-
-
-
-
-
     </string-array>
 
     <string-array name="type_of_report">
@@ -232,7 +225,7 @@
         <item>กำหนดเข้าคลอด</item>
         <!--<item>ต้องทำก่อนเข้าคลอด</item>-->
         <item>คลอด</item>
-        <item>หย่านท</item>
+        <item>หย่านม</item>
         <!--<item>แม่ต้องทำวัคซีน</item>-->
     </string-array>
 
@@ -324,11 +317,11 @@
     </string-array>
 
     <string-array name="length_time_allperformance">
-    <item>วัน</item>
-    <item>เดือน</item>
-    <item>ปี</item>
-    <item>สัปดาห์</item>
-</string-array>
+        <item>วัน</item>
+        <item>เดือน</item>
+        <item>ปี</item>
+        <item>สัปดาห์</item>
+    </string-array>
 
     <string-array name="type_of_unit">
         <item>พ่อพันธุ์</item>
@@ -381,10 +374,14 @@
     </string-array>
 
 
-
     <string-array name="select_type_b3">
         <item>จำแนกเป็นช่วง</item>
         <item>จำแนกรวม</item>
+    </string-array>
+
+    <string-array name="select_type_momwean">
+        <item>ไม่ต้องการ</item>
+        <item>ต้องการ</item>
     </string-array>
 
     <string-array name="time_allperformance">
@@ -394,7 +391,6 @@
     <string name="summary_account_settings">แก้ไขชื่อเจ้าของฟาร์ม</string>
     <string name="title_account_settings">บัญชีผู้ใช้</string>
     <string name="key_account_settings">key_account_settings</string>
-
 
 
     <string name="title_activity_test_view_pager">TestViewPager</string>
@@ -415,5 +411,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main">MainActivity</string>
 
 </resources>

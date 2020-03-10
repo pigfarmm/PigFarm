@@ -54,15 +54,15 @@ public class Report_piggydead extends AppCompatActivity {
 
         edit_B1 = findViewById(R.id.edit_B1);
         edit_B2 = findViewById(R.id.edit_B2);
-        pregnant_edt3_1 = findViewById(R.id.pregnant_edt3_1);
-        pregnant_edt3_2 = findViewById(R.id.pregnant_edt3_2);
-        pregnant_edt4_1 = findViewById(R.id.pregnant_edt4_1);
-        pregnant_edt4_2 = findViewById(R.id.pregnant_edt4_2);
+//        pregnant_edt3_1 = findViewById(R.id.pregnant_edt3_1);
+//        pregnant_edt3_2 = findViewById(R.id.pregnant_edt3_2);
+//        pregnant_edt4_1 = findViewById(R.id.pregnant_edt4_1);
+//        pregnant_edt4_2 = findViewById(R.id.pregnant_edt4_2);
         edit_B5 = findViewById(R.id.edit_B5);
         btn_A1 = findViewById(R.id.btn_A1);
         img_B1 = findViewById(R.id.img_B1);
         spnlengthtime = findViewById(R.id.spnlengthtime);
-        select_type_age_piggy = findViewById(R.id.select_type_age_piggy);
+//        select_type_age_piggy = findViewById(R.id.select_type_age_piggy);
         img_back = findViewById(R.id.img_back);
 
         String date_lastday = new SimpleDateFormat("yyyy-MM-dd",
@@ -93,45 +93,30 @@ public class Report_piggydead extends AppCompatActivity {
         adapterType.setDropDownViewResource(R.layout.spinner_item);
         spnlengthtime.setAdapter(adapterType);
 
-        final String[] eventStr2 = getResources().getStringArray(R.array.select_type_b3);
-        ArrayAdapter<String> adapterType2 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_dropdown_item, eventStr2);
-        adapterType.setDropDownViewResource(R.layout.spinner_item);
-        select_type_age_piggy.setAdapter(adapterType2);
+//        final String[] eventStr2 = getResources().getStringArray(R.array.select_type_b3);
+//        ArrayAdapter<String> adapterType2 = new ArrayAdapter<String>(this,
+//                android.R.layout.simple_spinner_dropdown_item, eventStr2);
+//        adapterType.setDropDownViewResource(R.layout.spinner_item);
+//        select_type_age_piggy.setAdapter(adapterType2);
 
 
         btn_A1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (select_type_age_piggy.getSelectedItem().toString().equals("จำแนกเป็นช่วง")){
-                    pdf = "https://pigaboo.xyz/Report/Performance_piggydead.php";
+
+                    pdf = "https://pigaboo.xyz/Report/Cause_piggydead.php";
                     Intent intent = new Intent(Report_piggydead.this, WebView_Piggydead.class);
                     intent.putExtra("url",pdf);
                     intent.putExtra("last_day",edit_B1.getText().toString());
                     intent.putExtra("ip_number",edit_B2.getText().toString());
                     intent.putExtra("ip_type",spnlengthtime.getSelectedItem().toString());
-                    intent.putExtra("start_age",pregnant_edt3_1.getText().toString());
-                    intent.putExtra("end_age",pregnant_edt3_2.getText().toString());
-                    intent.putExtra("start_pregnant",pregnant_edt4_1.getText().toString());
-                    intent.putExtra("end_pregnant",pregnant_edt4_2.getText().toString());
-                    intent.putExtra("amount_lengthtime",edit_B1.getText().toString());
+//                    intent.putExtra("start_age",pregnant_edt3_1.getText().toString());
+//                    intent.putExtra("end_age",pregnant_edt3_2.getText().toString());
+//                    intent.putExtra("start_pregnant",pregnant_edt4_1.getText().toString());
+//                    intent.putExtra("end_pregnant",pregnant_edt4_2.getText().toString());
+                    intent.putExtra("range",edit_B5.getText().toString());
 
                     startActivity(intent);
-                }else{
-                    pdf = "https://pigaboo.xyz/Report/Performance_piggydead_all.php";
-                    Intent intent = new Intent(Report_piggydead.this, WebView_Piggydead.class);
-                    intent.putExtra("url",pdf);
-                    intent.putExtra("last_day",edit_B1.getText().toString());
-                    intent.putExtra("ip_number",edit_B2.getText().toString());
-                    intent.putExtra("ip_type",spnlengthtime.getSelectedItem().toString());
-                    intent.putExtra("start_age",pregnant_edt3_1.getText().toString());
-                    intent.putExtra("end_age",pregnant_edt3_2.getText().toString());
-                    intent.putExtra("start_pregnant",pregnant_edt4_1.getText().toString());
-                    intent.putExtra("end_pregnant",pregnant_edt4_2.getText().toString());
-                    intent.putExtra("amount_lengthtime",edit_B1.getText().toString());
-
-                    startActivity(intent);
-                }
 
             }
         });

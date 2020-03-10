@@ -22,6 +22,11 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
     }
+
+    aaptOptions {
+        noCompress "tflite"
+        noCompress "lite"
+    }
 }
 
 dependencies {
@@ -46,7 +51,12 @@ dependencies {
     implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
     implementation project(':openCVLibrary341')
+    implementation 'org.tensorflow:tensorflow-lite:+'
+    implementation 'com.wonderkiln:camerakit:0.13.1'
 }
 repositories {
     mavenCentral()
 }
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'

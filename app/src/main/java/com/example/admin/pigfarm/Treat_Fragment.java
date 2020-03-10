@@ -51,7 +51,7 @@ public class Treat_Fragment extends Fragment {
     ArrayList<String> listItems = new ArrayList<>();
     ArrayAdapter<String> adapter;
     EditText edit_dateNote19,edit_drugG19,edit_msg19;
-    Spinner spin_noteId19;
+    Spinner spin_noteId19,spin_drugId01;
     ImageView img_calNote19;
     Button btn_flacAct19;
     Calendar myCalendar = Calendar.getInstance();
@@ -89,11 +89,17 @@ public class Treat_Fragment extends Fragment {
         btn_flacAct19 = getView().findViewById(R.id.btn_flacAct19);
         edit_drugG19 = getView().findViewById(R.id.edit_drugG19);
         edit_msg19 = getView().findViewById(R.id.edit_msg19);
+        spin_drugId01 = getView().findViewById(R.id.spin_drugId01);
 
         String date_n = new SimpleDateFormat("yyyy-MM-dd",
                 Locale.getDefault()).format(new Date());
 
         edit_dateNote19.setText(date_n);
+
+        final String[] eventStr = getResources().getStringArray(R.array.treat_event);
+        ArrayAdapter<String> adapterEvent = new ArrayAdapter<String>(this.getActivity(),
+                android.R.layout.simple_dropdown_item_1line, eventStr);
+        spin_drugId01.setAdapter(adapterEvent);
 
         String url = "https://pigaboo.xyz/Query_pigid.php?farm_id="+farm_id+"&unit_id="+unit_id;
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
@@ -163,7 +169,7 @@ public class Treat_Fragment extends Fragment {
                         .add("event_id", "15")
                         .add("event_recorddate", edit_dateNote19.getText().toString())
                         .add("pig_id", spin_noteId19.getSelectedItem().toString())
-                        .add("drug_group", edit_drugG19.getText().toString())
+                        .add("drug_group", spin_drugId01.getSelectedItem().toString())
                         .add("note", edit_msg19.getText().toString())
                         .build();
 

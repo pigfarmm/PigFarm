@@ -375,7 +375,7 @@
                                         android:layout_height="107dp"
                                         android:layout_gravity="center"
                                         android:layout_marginBottom="15dp"
-                                        android:src="@drawable/menu_adduser" />
+                                        android:src="@drawable/setting" />
                                     <TextView
                                         android:id="@+id/txt_adduser"
                                         android:fontFamily="@font/thaisansneue_bold"
@@ -408,7 +408,7 @@
                                         android:layout_height="107dp"
                                         android:layout_gravity="center"
                                         android:layout_marginBottom="15dp"
-                                        android:src="@drawable/info" />
+                                        android:src="@drawable/infomation" />
                                     <TextView
                                         android:id="@+id/txt_report"
                                         android:fontFamily="@font/thaisansneue_bold"

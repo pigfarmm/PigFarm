@@ -73,6 +73,7 @@
                 android:layout_marginLeft="30dp"
                 android:inputType="date"
                 android:textSize="20sp"
+                android:maxLines="1"
                 android:textColor="@color/Colorfont"
                 android:backgroundTint="@color/Colorfont"/>
 
@@ -104,9 +105,52 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:textSize="20sp"
+                android:maxLines="1"
                 android:inputType="number"
                 android:textColor="@color/Colorfont"
                 android:backgroundTint="@color/Colorfont"/>
+
+            <TextView
+                android:id="@+id/txt_imgpro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/thaisansneue_bold"
+                android:text="ระดับหุ่นสุกร"
+                android:textColor="@color/Colorfont"
+                android:textSize="20sp" />
+
+
+            <EditText
+                android:id="@+id/edit_imgpro"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:inputType="date"
+                android:textSize="20sp"
+                android:fontFamily="@font/thaisansneue_regular"
+                android:textColor="@color/Colorfont"
+                android:backgroundTint="@color/Colorfont"/>
+
+            <ImageView
+                android:id="@+id/img_process"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="50dp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/imgprocess"
+                android:layout_gravity="center"/>
+            <TextView
+                android:id="@+id/txt_imgprocess"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/thaisansneue_bold"
+                android:text="ถ่ายรูปประเมินหุ่นสุกร"
+                android:textColor="@color/Colorfont"
+                android:textSize="20sp" />
 
             <Button
                 android:id="@+id/btn_flacAct07"

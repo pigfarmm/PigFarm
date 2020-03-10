@@ -118,7 +118,7 @@
                     android:layout_width="70dp"
                     android:layout_height="48dp"
                     android:layout_marginLeft="20dp"
-                    android:src="@drawable/info" />
+                    android:src="@drawable/status_pig" />
 
                 <TextView
                     android:id="@+id/txt_IDnut"
@@ -158,7 +158,7 @@
                     android:layout_width="70dp"
                     android:layout_height="48dp"
                     android:layout_marginLeft="20dp"
-                    android:src="@drawable/info" />
+                    android:src="@drawable/performance_breeder" />
 
                 <TextView
                     android:id="@+id/txt_IDnut"

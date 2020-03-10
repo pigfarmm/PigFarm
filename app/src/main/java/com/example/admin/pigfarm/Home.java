@@ -24,8 +24,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.admin.pigfarm.BodyAnalyze.CameraAPI;
+import com.example.admin.pigfarm.BodyAnalyze.CameraActivity;
+import com.example.admin.pigfarm.BodyAnalyze.HomeBCS;
 import com.example.admin.pigfarm.ManageData_Page.MainActivity_ManageData;
 import com.example.admin.pigfarm.Report.PigData_Report;
+import com.example.admin.pigfarm.Report.Report_BCS;
 import com.example.admin.pigfarm.Report.Report_Home;
 import com.example.admin.pigfarm.Report.Report_Main;
 import com.example.admin.pigfarm.Settings.SettingsActivity;
@@ -155,7 +158,7 @@ public class Home extends AppCompatActivity{
         card_pigimgpro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Home.this, CameraAPI.class);
+                Intent intent = new Intent(Home.this, Report_BCS.class);  //CameraActivity
                 startActivity(intent);
             }
         });
