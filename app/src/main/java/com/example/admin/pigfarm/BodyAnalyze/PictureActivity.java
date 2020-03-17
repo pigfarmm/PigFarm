@@ -145,6 +145,8 @@ public class PictureActivity extends AppCompatActivity {
                             Intent intent = new Intent(PictureActivity.this,ResultActivity.class);
                             intent.putExtra("score1",response.body().string());
                             startActivity(intent);
+                            finish();
+
 //                            responseText.setText(response.body().string());
                         } catch (IOException e) {
                             e.printStackTrace();

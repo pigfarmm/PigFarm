@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.admin.pigfarm.BCS_Fragment;
+import com.example.admin.pigfarm.Event_main;
 import com.example.admin.pigfarm.Home;
 import com.example.admin.pigfarm.R;
 import com.example.admin.pigfarm.Report.Report_BredderDad;
@@ -25,23 +28,13 @@ public class HomeBCS extends AppCompatActivity {
     TextView txt_farm, txt_unit,txt_ฺtake1_2,txt_ฺtake2_2,txt_ฺtake1_2_1,txt_ฺtake2_2_1;
     ImageView img_back;
     Button btn_take1,btn_take2,btn_A1,btn_reset;
-    String getfarm_name,getunit_name,getfarm_id,getscore,getscore2;
+    String getfarm_name,getunit_name,getfarm_id,getscore,getscore2,fragment_id;
     double sum2 = 0.0;
-
-    @Override
-    public void onBackPressed() {
-
-        finish();
-        Intent intent2 = new Intent(HomeBCS.this, Home.class);
-        startActivity(intent2);
-    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_bcs);
-
-
 
 
         txt_farm = findViewById(R.id.txt_farm);
@@ -56,19 +49,9 @@ public class HomeBCS extends AppCompatActivity {
         btn_A1 = findViewById(R.id.btn_A1);
         btn_reset = findViewById(R.id.btn_reset);
 
-//        Bundle bundle = getIntent().getExtras();
-//
-//        if (bundle.getString("score") != null) {
-//            txt_ฺtake1_2.setText("ผลการประเมินครั้งที่ 1: "+getscore);
-//        }else {
-//            txt_ฺtake1_2.setText("ผลการประเมินครั้งที่ 1:");
-//        }
-//
-//        if (bundle.getString("score2") != null) {
-//            txt_ฺtake2_2.setText("ผลการประเมินครั้งที่ 2: "+getscore2);
-//        }else {
-//            txt_ฺtake2_2.setText("ผลการประเมินครั้งที่ 2:");
-//        }
+
+        SharedPreferences fm = getSharedPreferences("fragment_id", Context.MODE_PRIVATE);
+        fragment_id = fm.getString("fragment_id", "");
 
         SharedPreferences farm = getSharedPreferences("Farm", Context.MODE_PRIVATE);
         getfarm_name = farm.getString("farm_name", "");
@@ -92,7 +75,6 @@ public class HomeBCS extends AppCompatActivity {
         }else{
             txt_ฺtake2_2_1.setText("0");
         }
-
 
 
         img_back.setOnClickListener(new View.OnClickListener() {
@@ -129,6 +111,9 @@ public class HomeBCS extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(HomeBCS.this, CameraActivity.class);
                 startActivity(intent);
+                finish();
+
+
 
             }
         });
@@ -138,6 +123,8 @@ public class HomeBCS extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(HomeBCS.this, CameraActivity2.class);
                 startActivity(intent);
+                finish();
+
 
             }
         });
@@ -194,13 +181,436 @@ public class HomeBCS extends AppCompatActivity {
                    sum2 = 3.5;
                }else if(sum == 2){
                    sum2 = 4;
+               }else if(sum == 0){
+                   sum2 = 0;
                }
 
                 Log.d("sum2",String.valueOf(sum2));
-//                Toast.makeText(HomeBCS.this, ""+sum2,Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(HomeBCS.this, InsertBodyActivity.class);
-                intent.putExtra("score",String.valueOf(sum2));
-                startActivity(intent);
+
+
+
+
+                if (fragment_id.equals("1")) {
+
+                    SharedPreferences shared = getSharedPreferences("score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = shared.edit();
+                    editor.remove("score1");
+                    editor.commit();
+
+                    SharedPreferences shared2 = getSharedPreferences("score2", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor2 = shared2.edit();
+                    editor2.remove("score2");
+                    editor2.commit();
+
+                    SharedPreferences shared3 = getApplicationContext().getSharedPreferences("sum_score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor3 = shared3.edit();
+                    editor3.putString("sum_score", String.valueOf(sum2));
+                    editor3.commit();
+
+                    SharedPreferences shared4 = getApplicationContext().getSharedPreferences("fragment_id", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor4 = shared4.edit();
+                    editor4.putString("fragment_id", String.valueOf(sum2));
+                    editor4.commit();
+
+
+                    Intent intent = new Intent(HomeBCS.this, Event_main.class);
+                    intent.putExtra("fragment_id", "1");
+                    startActivity(intent);
+                    finish();
+
+                }else if (fragment_id.equals("2")){
+                    SharedPreferences shared = getSharedPreferences("score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = shared.edit();
+                    editor.remove("score1");
+                    editor.commit();
+
+                    SharedPreferences shared2 = getSharedPreferences("score2", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor2 = shared2.edit();
+                    editor2.remove("score2");
+                    editor2.commit();
+
+                    SharedPreferences shared3 = getApplicationContext().getSharedPreferences("sum_score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor3 = shared3.edit();
+                    editor3.putString("sum_score", String.valueOf(sum2));
+                    editor3.commit();
+
+                    SharedPreferences shared4 = getApplicationContext().getSharedPreferences("fragment_id", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor4 = shared4.edit();
+                    editor4.putString("fragment_id", String.valueOf(sum2));
+                    editor4.commit();
+
+
+                    Intent intent = new Intent(HomeBCS.this, Event_main.class);
+                    intent.putExtra("fragment_id", "2");
+                    startActivity(intent);
+                    finish();
+
+                }else if (fragment_id.equals("3")){
+                    SharedPreferences shared = getSharedPreferences("score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = shared.edit();
+                    editor.remove("score1");
+                    editor.commit();
+
+                    SharedPreferences shared2 = getSharedPreferences("score2", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor2 = shared2.edit();
+                    editor2.remove("score2");
+                    editor2.commit();
+
+                    SharedPreferences shared3 = getApplicationContext().getSharedPreferences("sum_score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor3 = shared3.edit();
+                    editor3.putString("sum_score", String.valueOf(sum2));
+                    editor3.commit();
+
+                    SharedPreferences shared4 = getApplicationContext().getSharedPreferences("fragment_id", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor4 = shared4.edit();
+                    editor4.putString("fragment_id", String.valueOf(sum2));
+                    editor4.commit();
+
+
+                    Intent intent = new Intent(HomeBCS.this, Event_main.class);
+                    intent.putExtra("fragment_id", "3");
+                    startActivity(intent);
+                    finish();
+                }else if (fragment_id.equals("4")){
+                    SharedPreferences shared = getSharedPreferences("score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = shared.edit();
+                    editor.remove("score1");
+                    editor.commit();
+
+                    SharedPreferences shared2 = getSharedPreferences("score2", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor2 = shared2.edit();
+                    editor2.remove("score2");
+                    editor2.commit();
+
+                    SharedPreferences shared3 = getApplicationContext().getSharedPreferences("sum_score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor3 = shared3.edit();
+                    editor3.putString("sum_score", String.valueOf(sum2));
+                    editor3.commit();
+
+                    SharedPreferences shared4 = getApplicationContext().getSharedPreferences("fragment_id", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor4 = shared4.edit();
+                    editor4.putString("fragment_id", String.valueOf(sum2));
+                    editor4.commit();
+
+
+                    Intent intent = new Intent(HomeBCS.this, Event_main.class);
+                    intent.putExtra("fragment_id", "4");
+                    startActivity(intent);
+                    finish();
+                }else if (fragment_id.equals("5")){
+                    SharedPreferences shared = getSharedPreferences("score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = shared.edit();
+                    editor.remove("score1");
+                    editor.commit();
+
+                    SharedPreferences shared2 = getSharedPreferences("score2", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor2 = shared2.edit();
+                    editor2.remove("score2");
+                    editor2.commit();
+
+                    SharedPreferences shared3 = getApplicationContext().getSharedPreferences("sum_score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor3 = shared3.edit();
+                    editor3.putString("sum_score", String.valueOf(sum2));
+                    editor3.commit();
+
+                    SharedPreferences shared4 = getApplicationContext().getSharedPreferences("fragment_id", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor4 = shared4.edit();
+                    editor4.putString("fragment_id", String.valueOf(sum2));
+                    editor4.commit();
+
+
+                    Intent intent = new Intent(HomeBCS.this, Event_main.class);
+                    intent.putExtra("fragment_id", "5");
+                    startActivity(intent);
+                    finish();
+                }else if (fragment_id.equals("6")){
+                    SharedPreferences shared = getSharedPreferences("score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = shared.edit();
+                    editor.remove("score1");
+                    editor.commit();
+
+                    SharedPreferences shared2 = getSharedPreferences("score2", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor2 = shared2.edit();
+                    editor2.remove("score2");
+                    editor2.commit();
+
+                    SharedPreferences shared3 = getApplicationContext().getSharedPreferences("sum_score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor3 = shared3.edit();
+                    editor3.putString("sum_score", String.valueOf(sum2));
+                    editor3.commit();
+
+                    SharedPreferences shared4 = getApplicationContext().getSharedPreferences("fragment_id", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor4 = shared4.edit();
+                    editor4.putString("fragment_id", String.valueOf(sum2));
+                    editor4.commit();
+
+
+                    Intent intent = new Intent(HomeBCS.this, Event_main.class);
+                    intent.putExtra("fragment_id", "6");
+                    startActivity(intent);
+                    finish();
+                }else if (fragment_id.equals("7")){
+                    SharedPreferences shared = getSharedPreferences("score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = shared.edit();
+                    editor.remove("score1");
+                    editor.commit();
+
+                    SharedPreferences shared2 = getSharedPreferences("score2", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor2 = shared2.edit();
+                    editor2.remove("score2");
+                    editor2.commit();
+
+                    SharedPreferences shared3 = getApplicationContext().getSharedPreferences("sum_score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor3 = shared3.edit();
+                    editor3.putString("sum_score", String.valueOf(sum2));
+                    editor3.commit();
+
+                    SharedPreferences shared4 = getApplicationContext().getSharedPreferences("fragment_id", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor4 = shared4.edit();
+                    editor4.putString("fragment_id", String.valueOf(sum2));
+                    editor4.commit();
+
+
+                    Intent intent = new Intent(HomeBCS.this, Event_main.class);
+                    intent.putExtra("fragment_id", "7");
+                    startActivity(intent);
+                    finish();
+                }else if (fragment_id.equals("8")){
+                    SharedPreferences shared = getSharedPreferences("score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = shared.edit();
+                    editor.remove("score1");
+                    editor.commit();
+
+                    SharedPreferences shared2 = getSharedPreferences("score2", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor2 = shared2.edit();
+                    editor2.remove("score2");
+                    editor2.commit();
+
+                    SharedPreferences shared3 = getApplicationContext().getSharedPreferences("sum_score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor3 = shared3.edit();
+                    editor3.putString("sum_score", String.valueOf(sum2));
+                    editor3.commit();
+
+                    SharedPreferences shared4 = getApplicationContext().getSharedPreferences("fragment_id", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor4 = shared4.edit();
+                    editor4.putString("fragment_id", String.valueOf(sum2));
+                    editor4.commit();
+
+
+                    Intent intent = new Intent(HomeBCS.this, Event_main.class);
+                    intent.putExtra("fragment_id", "8");
+                    startActivity(intent);
+                    finish();
+                }else if (fragment_id.equals("9")){
+                    SharedPreferences shared = getSharedPreferences("score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = shared.edit();
+                    editor.remove("score1");
+                    editor.commit();
+
+                    SharedPreferences shared2 = getSharedPreferences("score2", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor2 = shared2.edit();
+                    editor2.remove("score2");
+                    editor2.commit();
+
+                    SharedPreferences shared3 = getApplicationContext().getSharedPreferences("sum_score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor3 = shared3.edit();
+                    editor3.putString("sum_score", String.valueOf(sum2));
+                    editor3.commit();
+
+                    SharedPreferences shared4 = getApplicationContext().getSharedPreferences("fragment_id", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor4 = shared4.edit();
+                    editor4.putString("fragment_id", String.valueOf(sum2));
+                    editor4.commit();
+
+
+                    Intent intent = new Intent(HomeBCS.this, Event_main.class);
+                    intent.putExtra("fragment_id", "9");
+                    startActivity(intent);
+                    finish();
+                }else if (fragment_id.equals("10")){
+                    SharedPreferences shared = getSharedPreferences("score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = shared.edit();
+                    editor.remove("score1");
+                    editor.commit();
+
+                    SharedPreferences shared2 = getSharedPreferences("score2", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor2 = shared2.edit();
+                    editor2.remove("score2");
+                    editor2.commit();
+
+                    SharedPreferences shared3 = getApplicationContext().getSharedPreferences("sum_score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor3 = shared3.edit();
+                    editor3.putString("sum_score", String.valueOf(sum2));
+                    editor3.commit();
+
+                    SharedPreferences shared4 = getApplicationContext().getSharedPreferences("fragment_id", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor4 = shared4.edit();
+                    editor4.putString("fragment_id", String.valueOf(sum2));
+                    editor4.commit();
+
+
+                    Intent intent = new Intent(HomeBCS.this, Event_main.class);
+                    intent.putExtra("fragment_id", "10");
+                    startActivity(intent);
+                    finish();
+                }else if (fragment_id.equals("11")){
+                    SharedPreferences shared = getSharedPreferences("score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = shared.edit();
+                    editor.remove("score1");
+                    editor.commit();
+
+                    SharedPreferences shared2 = getSharedPreferences("score2", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor2 = shared2.edit();
+                    editor2.remove("score2");
+                    editor2.commit();
+
+                    SharedPreferences shared3 = getApplicationContext().getSharedPreferences("sum_score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor3 = shared3.edit();
+                    editor3.putString("sum_score", String.valueOf(sum2));
+                    editor3.commit();
+
+                    SharedPreferences shared4 = getApplicationContext().getSharedPreferences("fragment_id", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor4 = shared4.edit();
+                    editor4.putString("fragment_id", String.valueOf(sum2));
+                    editor4.commit();
+
+
+                    Intent intent = new Intent(HomeBCS.this, Event_main.class);
+                    intent.putExtra("fragment_id", "11");
+                    startActivity(intent);
+                    finish();
+                }else if (fragment_id.equals("12")){
+                    SharedPreferences shared = getSharedPreferences("score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = shared.edit();
+                    editor.remove("score1");
+                    editor.commit();
+
+                    SharedPreferences shared2 = getSharedPreferences("score2", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor2 = shared2.edit();
+                    editor2.remove("score2");
+                    editor2.commit();
+
+                    SharedPreferences shared3 = getApplicationContext().getSharedPreferences("sum_score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor3 = shared3.edit();
+                    editor3.putString("sum_score", String.valueOf(sum2));
+                    editor3.commit();
+
+                    SharedPreferences shared4 = getApplicationContext().getSharedPreferences("fragment_id", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor4 = shared4.edit();
+                    editor4.putString("fragment_id", String.valueOf(sum2));
+                    editor4.commit();
+
+
+                    Intent intent = new Intent(HomeBCS.this, Event_main.class);
+                    intent.putExtra("fragment_id", "12");
+                    startActivity(intent);
+                    finish();
+                }else if (fragment_id.equals("13")){
+                    SharedPreferences shared = getSharedPreferences("score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = shared.edit();
+                    editor.remove("score1");
+                    editor.commit();
+
+                    SharedPreferences shared2 = getSharedPreferences("score2", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor2 = shared2.edit();
+                    editor2.remove("score2");
+                    editor2.commit();
+
+                    SharedPreferences shared3 = getApplicationContext().getSharedPreferences("sum_score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor3 = shared3.edit();
+                    editor3.putString("sum_score", String.valueOf(sum2));
+                    editor3.commit();
+
+                    SharedPreferences shared4 = getApplicationContext().getSharedPreferences("fragment_id", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor4 = shared4.edit();
+                    editor4.putString("fragment_id", String.valueOf(sum2));
+                    editor4.commit();
+
+
+                    Intent intent = new Intent(HomeBCS.this, Event_main.class);
+                    intent.putExtra("fragment_id", "13");
+                    startActivity(intent);
+                    finish();
+                }else if (fragment_id.equals("14")){
+                    SharedPreferences shared = getSharedPreferences("score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = shared.edit();
+                    editor.remove("score1");
+                    editor.commit();
+
+                    SharedPreferences shared2 = getSharedPreferences("score2", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor2 = shared2.edit();
+                    editor2.remove("score2");
+                    editor2.commit();
+
+                    SharedPreferences shared3 = getApplicationContext().getSharedPreferences("sum_score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor3 = shared3.edit();
+                    editor3.putString("sum_score", String.valueOf(sum2));
+                    editor3.commit();
+
+                    SharedPreferences shared4 = getApplicationContext().getSharedPreferences("fragment_id", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor4 = shared4.edit();
+                    editor4.putString("fragment_id", String.valueOf(sum2));
+                    editor4.commit();
+
+
+                    Intent intent = new Intent(HomeBCS.this, Event_main.class);
+                    intent.putExtra("fragment_id", "14");
+                    startActivity(intent);
+                    finish();
+                }else if (fragment_id.equals("15")){
+                    SharedPreferences shared = getSharedPreferences("score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = shared.edit();
+                    editor.remove("score1");
+                    editor.commit();
+
+                    SharedPreferences shared2 = getSharedPreferences("score2", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor2 = shared2.edit();
+                    editor2.remove("score2");
+                    editor2.commit();
+
+                    SharedPreferences shared3 = getApplicationContext().getSharedPreferences("sum_score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor3 = shared3.edit();
+                    editor3.putString("sum_score", String.valueOf(sum2));
+                    editor3.commit();
+
+                    SharedPreferences shared4 = getApplicationContext().getSharedPreferences("fragment_id", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor4 = shared4.edit();
+                    editor4.putString("fragment_id", String.valueOf(sum2));
+                    editor4.commit();
+
+
+                    Intent intent = new Intent(HomeBCS.this, Event_main.class);
+                    intent.putExtra("fragment_id", "15");
+                    startActivity(intent);
+                    finish();
+                }else if (fragment_id.equals("16")){
+                    SharedPreferences shared = getSharedPreferences("score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = shared.edit();
+                    editor.remove("score1");
+                    editor.commit();
+
+                    SharedPreferences shared2 = getSharedPreferences("score2", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor2 = shared2.edit();
+                    editor2.remove("score2");
+                    editor2.commit();
+
+                    SharedPreferences shared3 = getApplicationContext().getSharedPreferences("sum_score", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor3 = shared3.edit();
+                    editor3.putString("sum_score", String.valueOf(sum2));
+                    editor3.commit();
+
+                    SharedPreferences shared4 = getApplicationContext().getSharedPreferences("fragment_id", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor4 = shared4.edit();
+                    editor4.putString("fragment_id", String.valueOf(sum2));
+                    editor4.commit();
+
+
+                    Intent intent = new Intent(HomeBCS.this, Event_main.class);
+                    intent.putExtra("fragment_id", "16");
+                    startActivity(intent);
+                    finish();
+                }
+
 
             }
         });

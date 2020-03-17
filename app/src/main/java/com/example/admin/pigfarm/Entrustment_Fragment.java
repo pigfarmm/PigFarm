@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.admin.pigfarm.BodyAnalyze.HomeBCS;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,11 +55,12 @@ public class Entrustment_Fragment extends Fragment {
     ArrayList<String> listItems = new ArrayList<>();
     ArrayAdapter<String> adapter;
     Spinner spin_noteId05;
-    EditText edit_dateNote05, edit_numbaby05, edit_numbaby06;
+    EditText edit_dateNote05, edit_numbaby05, edit_numbaby06,edit_imgpro;
     Button btn_flacAct05;
-    ImageView img_calNote05;
+    ImageView img_calNote05,img_process;
     String getamount,d,m,unit_id;
     Calendar myCalendar = Calendar.getInstance();
+    private String getsum_score;
 
 
     public Entrustment_Fragment() {
@@ -81,7 +84,8 @@ public class Entrustment_Fragment extends Fragment {
         if (getArguments() != null){
             gettextbreed = getArguments().getString("textbreed");
             farm_id = getArguments().getString("farm_id");
-            Toast.makeText(getActivity(), gettextbreed, Toast.LENGTH_SHORT).show();
+            getsum_score = getArguments().getString("sum_score");
+            Toast.makeText(getActivity(), "ฝากเลี้ยง", Toast.LENGTH_SHORT).show();
         }
 
         spin_noteId05 = getView().findViewById(R.id.spin_noteId05);
@@ -90,6 +94,26 @@ public class Entrustment_Fragment extends Fragment {
         btn_flacAct05 = getView().findViewById(R.id.btn_flacAct05);
         img_calNote05 = getView().findViewById(R.id.img_calNote05);
         edit_numbaby06 = getView().findViewById(R.id.edit_numbaby06);
+        img_process = getView().findViewById(R.id.img_process);
+        edit_imgpro = getView().findViewById(R.id.edit_imgpro);
+
+        if (getsum_score != null){
+            edit_imgpro.setText(getsum_score);
+        }else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
+            builder.setCancelable(false);
+            builder.setMessage("หากท่านผู้ใช้งานต้องการใช้งานฟังก์ชั่น 'ประเมินหุ่นสุกร' โปรดทำการประเมินหุุ่นสุกรก่อนทำการกรอกรายละเอียดอื่นๆ");
+            builder.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+            edit_imgpro.setText("");
+        }
 
 
         String date_n = new SimpleDateFormat("yyyy-MM-dd",
@@ -154,6 +178,20 @@ public class Entrustment_Fragment extends Fragment {
             }
         });
 
+        img_process.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SharedPreferences shared = getActivity().getSharedPreferences("fragment_id", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = shared.edit();
+                editor.putString("fragment_id","5");
+                editor.commit();
+
+                Intent intent = new Intent(getActivity(),HomeBCS.class);
+                startActivity(intent);
+            }
+        });
+
         img_calNote05.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -207,6 +245,10 @@ public class Entrustment_Fragment extends Fragment {
         @Override
         protected String doInBackground(String... strings) {
             try{
+                if (getsum_score == null){
+                    getsum_score = "0";
+                }
+
                 OkHttpClient _okHttpClient = new OkHttpClient();
                 RequestBody _requestBody = new FormBody.Builder()
                         .add("event_id", "5")
@@ -215,6 +257,7 @@ public class Entrustment_Fragment extends Fragment {
                         .add("pig_amountofentrustment", edit_numbaby05.getText().toString())
                         .add("pig_amountofadopt",edit_numbaby06.getText().toString())  //รับเลี้ยงลูก
                         .add("pig_amount_pregnant",getamount)
+                        .add("bcs_score", edit_imgpro.getText().toString())
                         .build();
 
                 Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();

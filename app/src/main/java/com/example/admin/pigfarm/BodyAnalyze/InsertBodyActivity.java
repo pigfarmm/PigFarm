@@ -192,7 +192,7 @@ public class InsertBodyActivity extends AppCompatActivity{
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             if (result != null) {
-                Toast.makeText(InsertBodyActivity.this, "บันทึกข้อมูลเรียบร้อยแล้ว", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(InsertBodyActivity.this, "บันทึกข้อมูลเรียบร้อยแล้ว", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(InsertBodyActivity.this, Home.class);
                 startActivity(i);
                 finish();

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:background="@color/ColorBG"
+    >
+
+    <!--StartNavBar-->
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_report_a1"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        card_view:cardBackgroundColor="@color/ColorNavBar">
+
+        <TextView
+            android:id="@+id/txt_report_a1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/thaisansneue_bold"
+            android:gravity="center"
+            android:text="เกี่ยวกับ"
+            android:layout_marginTop="3dp"
+            android:textColor="#ffffff"
+            android:textSize="28sp" />
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_marginTop="7dp"
+            android:layout_width="25dp"
+            android:layout_height="28dp"
+            android:src="@drawable/back"
+            android:layout_gravity="left"
+            android:onClick="onBackClick"
+            android:layout_marginLeft="15dp"/>
+
+    </android.support.v7.widget.CardView>
+
+    <!--endNavBar-->
+
+    <ScrollView android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/card_report_a1"
+        android:background="@color/ColorBG"
+        android:id="@+id/scrollView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/img_kku"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_height="130dp"
+                android:src="@drawable/kku" />
+
+            <TextView
+                android:id="@+id/txt_1"
+                android:text="แอปพลิเคชัน PIG-A-BOO"
+                android:textColor="@color/Colorfont"
+                android:textSize="25sp"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/thaisansneue_bold"/>
+
+            <TextView
+            android:id="@+id/txt_21"
+            android:text="ลิขสิทธิ์ของมหาวิทยาลัยขอนแก่น"
+            android:textColor="@color/Colorfont"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/thaisansneue_bold"/>
+
+
+            <TextView
+                android:id="@+id/txt_3"
+                android:text="จัดทำโดย"
+                android:textColor="@color/Colorfont"
+                android:layout_marginTop="20dp"
+                android:textSize="22dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/thaisansneue_bold"/>
+
+            <TextView
+                android:id="@+id/txt_4"
+                android:text="1. นายศุภณัฐ เหลี่ยมพิทักษ์"
+                android:textColor="@color/Colorfont"
+                android:layout_marginLeft="125dp"
+                android:layout_marginRight="100dp"
+                android:layout_marginTop="5dp"
+                android:textSize="20dp"
+                android:gravity="left"
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/thaisansneue_bold"/>
+
+            <TextView
+                android:id="@+id/txt_5"
+                android:text="2. นายศิวกร อนันต์เอื้อ"
+                android:textColor="@color/Colorfont"
+                android:layout_marginLeft="125dp"
+                android:layout_marginRight="100dp"
+                android:layout_marginTop="0dp"
+                android:textSize="20dp"
+                android:gravity="left"
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/thaisansneue_bold"/>
+
+
+            <TextView
+                android:id="@+id/txt_6"
+                android:text="อาจารย์ที่ปรึกษา"
+                android:textColor="@color/Colorfont"
+                android:layout_marginTop="20dp"
+                android:textSize="22dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/thaisansneue_bold"/>
+
+            <TextView
+                android:id="@+id/txt_7"
+                android:text="1. รศ.ดร.จักรชัย โสอินทร์"
+                android:textColor="@color/Colorfont"
+                android:layout_marginLeft="125dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp"
+                android:textSize="20dp"
+                android:gravity="left"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/thaisansneue_bold"/>
+
+            <TextView
+                android:id="@+id/txt_8"
+                android:text="2. รศ.น.สพ.ดร.เจษฎา จิวากานนท์"
+                android:textColor="@color/Colorfont"
+                android:layout_marginLeft="125dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="0dp"
+                android:textSize="20dp"
+                android:gravity="left"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/thaisansneue_bold"/>
+
+            <TextView
+                android:id="@+id/txt_9"
+                android:text="3. ผศ.น.สพ.ดร.สาธร พรตระกูลพิพัฒน์์"
+                android:textColor="@color/Colorfont"
+                android:layout_marginLeft="125dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="0dp"
+                android:textSize="20dp"
+                android:gravity="left"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/thaisansneue_bold"/>
+
+
+
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+</RelativeLayout>
+
+

@@ -46,7 +46,10 @@ public class ResultActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ResultActivity.this,HomeBCS.class);
+//                intent.putExtra("score",getscore);
                 startActivity(intent);
+                finish();
+
             }
         });
 

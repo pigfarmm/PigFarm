@@ -34,6 +34,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.admin.pigfarm.BodyAnalyze.HomeBCS;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -61,9 +62,9 @@ public class CheckPregnant_Fragment extends Fragment {
     ArrayAdapter<String> adapter;
     public static String gettextbreed, farm_id;
     Spinner spin_noteId02, spin_result02, spin_howtoresult;
-    EditText edit_dateNote02;
+    EditText edit_dateNote02,edit_imgpro;
     Button btn_flacAct02;
-    ImageView img_calNote02;
+    ImageView img_calNote02,img_process;
     Calendar myCalendar = Calendar.getInstance();
 
     private String[] event_date_array;
@@ -72,6 +73,7 @@ public class CheckPregnant_Fragment extends Fragment {
     private List<String> mStrings_event_date = new ArrayList<String>();
     private int pig_id_dropdown;
     String getamount,item,d,m,unit_id;
+    private String getsum_score,getmaxeventid;
 
 
     public CheckPregnant_Fragment() {
@@ -99,7 +101,8 @@ public class CheckPregnant_Fragment extends Fragment {
         if (getArguments() != null) {
             gettextbreed = getArguments().getString("textbreed");
             farm_id = getArguments().getString("farm_id");
-            Toast.makeText(getActivity(), gettextbreed, Toast.LENGTH_SHORT).show();
+            getsum_score = getArguments().getString("sum_score");
+            Toast.makeText(getActivity(), "ตรวจท้อง", Toast.LENGTH_SHORT).show();
         }
 
         edit_dateNote02 = getView().findViewById(R.id.edit_dateNote02);
@@ -108,6 +111,26 @@ public class CheckPregnant_Fragment extends Fragment {
         btn_flacAct02 = getView().findViewById(R.id.btn_flacAct02);
         img_calNote02 = getView().findViewById(R.id.img_calNote02);
         spin_howtoresult = getView().findViewById(R.id.spin_howtoresult);
+        img_process = getView().findViewById(R.id.img_process);
+        edit_imgpro = getView().findViewById(R.id.edit_imgpro);
+
+        if (getsum_score != null){
+            edit_imgpro.setText(getsum_score);
+        }else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
+            builder.setCancelable(false);
+            builder.setMessage("หากท่านผู้ใช้งานต้องการใช้งานฟังก์ชั่น 'ประเมินหุ่นสุกร' โปรดทำการประเมินหุุ่นสุกรก่อนทำการกรอกรายละเอียดอื่นๆ");
+            builder.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+            edit_imgpro.setText("");
+        }
 
         String date_n = new SimpleDateFormat("yyyy-MM-dd",
                 Locale.getDefault()).format(new Date());
@@ -125,7 +148,7 @@ public class CheckPregnant_Fragment extends Fragment {
 
 
 
-        String url = "https://pigaboo.xyz/Query_BreedID.php?farm_id=" + farm_id+"&unit_id="+unit_id;
+        String url = "https://pigaboo.xyz/Query_Breed.php?farm_id=" + farm_id+"&unit_id="+unit_id;
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -140,6 +163,20 @@ public class CheckPregnant_Fragment extends Fragment {
         );
         RequestQueue requestQueue = Volley.newRequestQueue(this.getActivity().getApplicationContext());
         requestQueue.add(stringRequest);
+
+        img_process.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SharedPreferences shared = getActivity().getSharedPreferences("fragment_id", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = shared.edit();
+                editor.putString("fragment_id","2");
+                editor.commit();
+
+                Intent intent = new Intent(getActivity(),HomeBCS.class);
+                startActivity(intent);
+            }
+        });
 
 
         btn_flacAct02.setOnClickListener(new View.OnClickListener() {
@@ -222,6 +259,12 @@ public class CheckPregnant_Fragment extends Fragment {
             for (int i = 0; i<result3.length(); i++){
                 JSONObject collectData3 = result3.getJSONObject(i);
                 getamount = collectData3.getString("pig_amount_pregnant");
+
+                if (collectData3.getString("max_eventid") == null){
+                    getmaxeventid = "0";
+                }else{
+                    getmaxeventid = collectData3.getString("max_eventid");
+                }
             }
         }catch (JSONException ex) {
             ex.printStackTrace();
@@ -231,6 +274,10 @@ public class CheckPregnant_Fragment extends Fragment {
     private class InsertAsyn extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
+
+            if (getsum_score == null){
+                getsum_score = "0";
+            }
 
             try {
                 spin_noteId02.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -244,20 +291,44 @@ public class CheckPregnant_Fragment extends Fragment {
                     public void onNothingSelected(AdapterView<?> adapterView) {
                     }
                 });
-                OkHttpClient _okHttpClient = new OkHttpClient();
-                RequestBody _requestBody = new FormBody.Builder()
-                        .add("event_id", "2")
-                        .add("event_recorddate", edit_dateNote02.getText().toString())
-                        .add("pig_id", pig_id_array[pig_id_dropdown])
-                        .add("result_pregnant",item)
-                        .add("note", event_date_array[pig_id_dropdown])
-                        .add("pig_amount_pregnant",getamount)
-                        .add("howtocheckpreg",spin_howtoresult.getSelectedItem().toString())
-                        .build();
 
-                Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();
-                _okHttpClient.newCall(_request).execute();
-                return "successfully";
+                if (!getmaxeventid.equals("1") && !getmaxeventid.equals("null") && !getmaxeventid.equals("17")){
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
+                            builder1.setCancelable(false);
+                            builder1.setMessage("เหตุการณ์ล่าสุดไม่ใช่เหตุการณ์ผสม");
+                            builder1.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                            AlertDialog dialog = builder1.create();
+                            dialog.show();
+                        }
+                    });
+                    return "not success";
+                }else{
+                    OkHttpClient _okHttpClient = new OkHttpClient();
+                    RequestBody _requestBody = new FormBody.Builder()
+                            .add("event_id", "2")
+                            .add("event_recorddate", edit_dateNote02.getText().toString())
+                            .add("pig_id", pig_id_array[pig_id_dropdown])
+                            .add("result_pregnant",item)
+                            .add("note", event_date_array[pig_id_dropdown])
+                            .add("pig_amount_pregnant",getamount)
+                            .add("howtocheckpreg",spin_howtoresult.getSelectedItem().toString())
+                            .add("bcs_score", edit_imgpro.getText().toString())
+                            .build();
+
+                    Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();
+                    _okHttpClient.newCall(_request).execute();
+                    return "successfully";
+                }
+
+
             } catch (IOException e) {
                 e.printStackTrace();
             }

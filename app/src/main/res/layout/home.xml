@@ -403,7 +403,7 @@
                                     card_view:cardBackgroundColor="#ffffff">
 
                                     <ImageView
-                                        android:id="@+id/img_report"
+                                        android:id="@+id/img_about"
                                         android:layout_width="99dp"
                                         android:layout_height="107dp"
                                         android:layout_gravity="center"

@@ -42,7 +42,7 @@ import org.json.JSONObject;
 public class Home extends AppCompatActivity{
 
     TextView txt_user, txt_farm, txt_unit,txt_profile,txt_event,txt_data,txt_pigimgpro,txt_reportXX,txt_adduser,txt_report;
-    CardView card_settings, card_profile, card_event, card_report, card_data,card_pigimgpro;
+    CardView card_settings, card_profile, card_event, card_report, card_data,card_pigimgpro,card_about;
     String farm_name,farm_id,unit_name,username,password,owner,getfarm_id,LoginStatus,url;
     private SwipeRefreshLayout mSwipeRefresh;
 
@@ -99,6 +99,7 @@ public class Home extends AppCompatActivity{
         card_report = findViewById(R.id.card_report);
         card_settings = findViewById(R.id.card_settings);
         card_pigimgpro = findViewById(R.id.card_pigimgpro);
+        card_about = findViewById(R.id.card_about);
 
         txt_user.setText(owner);
         txt_farm.setText(farm_name);
@@ -159,6 +160,14 @@ public class Home extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Home.this, Report_BCS.class);  //CameraActivity
+                startActivity(intent);
+            }
+        });
+
+        card_about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Home.this, about_activity.class);
                 startActivity(intent);
             }
         });

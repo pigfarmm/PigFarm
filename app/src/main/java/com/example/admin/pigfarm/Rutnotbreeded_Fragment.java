@@ -29,6 +29,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.admin.pigfarm.BodyAnalyze.HomeBCS;
 import com.example.admin.pigfarm.R;
 
 import org.json.JSONArray;
@@ -51,13 +52,14 @@ public class Rutnotbreeded_Fragment extends Fragment {
     ArrayList<String> list = new ArrayList<>();
     ArrayList<String> listItems = new ArrayList<>();
     ArrayAdapter<String> adapter;
-    EditText edit_dateNote15,edit_msg15;
+    EditText edit_dateNote15,edit_msg15,edit_imgpro;
     Spinner spin_noteId15;
-    ImageView img_calNote15;
+    ImageView img_calNote15,img_process;
     Button btn_flacAct15;
     Calendar myCalendar = Calendar.getInstance();
     public static String gettextbreed,farm_id,m,d;
     String unit_id;
+    private String getsum_score;
 
     public Rutnotbreeded_Fragment() {
         // Required empty public constructor
@@ -80,7 +82,8 @@ public class Rutnotbreeded_Fragment extends Fragment {
         if (getArguments() != null){
             String gettextbreed = getArguments().getString("textbreed");
             farm_id = getArguments().getString("farm_id");
-            Toast.makeText(getActivity(), gettextbreed, Toast.LENGTH_SHORT).show();
+            getsum_score = getArguments().getString("sum_score");
+            Toast.makeText(getActivity(), "เป็นสัดแต่ไม่ผสมพันธุ์", Toast.LENGTH_SHORT).show();
         }
 
         edit_dateNote15 = getView().findViewById(R.id.edit_dateNote15);
@@ -88,6 +91,26 @@ public class Rutnotbreeded_Fragment extends Fragment {
         spin_noteId15 = getView().findViewById(R.id.spin_noteId15);
         img_calNote15 = getView().findViewById(R.id.img_calNote15);
         btn_flacAct15 = getView().findViewById(R.id.btn_flacAct15);
+        img_process = getView().findViewById(R.id.img_process);
+        edit_imgpro = getView().findViewById(R.id.edit_imgpro);
+
+        if (getsum_score != null){
+            edit_imgpro.setText(getsum_score);
+        }else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
+            builder.setCancelable(false);
+            builder.setMessage("หากท่านผู้ใช้งานต้องการใช้งานฟังก์ชั่น 'ประเมินหุ่นสุกร' โปรดทำการประเมินหุุ่นสุกรก่อนทำการกรอกรายละเอียดอื่นๆ");
+            builder.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+            edit_imgpro.setText("");
+        }
 
         String date_n = new SimpleDateFormat("yyyy-MM-dd",
                 Locale.getDefault()).format(new Date());
@@ -124,6 +147,20 @@ public class Rutnotbreeded_Fragment extends Fragment {
                 showDatePickerDialog();
             }
         });
+
+        img_process.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SharedPreferences shared = getActivity().getSharedPreferences("fragment_id", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = shared.edit();
+                editor.putString("fragment_id","11");
+                editor.commit();
+
+                Intent intent = new Intent(getActivity(),HomeBCS.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void showDatePickerDialog(){
@@ -157,12 +194,17 @@ public class Rutnotbreeded_Fragment extends Fragment {
         @Override
         protected String doInBackground(String... strings) {
             try{
+                if (getsum_score == null){
+                    getsum_score = "0";
+                }
+
                 OkHttpClient _okHttpClient = new OkHttpClient();
                 RequestBody _requestBody = new FormBody.Builder()
                         .add("event_id", "12")
                         .add("event_recorddate", edit_dateNote15.getText().toString())
                         .add("pig_id", spin_noteId15.getSelectedItem().toString())
                         .add("note", edit_msg15.getText().toString())
+                        .add("bcs_score", edit_imgpro.getText().toString())
                         .build();
 
                 Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();
@@ -192,7 +234,7 @@ public class Rutnotbreeded_Fragment extends Fragment {
             JSONArray result = jsonObject.getJSONArray("result");
 
             if (result.length() == 0) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
                 builder.setCancelable(false);
                 builder.setMessage("ยังไม่มีรายการบันทึกจากเหตุการณ์หย่านม");
                 builder.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {

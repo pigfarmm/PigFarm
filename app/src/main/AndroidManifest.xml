@@ -162,6 +162,7 @@
         <activity android:name=".BodyAnalyze.PictureActivity2"/>
         <activity android:name=".BodyAnalyze.ResultActivity2"/>
         <activity android:name=".Report.Report_BCS"/>
+        <activity android:name=".Report.WebView_BCS"/>
         <activity
             android:name=".Settings.MainActivity"
             android:label="@string/title_activity_main"

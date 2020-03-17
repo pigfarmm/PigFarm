@@ -94,6 +94,40 @@ public class Report_BCS extends AppCompatActivity {
         adapterType.setDropDownViewResource(R.layout.spinner_item);
         spin_B3.setAdapter(adapterType);
 
+        btn_A1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(String.valueOf(spin_B3.getSelectedItem()).equals("ผสมพันธุ์")){
+                    pdf = "https://pigaboo.xyz/Report/ReportBCS_Breed.php";
+                    Intent intent = new Intent(Report_BCS.this, WebView_BCS.class);
+                    intent.putExtra("url",pdf);
+                    intent.putExtra("start_date",edit_B1.getText().toString());
+                    intent.putExtra("end_date",edit_B2.getText().toString());
+
+                    startActivity(intent);
+
+                }else if(String.valueOf(spin_B3.getSelectedItem()).equals("คลอด")){
+                    pdf = "https://pigaboo.xyz/Report/ReportBCS_GiveBirth.php";
+                    Intent intent = new Intent(Report_BCS.this, WebView_BCS.class);
+                    intent.putExtra("url",pdf);
+                    intent.putExtra("start_date",edit_B1.getText().toString());
+                    intent.putExtra("end_date",edit_B2.getText().toString());
+
+                    startActivity(intent);
+
+                }else if(String.valueOf(spin_B3.getSelectedItem()).equals("หย่านม")){
+                    pdf = "https://pigaboo.xyz/Report/ReportBCS_Wean.php";
+                    Intent intent = new Intent(Report_BCS.this, WebView_BCS.class);
+                    intent.putExtra("url",pdf);
+                    intent.putExtra("start_date",edit_B1.getText().toString());
+                    intent.putExtra("end_date",edit_B2.getText().toString());
+
+                    startActivity(intent);
+
+                }
+            }
+        });
+
 
     }
 

@@ -1,8 +1,11 @@
 package com.example.admin.pigfarm;
 
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -26,6 +29,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.admin.pigfarm.BodyAnalyze.HomeBCS;
 import com.example.admin.pigfarm.R;
 
 import org.json.JSONArray;
@@ -51,11 +55,12 @@ public class Note_Fragment extends Fragment {
     ArrayList<String> listItems = new ArrayList<>();
     ArrayAdapter<String> adapter;
     Spinner spin_noteId10;
-    EditText edit_dateNote10, edit_msg10;
+    EditText edit_dateNote10, edit_msg10,edit_imgpro;
     Button btn_flacAct10;
-    ImageView img_calNote10;
+    ImageView img_calNote10,img_process;
     String m,d,unit_id;
     Calendar myCalendar = Calendar.getInstance();
+    private String getsum_score;
 
     public Note_Fragment() {
     }
@@ -77,7 +82,8 @@ public class Note_Fragment extends Fragment {
         if (getArguments() != null){
             gettextbreed = getArguments().getString("textbreed");
             farm_id = getArguments().getString("farm_id");
-            Toast.makeText(getActivity(), gettextbreed, Toast.LENGTH_SHORT).show();
+            getsum_score = getArguments().getString("sum_score");
+            Toast.makeText(getActivity(), "หมายเหตุ", Toast.LENGTH_SHORT).show();
         }
 
         spin_noteId10 = getView().findViewById(R.id.spin_noteId10);
@@ -85,6 +91,26 @@ public class Note_Fragment extends Fragment {
         edit_msg10 = getView().findViewById(R.id.edit_msg10);
         btn_flacAct10 = getView().findViewById(R.id.btn_flacAct10);
         img_calNote10 = getView().findViewById(R.id.img_calNote10);
+        img_process = getView().findViewById(R.id.img_process);
+        edit_imgpro = getView().findViewById(R.id.edit_imgpro);
+
+        if (getsum_score != null){
+            edit_imgpro.setText(getsum_score);
+        }else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
+            builder.setCancelable(false);
+            builder.setMessage("หากท่านผู้ใช้งานต้องการใช้งานฟังก์ชั่น 'ประเมินหุ่นสุกร' โปรดทำการประเมินหุุ่นสุกรก่อนทำการกรอกรายละเอียดอื่นๆ");
+            builder.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+            edit_imgpro.setText("");
+        }
 
         String date_n = new SimpleDateFormat("yyyy-MM-dd",
                 Locale.getDefault()).format(new Date());
@@ -111,6 +137,20 @@ public class Note_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 new InsertAsyn().execute("https://pigaboo.xyz/Insert_EventNote.php");
+            }
+        });
+
+        img_process.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SharedPreferences shared = getActivity().getSharedPreferences("fragment_id", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = shared.edit();
+                editor.putString("fragment_id","9");
+                editor.commit();
+
+                Intent intent = new Intent(getActivity(),HomeBCS.class);
+                startActivity(intent);
             }
         });
 
@@ -153,12 +193,17 @@ public class Note_Fragment extends Fragment {
         @Override
         protected String doInBackground(String... strings) {
             try{
+                if (getsum_score == null){
+                    getsum_score = "0";
+                }
+
                 OkHttpClient _okHttpClient = new OkHttpClient();
                 RequestBody _requestBody = new FormBody.Builder()
                         .add("event_id", "10")
                         .add("event_recorddate", edit_dateNote10.getText().toString())
                         .add("pig_id", spin_noteId10.getSelectedItem().toString())
                         .add("note", edit_msg10.getText().toString())
+                        .add("bcs_score", edit_imgpro.getText().toString())
                         .build();
 
                 Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();

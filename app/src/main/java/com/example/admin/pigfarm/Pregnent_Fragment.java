@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.admin.pigfarm.BodyAnalyze.HomeBCS;
 import com.example.admin.pigfarm.R;
 
 import org.json.JSONArray;
@@ -56,16 +58,17 @@ public class Pregnent_Fragment extends Fragment {
     ArrayAdapter<String> adapter;
     public static String gettextbreed,farm_id,getamount;
     Spinner spin_noteId03;
-    EditText edit_dateNote03,edit_msg03;
+    EditText edit_dateNote03,edit_msg03,edit_imgpro;
     Button btn_flacAct03;
     private String[] event_date_array;
     private String[] pig_id_array;
     private List<String> mStrings_pig_id = new ArrayList<String>();
     private List<String> mStrings_event_date = new ArrayList<String>();
     private int pig_id_dropdown;
-    ImageView img_calNote03;
+    ImageView img_calNote03,img_process;
     Calendar myCalendar = Calendar.getInstance();
     String d,m,unit_id,getmaxeventid,event_recorddate;
+    private String getsum_score;
 
 
 
@@ -89,7 +92,8 @@ public class Pregnent_Fragment extends Fragment {
         if (getArguments() != null){
             gettextbreed = getArguments().getString("textbreed");
             farm_id = getArguments().getString("farm_id");
-            Toast.makeText(getActivity(), gettextbreed, Toast.LENGTH_SHORT).show();
+            getsum_score = getArguments().getString("sum_score");
+            Toast.makeText(getActivity(), "แท้ง", Toast.LENGTH_SHORT).show();
         }
 
             spin_noteId03 = getView().findViewById(R.id.spin_noteId03);
@@ -97,6 +101,27 @@ public class Pregnent_Fragment extends Fragment {
             edit_msg03 = getView().findViewById(R.id.edit_msg03);
             btn_flacAct03 = getView().findViewById(R.id.btn_flacAct03);
             img_calNote03 = getView().findViewById(R.id.img_calNote03);
+            img_process = getView().findViewById(R.id.img_process);
+            edit_imgpro = getView().findViewById(R.id.edit_imgpro);
+
+        if (getsum_score != null){
+            edit_imgpro.setText(getsum_score);
+        }else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
+            builder.setCancelable(false);
+            builder.setMessage("หากท่านผู้ใช้งานต้องการใช้งานฟังก์ชั่น 'ประเมินหุ่นสุกร' โปรดทำการประเมินหุุ่นสุกรก่อนทำการกรอกรายละเอียดอื่นๆ");
+            builder.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+            edit_imgpro.setText("");
+        }
+
 
         String date_n = new SimpleDateFormat("yyyy-MM-dd",
                 Locale.getDefault()).format(new Date());
@@ -128,7 +153,7 @@ public class Pregnent_Fragment extends Fragment {
                         public void onResponse(String response) {
                             QueryAmountPregnant(response);
 
-                            String url4 = "https://pigaboo.xyz/Query_BreedID.php?farm_id=" + farm_id+"&unit_id="+unit_id+"&pig_id="+spin_noteId03.getSelectedItem().toString();
+                            String url4 = "https://pigaboo.xyz/Query_BreedIDForPregnant.php?farm_id=" + farm_id+"&unit_id="+unit_id+"&pig_id="+spin_noteId03.getSelectedItem().toString();
                             StringRequest stringRequest = new StringRequest(url4, new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
@@ -165,6 +190,20 @@ public class Pregnent_Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 showDatePickerDialog();
+            }
+        });
+
+        img_process.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SharedPreferences shared = getActivity().getSharedPreferences("fragment_id", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = shared.edit();
+                editor.putString("fragment_id","3");
+                editor.commit();
+
+                Intent intent = new Intent(getActivity(),HomeBCS.class);
+                startActivity(intent);
             }
         });
     }
@@ -235,7 +274,7 @@ public class Pregnent_Fragment extends Fragment {
                     }
                 });
 
-                if (!getmaxeventid.equals("1") && !getmaxeventid.equals("null")){
+                if (!getmaxeventid.equals("1") && !getmaxeventid.equals("null") && !getmaxeventid.equals("17")){
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -254,7 +293,9 @@ public class Pregnent_Fragment extends Fragment {
                     });
                     return "not success";
                 }else{
-
+                    if (getsum_score == null){
+                        getsum_score = "0";
+                    }
 
                     OkHttpClient _okHttpClient = new OkHttpClient();
                     RequestBody _requestBody = new FormBody.Builder()
@@ -264,6 +305,7 @@ public class Pregnent_Fragment extends Fragment {
                             .add("note", edit_msg03.getText().toString())
                             .add("event_recorddate_for_abort", event_recorddate)
                             .add("pig_amount_pregnant", getamount)
+                            .add("bcs_score", edit_imgpro.getText().toString())
                             .build();
 
                     Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();

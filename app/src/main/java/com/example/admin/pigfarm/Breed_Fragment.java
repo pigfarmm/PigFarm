@@ -35,6 +35,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.admin.pigfarm.BodyAnalyze.HomeBCS;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,7 +59,7 @@ import okhttp3.RequestBody;
 
 public class Breed_Fragment extends Fragment {
     Spinner spin_noteId01,spin_dadId01;
-    EditText edit_dateNote01;
+    EditText edit_dateNote01,edit_imgpro;
     Button btn_flacAct01;
     private String record_date,recorddate,getamount,getmaxeventid,max_count,event_recorddate,group_rut,m,d,unit_id;
     ArrayList<String> list = new ArrayList<>();
@@ -68,7 +69,7 @@ public class Breed_Fragment extends Fragment {
     ArrayAdapter<String> adapter;
     ArrayAdapter<String> adapter1;
     public static String gettextbreed,farm_id;
-    ImageView img_calNote01;
+    ImageView img_calNote01,img_process;
     Calendar myCalendar = Calendar.getInstance();
     Date date_before,date_record,date_indb,date_infield;
     Object pregnant;
@@ -80,6 +81,7 @@ public class Breed_Fragment extends Fragment {
     private List<String> mStrings_pregnant = new ArrayList<String>();
     private int pig_id_dropdown,amount,sum_count,sum_grouprut;
     private List<String> sum_amount_pregnant = new ArrayList<String>();
+    private String getsum_score;
 
     public Breed_Fragment() {
     }
@@ -104,7 +106,8 @@ public class Breed_Fragment extends Fragment {
         if (getArguments() != null) {
             gettextbreed = getArguments().getString("textbreed");
             farm_id = getArguments().getString("farm_id");
-            Toast.makeText(getActivity(), gettextbreed, Toast.LENGTH_SHORT).show();
+            getsum_score = getArguments().getString("sum_score");
+            Toast.makeText(getActivity(), "ผสมพันธุ์", Toast.LENGTH_SHORT).show();
         }
 
         spin_noteId01 = getView().findViewById(R.id.spin_noteId01);
@@ -112,6 +115,27 @@ public class Breed_Fragment extends Fragment {
         edit_dateNote01 = getView().findViewById(R.id.edit_dateNote01);
         btn_flacAct01 = getView().findViewById(R.id.btn_flacAct01);
         img_calNote01 = getView().findViewById(R.id.img_calNote01);
+        img_process = getView().findViewById(R.id.img_process);
+        edit_imgpro = getView().findViewById(R.id.edit_imgpro);
+
+
+        if (getsum_score != null){
+            edit_imgpro.setText(getsum_score);
+        }else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
+            builder.setCancelable(false);
+            builder.setMessage("หากท่านผู้ใช้งานต้องการใช้งานฟังก์ชั่น 'ประเมินหุ่นสุกร' โปรดทำการประเมินหุุ่นสุกรก่อนทำการกรอกรายละเอียดอื่นๆ");
+            builder.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+            edit_imgpro.setText("");
+        }
 
         String date_n = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         edit_dateNote01.setText(date_n);
@@ -190,6 +214,20 @@ public class Breed_Fragment extends Fragment {
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 }
+            }
+        });
+
+        img_process.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SharedPreferences shared = getActivity().getSharedPreferences("fragment_id", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = shared.edit();
+                editor.putString("fragment_id","1");
+                editor.commit();
+
+                Intent intent = new Intent(getActivity(),HomeBCS.class);
+                startActivity(intent);
             }
         });
 
@@ -351,7 +389,7 @@ public class Breed_Fragment extends Fragment {
                     );
                     return null;
                 }
-                if (!getmaxeventid.equals("6") && !getmaxeventid.equals("1") && !getmaxeventid.equals("null") && !getmaxeventid.equals("3")){
+                if (!getmaxeventid.equals("6") && !getmaxeventid.equals("1") && !getmaxeventid.equals("null") && !getmaxeventid.equals("3") && !getmaxeventid.equals("17")){
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -371,6 +409,10 @@ public class Breed_Fragment extends Fragment {
                     return "not success";
                 }
                 else{
+                    if (getsum_score == null){
+                        getsum_score = "0";
+                    }
+
                     OkHttpClient _okHttpClient = new OkHttpClient();
                     RequestBody _requestBody = new FormBody.Builder()
                             .add("event_id", "1")
@@ -378,6 +420,7 @@ public class Breed_Fragment extends Fragment {
                             .add("pig_id", spin_noteId01.getSelectedItem().toString())
                             .add("pig_breeder", spin_dadId01.getSelectedItem().toString())
                             .add("pig_amount_pregnant", getamount)
+                            .add("bcs_score", edit_imgpro.getText().toString())
                             .build();
 
                     Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();

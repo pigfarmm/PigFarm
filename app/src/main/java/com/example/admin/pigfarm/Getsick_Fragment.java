@@ -1,8 +1,11 @@
 package com.example.admin.pigfarm;
 
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -26,6 +29,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.admin.pigfarm.BodyAnalyze.HomeBCS;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,13 +53,13 @@ public class Getsick_Fragment extends Fragment {
     ArrayList<String> list = new ArrayList<>();
     ArrayList<String> listItems = new ArrayList<>();
     ArrayAdapter<String> adapter;
-    EditText edit_dateNote20,edit_msg20;
+    EditText edit_dateNote20,edit_msg20,edit_imgpro;
     Spinner spin_noteId20,spin_sickness20;
-    ImageView img_calNote20;
+    ImageView img_calNote20,img_process;
     Button btn_flacAct20;
     String getamount,m,d,unit_id;
     Calendar myCalendar = Calendar.getInstance();
-
+    private String getsum_score;
 
 
     public Getsick_Fragment() {
@@ -79,7 +83,8 @@ public class Getsick_Fragment extends Fragment {
         if (getArguments() != null){
             String gettextbreed = getArguments().getString("textbreed");
             farm_id = getArguments().getString("farm_id");
-            Toast.makeText(getActivity(), gettextbreed, Toast.LENGTH_SHORT).show();
+            getsum_score = getArguments().getString("sum_score");
+            Toast.makeText(getActivity(), "ป่วยเป็นโรค", Toast.LENGTH_SHORT).show();
         }
 
         edit_dateNote20 = getView().findViewById(R.id.edit_dateNote20);
@@ -88,6 +93,27 @@ public class Getsick_Fragment extends Fragment {
         btn_flacAct20 = getView().findViewById(R.id.btn_flacAct20);
         spin_sickness20 = getView().findViewById(R.id.spin_sickness20);
         edit_msg20 = getView().findViewById(R.id.edit_msg20);
+        img_process = getView().findViewById(R.id.img_process);
+        edit_imgpro = getView().findViewById(R.id.edit_imgpro);
+
+        if (getsum_score != null){
+            edit_imgpro.setText(getsum_score);
+        }else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
+            builder.setCancelable(false);
+            builder.setMessage("หากท่านผู้ใช้งานต้องการใช้งานฟังก์ชั่น 'ประเมินหุ่นสุกร' โปรดทำการประเมินหุุ่นสุกรก่อนทำการกรอกรายละเอียดอื่นๆ");
+            builder.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+            edit_imgpro.setText("");
+        }
+
 
         String date_n = new SimpleDateFormat("yyyy-MM-dd",
                 Locale.getDefault()).format(new Date());
@@ -144,6 +170,20 @@ public class Getsick_Fragment extends Fragment {
                 showDatePickerDialog();
             }
         });
+
+        img_process.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SharedPreferences shared = getActivity().getSharedPreferences("fragment_id", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = shared.edit();
+                editor.putString("fragment_id","15");
+                editor.commit();
+
+                Intent intent = new Intent(getActivity(),HomeBCS.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void showDatePickerDialog(){
@@ -191,6 +231,10 @@ public class Getsick_Fragment extends Fragment {
         @Override
         protected String doInBackground(String... strings) {
             try{
+                if (getsum_score == null){
+                    getsum_score = "0";
+                }
+
                 OkHttpClient _okHttpClient = new OkHttpClient();
                 RequestBody _requestBody = new FormBody.Builder()
                         .add("event_id", "16")
@@ -199,6 +243,7 @@ public class Getsick_Fragment extends Fragment {
                         .add("disease_name", spin_sickness20.getSelectedItem().toString())
                         .add("note", edit_msg20.getText().toString())
                         .add("pig_amount_pregnant",getamount)
+                        .add("bcs_score", edit_imgpro.getText().toString())
                         .build();
 
                 Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();

@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.admin.pigfarm.BodyAnalyze.HomeBCS;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,11 +55,12 @@ public class Adopt_Fragment extends Fragment {
     ArrayList<String> listItems = new ArrayList<>();
     ArrayAdapter<String> adapter;
     Spinner spin_noteId07;
-    EditText edit_dateNote07, edit_numbaby07;
+    EditText edit_dateNote07, edit_numbaby07,edit_imgpro;
     Button btn_flacAct07;
-    ImageView img_calNote07;
+    ImageView img_calNote07,img_process;
     Calendar myCalendar = Calendar.getInstance();
     String m,d,unit_id,getmaxeventid;
+    private String getsum_score;
 
     public Adopt_Fragment() {
     }
@@ -80,7 +83,8 @@ public class Adopt_Fragment extends Fragment {
         if (getArguments() != null){
             gettextbreed = getArguments().getString("textbreed");
             farm_id = getArguments().getString("farm_id");
-            Toast.makeText(getActivity(), gettextbreed, Toast.LENGTH_SHORT).show();
+            getsum_score = getArguments().getString("sum_score");
+            Toast.makeText(getActivity(), "เลี้ยงลูก", Toast.LENGTH_SHORT).show();
         }
 
         spin_noteId07 = getView().findViewById(R.id.spin_noteId07);
@@ -88,6 +92,26 @@ public class Adopt_Fragment extends Fragment {
         edit_numbaby07 = getView().findViewById(R.id.edit_numbaby07);
         btn_flacAct07 = getView().findViewById(R.id.btn_flacAct07);
         img_calNote07 = getView().findViewById(R.id.img_calNote07);
+        img_process = getView().findViewById(R.id.img_process);
+        edit_imgpro = getView().findViewById(R.id.edit_imgpro);
+
+        if (getsum_score != null){
+            edit_imgpro.setText(getsum_score);
+        }else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
+            builder.setCancelable(false);
+            builder.setMessage("หากท่านผู้ใช้งานต้องการใช้งานฟังก์ชั่น 'ประเมินหุ่นสุกร' โปรดทำการประเมินหุุ่นสุกรก่อนทำการกรอกรายละเอียดอื่นๆ");
+            builder.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+            edit_imgpro.setText("");
+        }
 
         String date_n = new SimpleDateFormat("yyyy-MM-dd",
                 Locale.getDefault()).format(new Date());
@@ -137,6 +161,20 @@ public class Adopt_Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 showDatePickerDialog();
+            }
+        });
+
+        img_process.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SharedPreferences shared = getActivity().getSharedPreferences("fragment_id", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = shared.edit();
+                editor.putString("fragment_id","7");
+                editor.commit();
+
+                Intent intent = new Intent(getActivity(),HomeBCS.class);
+                startActivity(intent);
             }
         });
     }
@@ -197,7 +235,7 @@ public class Adopt_Fragment extends Fragment {
         protected String doInBackground(String... strings) {
             try{
 
-                if (!getmaxeventid.equals("4") || getmaxeventid.equals("0")){
+                if (!getmaxeventid.equals("4") || getmaxeventid.equals("0") && !getmaxeventid.equals("17")){
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -216,12 +254,17 @@ public class Adopt_Fragment extends Fragment {
                     });
                     return "not success";
                 }else{
+                    if (getsum_score == null){
+                        getsum_score = "0";
+                    }
+
                     OkHttpClient _okHttpClient = new OkHttpClient();
                     RequestBody _requestBody = new FormBody.Builder()
                             .add("event_id", "7")
                             .add("event_recorddate", edit_dateNote07.getText().toString())
                             .add("pig_id", spin_noteId07.getSelectedItem().toString())
                             .add("pig_amountofentrustment", edit_numbaby07.getText().toString())  //ฝากเลี้ยงลูก
+                            .add("bcs_score", edit_imgpro.getText().toString())
                             .build();
 
                     Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();

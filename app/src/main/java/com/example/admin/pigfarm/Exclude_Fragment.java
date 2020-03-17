@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.admin.pigfarm.BodyAnalyze.HomeBCS;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,11 +54,12 @@ public class Exclude_Fragment extends Fragment {
     ArrayList<String> listItems = new ArrayList<>();
     ArrayAdapter<String> adapter;
     Spinner spin_noteId08,spin_result08,spin_result09;
-    EditText edit_dateNote08, edit_desc08;
+    EditText edit_dateNote08, edit_desc08,edit_imgpro;
     Button btn_flacAct08;
-    ImageView img_calNote08;
+    ImageView img_calNote08,img_process;
     String getamount,m,d,unit_id,getmaxeventid;
     Calendar myCalendar = Calendar.getInstance();
+    private String getsum_score;
 
 
     public Exclude_Fragment() {
@@ -80,7 +83,8 @@ public class Exclude_Fragment extends Fragment {
         if (getArguments() != null){
            gettextbreed = getArguments().getString("textbreed");
             farm_id = getArguments().getString("farm_id");
-            Toast.makeText(getActivity(), gettextbreed, Toast.LENGTH_SHORT).show();
+            getsum_score = getArguments().getString("sum_score");
+            Toast.makeText(getActivity(), "คัดทิ้ง", Toast.LENGTH_SHORT).show();
         }
 
         spin_noteId08 = getView().findViewById(R.id.spin_noteId08);
@@ -89,6 +93,26 @@ public class Exclude_Fragment extends Fragment {
         edit_dateNote08 = getView().findViewById(R.id.edit_dateNote08);
         btn_flacAct08 = getView().findViewById(R.id.btn_flacAct08);
         img_calNote08 = getView().findViewById(R.id.img_calNote08);
+        img_process = getView().findViewById(R.id.img_process);
+        edit_imgpro = getView().findViewById(R.id.edit_imgpro);
+
+        if (getsum_score != null){
+            edit_imgpro.setText(getsum_score);
+        }else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
+            builder.setCancelable(false);
+            builder.setMessage("หากท่านผู้ใช้งานต้องการใช้งานฟังก์ชั่น 'ประเมินหุ่นสุกร' โปรดทำการประเมินหุุ่นสุกรก่อนทำการกรอกรายละเอียดอื่นๆ");
+            builder.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+            edit_imgpro.setText("");
+        }
 
         String date_n = new SimpleDateFormat("yyyy-MM-dd",
                 Locale.getDefault()).format(new Date());
@@ -147,6 +171,20 @@ public class Exclude_Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 showDatePickerDialog();
+            }
+        });
+
+        img_process.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SharedPreferences shared = getActivity().getSharedPreferences("fragment_id", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = shared.edit();
+                editor.putString("fragment_id","8");
+                editor.commit();
+
+                Intent intent = new Intent(getActivity(),HomeBCS.class);
+                startActivity(intent);
             }
         });
     }
@@ -217,6 +255,11 @@ public class Exclude_Fragment extends Fragment {
                     });
                     return "not success";
                 }else{
+
+                    if (getsum_score == null){
+                        getsum_score = "0";
+                    }
+
                     OkHttpClient _okHttpClient = new OkHttpClient();
                     RequestBody _requestBody = new FormBody.Builder()
                             .add("event_id", "8")
@@ -225,6 +268,7 @@ public class Exclude_Fragment extends Fragment {
                             .add("pig_resultofexclude", spin_result08.getSelectedItem().toString())
                             .add("pig_reasonofexclude", spin_result09.getSelectedItem().toString())
                             .add("pig_amount_pregnant",getamount)
+                            .add("bcs_score", edit_imgpro.getText().toString())
                             .build();
 
                     Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();
