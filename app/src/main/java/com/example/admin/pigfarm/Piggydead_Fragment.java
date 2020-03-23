@@ -61,7 +61,7 @@ public class Piggydead_Fragment extends Fragment {
     ImageView img_calNote11,img_process;
     String getamount,m,d,unit_id;
     Calendar myCalendar = Calendar.getInstance();
-    private String getsum_score;
+    private String getsum_score,getmaxeventid;
 
 
     public Piggydead_Fragment() {
@@ -237,6 +237,7 @@ public class Piggydead_Fragment extends Fragment {
             for (int i = 0; i<result3.length(); i++){
                 JSONObject collectData3 = result3.getJSONObject(i);
                 getamount = collectData3.getString("pig_amount_pregnant");
+                getmaxeventid = collectData3.getString("max_eventid");
             }
         }catch (JSONException ex) {
             ex.printStackTrace();
@@ -245,27 +246,50 @@ public class Piggydead_Fragment extends Fragment {
 
     private class InsertAsyn extends AsyncTask<String, Void, String> {
         @Override
-        protected String doInBackground(String... strings) {
-            try{
+                            protected String doInBackground(String... strings) {
+                                try{
 
-                if (getsum_score == null){
-                    getsum_score = "0";
+                                    if (!getmaxeventid.equals("4") && !getmaxeventid.equals("17")){
+                                        getActivity().runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
+                                                builder1.setCancelable(false);
+                                                builder1.setMessage("เหตุการณ์ล่าสุดไม่ใช่เหตุการณ์คลอด");
+                                                builder1.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        dialog.cancel();
+                                                    }
+                                                });
+                            AlertDialog dialog = builder1.create();
+                            dialog.show();
+                        }
+                    });
+                    return "not success";
+
+                }else{
+
+                    if (getsum_score == null){
+                        getsum_score = "0";
+                    }
+
+                    OkHttpClient _okHttpClient = new OkHttpClient();
+                    RequestBody _requestBody = new FormBody.Builder()
+                            .add("event_id", "11")
+                            .add("event_recorddate", edit_dateNote11.getText().toString())
+                            .add("pig_id", spin_noteId11.getSelectedItem().toString())
+                            .add("note", spin_result08.getSelectedItem().toString())
+                            .add("pig_dieafter", edit_count11.getText().toString())
+                            .add("pig_amount_pregnant",getamount)
+                            .add("bcs_score", edit_imgpro.getText().toString())
+                            .build();
+
+                    Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();
+                    _okHttpClient.newCall(_request).execute();
+                    return "successfully";
                 }
 
-                OkHttpClient _okHttpClient = new OkHttpClient();
-                RequestBody _requestBody = new FormBody.Builder()
-                        .add("event_id", "11")
-                        .add("event_recorddate", edit_dateNote11.getText().toString())
-                        .add("pig_id", spin_noteId11.getSelectedItem().toString())
-                        .add("note", spin_result08.getSelectedItem().toString())
-                        .add("pig_dieafter", edit_count11.getText().toString())
-                        .add("pig_amount_pregnant",getamount)
-                        .add("bcs_score", edit_imgpro.getText().toString())
-                        .build();
-
-                Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();
-                _okHttpClient.newCall(_request).execute();
-                return "successfully";
 
             }catch(IOException e){
                 e.printStackTrace();
@@ -279,6 +303,7 @@ public class Piggydead_Fragment extends Fragment {
             if (result != null){
                 Toast.makeText(getActivity(), "บันทึกข้อมูลเรียบร้อยแล้ว",Toast.LENGTH_SHORT).show();
                 edit_count11.setText("");
+                edit_imgpro.setText("");
 
             }else {
                 Toast.makeText(getActivity(), "ไม่สามารถบันทึกข้อมูลได้",Toast.LENGTH_SHORT).show();

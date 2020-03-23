@@ -3,6 +3,7 @@ package com.example.admin.pigfarm.ManageData_Page;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,14 +18,15 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.admin.pigfarm.R;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.admin.pigfarm.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,25 +36,32 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
-public class edt_Entrustment_Fragment extends Fragment {
+public class edt_Bcs_Fragment extends Fragment {
 
-    String get_detail_id,getfarm_id,event_recorddate,event_name,pig_amountofentrustment,getunit_id,bcs_score;
-    EditText edt_eventname,edit_dateNote05,edit_numbaby05,edit_imgpro;
-    Button btn_flacAct05;
-    ImageView img_calNote05;
+    String get_detail_id,pig_breeder,event_recorddate,event_name,getfarm_id,getunit_id,bcs_score;
+    EditText edit_evtname,edit_dateNote01,edit_imgpro;
+    Spinner spin_noteId01;
     ArrayList<String> listDad = new ArrayList<>();
     ArrayList<String> listItemsDad = new ArrayList<>();
-    private String finalResult;
     ProgressDialog progressDialog;
+    private String finalResult;
     private HttpParse httpParse = new HttpParse();
     ArrayAdapter<String> adapter;
+    Button btn_flacAct01;
+    ImageView img_calNote01;
     Calendar myCalendar = Calendar.getInstance();
     String UpdateURL = "https://pigaboo.xyz/Update_Event.php";
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.edt_entrustment_evt, container, false);
+        return inflater.inflate(R.layout.edt_bcs_score, container, false);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -67,14 +76,16 @@ public class edt_Entrustment_Fragment extends Fragment {
         Bundle bundle2 = getArguments();
         get_detail_id = bundle2.getString("detail_id");
 
-        edt_eventname = getView().findViewById(R.id.edt_eventname);
-        edit_dateNote05 = getView().findViewById(R.id.edit_dateNote05);
-        edit_numbaby05 = getView().findViewById(R.id.edit_numbaby05);
-        btn_flacAct05 = getView().findViewById(R.id.btn_flacAct05);
-        img_calNote05 = getView().findViewById(R.id.img_calNote05);
+        edit_evtname = getView().findViewById(R.id.edit_evtname);
+        edit_dateNote01 = getView().findViewById(R.id.edit_dateNote01);
+        spin_noteId01 = getView().findViewById(R.id.spin_noteId01);
+        btn_flacAct01 = getView().findViewById(R.id.btn_flacAct01);
+        img_calNote01 = getView().findViewById(R.id.img_calNote01);
         edit_imgpro = getView().findViewById(R.id.edit_imgpro);
 
-        img_calNote05.setOnClickListener(new View.OnClickListener() {
+
+
+        img_calNote01.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showDatePickerDialog();
@@ -82,13 +93,13 @@ public class edt_Entrustment_Fragment extends Fragment {
         });
 
         LoadData();
-
     }
 
     private void showDatePickerDialog() {
         DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
     }
+
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
         @Override
@@ -97,7 +108,7 @@ public class edt_Entrustment_Fragment extends Fragment {
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             monthOfYear = monthOfYear + 1;
-            edit_dateNote05.setText(year+"-"+monthOfYear+"-"+dayOfMonth);
+            edit_dateNote01.setText(year+"-"+monthOfYear+"-"+dayOfMonth);
         }
     };
 
@@ -106,7 +117,7 @@ public class edt_Entrustment_Fragment extends Fragment {
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                QueryDataEntrustment(response);
+                QueryDataBreed(response);
 
             }
         }, new Response.ErrorListener() {
@@ -120,7 +131,7 @@ public class edt_Entrustment_Fragment extends Fragment {
         requestQueue.add(stringRequest);
     }
 
-    private void QueryDataEntrustment(String response) {
+    private void QueryDataBreed(String response) {
         try {
             JSONObject jsonObject = new JSONObject(response);
             JSONArray result = jsonObject.getJSONArray("result");
@@ -130,22 +141,19 @@ public class edt_Entrustment_Fragment extends Fragment {
 
                 event_recorddate = collectData.getString("event_recorddate");
                 event_name = collectData.getString("event_name");
-                pig_amountofentrustment = collectData.getString("pig_amountofentrustment");
                 bcs_score = collectData.getString("bcs_score");
 
-                edt_eventname.setText(event_name);
-                edit_dateNote05.setText(event_recorddate);
-                edit_numbaby05.setText(pig_amountofentrustment);
+
+                edit_evtname.setText(event_name);
+                edit_dateNote01.setText(event_recorddate);
                 edit_imgpro.setText(bcs_score);
-
-
             }
 
-            btn_flacAct05.setOnClickListener(new View.OnClickListener() {
+            btn_flacAct01.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     GetDataFromEditText();
-                    update_data(event_recorddate, pig_amountofentrustment,get_detail_id,bcs_score);
+                    update_data(event_recorddate, get_detail_id,bcs_score);
                 }
             });
 
@@ -156,13 +164,11 @@ public class edt_Entrustment_Fragment extends Fragment {
     }
 
     private void GetDataFromEditText() {
-        event_recorddate = edit_dateNote05.getText().toString();
-        pig_amountofentrustment = edit_numbaby05.getText().toString();
+        event_recorddate = edit_dateNote01.getText().toString();
         bcs_score = edit_imgpro.getText().toString();
     }
 
-    private void update_data(String event_recorddate, String pig_amountofentrustment, String get_detail_id,String bcs_score) {
-
+    private void update_data(String event_recorddate, String get_detail_id,String bcs_score) {
         class update_dataClass extends AsyncTask<String,Void,String> {
 
             @Override
@@ -177,8 +183,7 @@ public class edt_Entrustment_Fragment extends Fragment {
                 HashMap<String,String> hashMap = new HashMap<>();
                 hashMap.put("detail_id",params[0]);
                 hashMap.put("event_recorddate",params[1]);
-                hashMap.put("pig_amountofentrustment",params[2]);
-                hashMap.put("bcs_score",params[3]);
+                hashMap.put("bcs_score",params[2]);
 
 
                 finalResult = httpParse.postRequest(hashMap,UpdateURL);
@@ -195,8 +200,7 @@ public class edt_Entrustment_Fragment extends Fragment {
         }
 
         update_dataClass update_dataclass = new update_dataClass();
-        update_dataclass.execute(get_detail_id,event_recorddate,pig_amountofentrustment,bcs_score);
+        update_dataclass.execute(get_detail_id,event_recorddate,bcs_score);
 
     }
-
 }

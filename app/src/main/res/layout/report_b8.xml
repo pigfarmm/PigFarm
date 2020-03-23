@@ -109,6 +109,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:layout_marginTop="10dp"
             android:orientation="vertical" >
 
@@ -131,7 +133,7 @@
 
                 <EditText
                     android:id="@+id/edit_B1"
-                    android:layout_width="300dp"
+                    android:layout_width="260dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:hint=""
@@ -176,7 +178,7 @@
 
                 <EditText
                     android:id="@+id/edit_B2"
-                    android:layout_width="300dp"
+                    android:layout_width="260dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:hint=""

@@ -102,6 +102,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:layout_marginTop="10dp"
             android:orientation="vertical" >
 
@@ -124,7 +126,7 @@
 
                 <EditText
                     android:id="@+id/edit_B1"
-                    android:layout_width="270dp"
+                    android:layout_width="260dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:hint="วันสุดท้าย"
@@ -176,30 +178,30 @@
                 android:layout_centerHorizontal="true">
 
                 <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_centerHorizontal="true">
 
                     <EditText
                         android:id="@+id/edit_B2"
-                        android:layout_width="230dp"
+                        android:layout_width="180dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"
-                        android:textSize="20sp"
+                        android:backgroundTint="@color/Colorfont"
+                        android:fontFamily="@font/thaisansneue_bold"
                         android:maxLines="1"
                         android:textColor="@color/Colorfont"
-                        android:fontFamily="@font/thaisansneue_bold"
-                        android:backgroundTint="@color/Colorfont"/>
+                        android:textSize="20sp" />
 
                     <Spinner
                         android:id="@+id/spnlengthtime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/edit_B2"
                         android:layout_alignParentTop="true"
                         android:layout_marginStart="4dp"
                         android:layout_marginTop="-2dp"
-                        android:layout_marginBottom="0dp"/>
+                        android:layout_marginBottom="0dp"
+                        android:layout_toRightOf="@id/edit_B2" />
 
                 </RelativeLayout>
 

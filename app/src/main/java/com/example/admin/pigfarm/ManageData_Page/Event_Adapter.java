@@ -43,6 +43,7 @@ public class Event_Adapter extends RecyclerView.Adapter<Event_Adapter.EventViewH
 
             holder.eventdata_name.setText(event_items.getEventname());
             holder.eventdata_recorddate.setText(event_items.getEvent_recorddate());
+            holder.eventdata_bcs.setText("คะแนนหุ่น : "+event_items.getBcs_score());
         }
 
 
@@ -56,19 +57,23 @@ public class Event_Adapter extends RecyclerView.Adapter<Event_Adapter.EventViewH
     }
 
     class EventViewHolder extends RecyclerView.ViewHolder{
-        TextView eventdata_name, eventdata_recorddate;
+        TextView eventdata_name, eventdata_recorddate,eventdata_bcs;
 
     public EventViewHolder(View itemView){
         super(itemView);
 
         eventdata_name = itemView.findViewById(R.id.eventdata_name);
         eventdata_recorddate = itemView.findViewById(R.id.eventdata_recorddate);
-        if (eventdata_name != null && eventdata_recorddate != null){
+        eventdata_bcs = itemView.findViewById(R.id.eventdata_bcs);
+
+        if (eventdata_name != null && eventdata_recorddate != null && eventdata_bcs != null){
             eventdata_name.setVisibility(View.VISIBLE);
             eventdata_recorddate.setVisibility(View.VISIBLE);
+            eventdata_bcs.setVisibility(View.VISIBLE);
         }else {
             eventdata_name.setVisibility(View.INVISIBLE);
             eventdata_recorddate.setVisibility(View.INVISIBLE);
+            eventdata_bcs.setVisibility(View.INVISIBLE);
         }
     }
 }

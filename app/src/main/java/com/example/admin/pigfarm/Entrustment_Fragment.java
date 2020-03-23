@@ -60,7 +60,7 @@ public class Entrustment_Fragment extends Fragment {
     ImageView img_calNote05,img_process;
     String getamount,d,m,unit_id;
     Calendar myCalendar = Calendar.getInstance();
-    private String getsum_score;
+    private String getsum_score,getmaxeventid;
 
 
     public Entrustment_Fragment() {
@@ -235,6 +235,7 @@ public class Entrustment_Fragment extends Fragment {
             for (int i = 0; i<result3.length(); i++){
                 JSONObject collectData3 = result3.getJSONObject(i);
                 getamount = collectData3.getString("pig_amount_pregnant");
+                getmaxeventid = collectData3.getString("max_eventid");
             }
         }catch (JSONException ex) {
             ex.printStackTrace();
@@ -245,24 +246,46 @@ public class Entrustment_Fragment extends Fragment {
         @Override
         protected String doInBackground(String... strings) {
             try{
-                if (getsum_score == null){
-                    getsum_score = "0";
+                if (!getmaxeventid.equals("4") && !getmaxeventid.equals("17") && !getmaxeventid.equals("11")){
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
+                            builder1.setCancelable(false);
+                            builder1.setMessage("เหตุการณ์ล่าสุดไม่ใช่เหตุการณ์คลอด / ลูกหมูตาย");
+                            builder1.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                            AlertDialog dialog = builder1.create();
+                            dialog.show();
+                        }
+                    });
+                    return "not success";
+
+                }else{
+                    if (getsum_score == null){
+                        getsum_score = "0";
+                    }
+
+                    OkHttpClient _okHttpClient = new OkHttpClient();
+                    RequestBody _requestBody = new FormBody.Builder()
+                            .add("event_id", "5")
+                            .add("event_recorddate", edit_dateNote05.getText().toString())
+                            .add("pig_id", spin_noteId05.getSelectedItem().toString())
+                            .add("pig_amountofentrustment", edit_numbaby05.getText().toString())
+                            .add("pig_amountofadopt",edit_numbaby06.getText().toString())  //รับเลี้ยงลูก
+                            .add("pig_amount_pregnant",getamount)
+                            .add("bcs_score", edit_imgpro.getText().toString())
+                            .build();
+
+                    Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();
+                    _okHttpClient.newCall(_request).execute();
+                    return "successfully";
                 }
 
-                OkHttpClient _okHttpClient = new OkHttpClient();
-                RequestBody _requestBody = new FormBody.Builder()
-                        .add("event_id", "5")
-                        .add("event_recorddate", edit_dateNote05.getText().toString())
-                        .add("pig_id", spin_noteId05.getSelectedItem().toString())
-                        .add("pig_amountofentrustment", edit_numbaby05.getText().toString())
-                        .add("pig_amountofadopt",edit_numbaby06.getText().toString())  //รับเลี้ยงลูก
-                        .add("pig_amount_pregnant",getamount)
-                        .add("bcs_score", edit_imgpro.getText().toString())
-                        .build();
-
-                Request _request = new Request.Builder().url(strings[0]).post(_requestBody).build();
-                _okHttpClient.newCall(_request).execute();
-                return "successfully";
 
             }catch(IOException e){
                 e.printStackTrace();
@@ -276,6 +299,7 @@ public class Entrustment_Fragment extends Fragment {
             if (result != null){
                 Toast.makeText(getActivity(), "บันทึกข้อมูลเรียบร้อยแล้ว",Toast.LENGTH_SHORT).show();
                 edit_numbaby05.setText("");
+                edit_imgpro.setText("");
 
             }else {
                 Toast.makeText(getActivity(), "ไม่สามารถบันทึกข้อมูลได้",Toast.LENGTH_SHORT).show();

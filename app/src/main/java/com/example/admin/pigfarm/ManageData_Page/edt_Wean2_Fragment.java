@@ -36,8 +36,8 @@ import java.util.HashMap;
 
 public class edt_Wean2_Fragment extends Fragment {
 
-    String get_detail_id,getfarm_id,event_recorddate,event_name,pig_amountofwean2,pig_allweight,getunit_id;
-    EditText edit_eventname,edit_dateNote17,edit_numbaby17,edit_weight17;
+    String get_detail_id,getfarm_id,event_recorddate,event_name,pig_amountofwean2,pig_allweight,getunit_id,bcs_score;
+    EditText edit_eventname,edit_dateNote17,edit_numbaby17,edit_weight17,edit_imgpro;
     Button btn_flacAct17;
     ImageView img_calNote17;
     ArrayList<String> listDad = new ArrayList<>();
@@ -73,6 +73,7 @@ public class edt_Wean2_Fragment extends Fragment {
         edit_weight17 = getView().findViewById(R.id.edit_weight17);
         btn_flacAct17 = getView().findViewById(R.id.btn_flacAct17);
         img_calNote17 = getView().findViewById(R.id.img_calNote17);
+        edit_imgpro = getView().findViewById(R.id.edit_imgpro);
 
         img_calNote17.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,6 +132,8 @@ public class edt_Wean2_Fragment extends Fragment {
                 event_name = collectData.getString("event_name");
                 pig_amountofwean2 = collectData.getString("pig_amountofwean2");
                 pig_allweight =  collectData.getString("pig_allweight");
+                bcs_score =  collectData.getString("bcs_score");
+
 
 
                 edit_eventname.setText(event_name);
@@ -144,7 +147,7 @@ public class edt_Wean2_Fragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     GetDataFromEditText();
-                    update_data(event_recorddate,pig_amountofwean2,pig_allweight,get_detail_id);
+                    update_data(event_recorddate,pig_amountofwean2,pig_allweight,get_detail_id,bcs_score);
                 }
             });
 
@@ -158,10 +161,11 @@ public class edt_Wean2_Fragment extends Fragment {
         event_recorddate = edit_dateNote17.getText().toString();
         pig_amountofwean2 = edit_numbaby17.getText().toString();
         pig_allweight = edit_weight17.getText().toString();
+        bcs_score = edit_imgpro.getText().toString();
 
     }
 
-    private void update_data(String event_recorddate, String pig_amountofwean2, String pig_allweight, String get_detail_id) {
+    private void update_data(String event_recorddate, String pig_amountofwean2, String pig_allweight, String get_detail_id,String bcs_score) {
         class update_dataClass extends AsyncTask<String,Void,String> {
 
             @Override
@@ -178,6 +182,7 @@ public class edt_Wean2_Fragment extends Fragment {
                 hashMap.put("event_recorddate",params[1]);
                 hashMap.put("pig_amountofwean2",params[2]);
                 hashMap.put("pig_allweight",params[3]);
+                hashMap.put("bcs_score",params[4]);
 
 
                 finalResult = httpParse.postRequest(hashMap,UpdateURL);
@@ -194,7 +199,7 @@ public class edt_Wean2_Fragment extends Fragment {
         }
 
         update_dataClass update_dataclass = new update_dataClass();
-        update_dataclass.execute(get_detail_id,event_recorddate,pig_amountofwean2,pig_allweight);
+        update_dataclass.execute(get_detail_id,event_recorddate,pig_amountofwean2,pig_allweight,bcs_score);
 
     }
 

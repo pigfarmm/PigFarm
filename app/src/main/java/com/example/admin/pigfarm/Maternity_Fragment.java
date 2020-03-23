@@ -296,7 +296,7 @@ public class Maternity_Fragment extends Fragment {
                     );
                     return null;
 
-                } if (difference < 114) {
+                } if (difference < 110) {
                     getActivity().runOnUiThread(new Runnable() {
                                                     public void run() {
                                                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
@@ -381,6 +381,7 @@ public class Maternity_Fragment extends Fragment {
                 edit_die04.setText("");
                 edit_baby04.setText("");
                 edit_weight04.setText("");
+                edit_imgpro.setText("");
 
             }else {
                 Toast.makeText(getActivity(), "ไม่สามารถบันทึกข้อมูลได้",Toast.LENGTH_SHORT).show();

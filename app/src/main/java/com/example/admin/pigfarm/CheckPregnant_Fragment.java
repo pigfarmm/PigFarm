@@ -341,6 +341,7 @@ public class CheckPregnant_Fragment extends Fragment {
 
             if (result != null) {
                 Toast.makeText(getActivity(), "บันทึกข้อมูลเรียบร้อยแล้ว", Toast.LENGTH_SHORT).show();
+                edit_imgpro.setText("");
 
 
             } else {

@@ -330,6 +330,7 @@ public class BCS_Fragment extends Fragment {
 
             if (result == "successfully"){
                 Toast.makeText(getActivity(), "บันทึกข้อมูลเรียบร้อยแล้ว",Toast.LENGTH_SHORT).show();
+                edit_imgpro.setText("");
 
 
             }else {

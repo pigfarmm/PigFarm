@@ -2,7 +2,9 @@ package com.example.admin.pigfarm.ManageData_Page;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -52,6 +54,7 @@ public class Edit_ProfilePig extends Fragment {
     Calendar myCalendar2 = Calendar.getInstance();
     ImageView img_a1, img_a2;
     String UpdateURL = "https://pigaboo.xyz/Update_DataPig.php";
+    String getfarm_id,getunit_id;
 
 
     public Edit_ProfilePig() {
@@ -72,6 +75,10 @@ public class Edit_ProfilePig extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        SharedPreferences farm = this.getActivity().getSharedPreferences("Farm", Context.MODE_PRIVATE);
+        getfarm_id = farm.getString("farm_id","");
+        getunit_id = farm.getString("unit_id","");
 
         Bundle bundle2 = getArguments();
         getpigno = bundle2.getString("pig_no");
@@ -145,7 +152,7 @@ public class Edit_ProfilePig extends Fragment {
 
 
     private void loaddatapigtoedit(){
-        String url = "https://pigaboo.xyz/Query_DataPig.php?pig_id="+getpigid;
+        String url = "https://pigaboo.xyz/Query_DataPig.php?pig_id="+getpigid+"&farm_id="+getfarm_id+"&unit_id="+getunit_id;
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

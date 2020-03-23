@@ -43,8 +43,8 @@ import static com.example.admin.pigfarm.Breed_Fragment.farm_id;
 
 public class edt_Breed_Fragment extends Fragment {
 
-    String get_detail_id,pig_breeder,event_recorddate,event_name,getfarm_id,getunit_id;
-    EditText edit_evtname,edit_dateNote01;
+    String get_detail_id,pig_breeder,event_recorddate,event_name,getfarm_id,getunit_id,bcs_score;
+    EditText edit_evtname,edit_dateNote01,edit_imgpro;
     Spinner spin_dadId01;
     ArrayList<String> listDad = new ArrayList<>();
     ArrayList<String> listItemsDad = new ArrayList<>();
@@ -86,6 +86,7 @@ public class edt_Breed_Fragment extends Fragment {
         spin_dadId01 = getView().findViewById(R.id.spin_dadId01);
         btn_flacAct01 = getView().findViewById(R.id.btn_flacAct01);
         img_calNote01 = getView().findViewById(R.id.img_calNote01);
+        edit_imgpro = getView().findViewById(R.id.edit_imgpro);
 
 
 
@@ -202,17 +203,19 @@ public class edt_Breed_Fragment extends Fragment {
                 pig_breeder = collectData.getString("pig_breeder");
                 event_recorddate = collectData.getString("event_recorddate");
                 event_name = collectData.getString("event_name");
+                bcs_score = collectData.getString("bcs_score");
 
 
                 edit_evtname.setText(event_name);
                 edit_dateNote01.setText(event_recorddate);
+                edit_imgpro.setText(bcs_score);
                 }
 
             btn_flacAct01.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         GetDataFromEditText();
-                        update_data(event_recorddate, pig_breeder, get_detail_id);
+                        update_data(event_recorddate, pig_breeder, get_detail_id,bcs_score);
                     }
                 });
 
@@ -226,9 +229,10 @@ public class edt_Breed_Fragment extends Fragment {
     private void GetDataFromEditText() {
         event_recorddate = edit_dateNote01.getText().toString();
         pig_breeder = spin_dadId01.getSelectedItem().toString();
+        bcs_score = edit_imgpro.getText().toString();
     }
 
-    private void update_data(String event_recorddate, String pig_breeder, String get_detail_id) {
+    private void update_data(String event_recorddate, String pig_breeder, String get_detail_id,String bcs_score) {
         class update_dataClass extends AsyncTask<String,Void,String> {
 
             @Override
@@ -244,6 +248,7 @@ public class edt_Breed_Fragment extends Fragment {
                 hashMap.put("detail_id",params[0]);
                 hashMap.put("event_recorddate",params[1]);
                 hashMap.put("pig_breeder",params[2]);
+                hashMap.put("bcs_score",params[3]);
 
 
                 finalResult = httpParse.postRequest(hashMap,UpdateURL);
@@ -260,7 +265,7 @@ public class edt_Breed_Fragment extends Fragment {
         }
 
         update_dataClass update_dataclass = new update_dataClass();
-        update_dataclass.execute(get_detail_id,event_recorddate,pig_breeder);
+        update_dataclass.execute(get_detail_id,event_recorddate,pig_breeder,bcs_score);
 
     }
 }

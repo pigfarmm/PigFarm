@@ -236,21 +236,21 @@ public class Exclude_Fragment extends Fragment {
         protected String doInBackground(String... strings) {
             try{
 
-                if (getmaxeventid.equals("8")){
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
-                            builder1.setCancelable(false);
-                            builder1.setMessage("สุกรตัวนี้ได้ทำการคัดทิ้งไปแล้ว");
-                            builder1.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.cancel();
-                                }
-                            });
-                            AlertDialog dialog = builder1.create();
-                            dialog.show();
+                            if (getmaxeventid.equals("8")){
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
+                                        builder1.setCancelable(false);
+                                        builder1.setMessage("สุกรตัวนี้ได้ทำการคัดทิ้งไปแล้ว");
+                                        builder1.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.cancel();
+                                            }
+                                        });
+                                        AlertDialog dialog = builder1.create();
+                                        dialog.show();
                         }
                     });
                     return "not success";
@@ -288,6 +288,7 @@ public class Exclude_Fragment extends Fragment {
 
             if (result == "successfully"){
                 Toast.makeText(getActivity(), "บันทึกข้อมูลเรียบร้อยแล้ว",Toast.LENGTH_SHORT).show();
+                edit_imgpro.setText("");
 
 
             }else {

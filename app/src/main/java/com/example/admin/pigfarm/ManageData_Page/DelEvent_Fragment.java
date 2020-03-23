@@ -2,7 +2,9 @@ package com.example.admin.pigfarm.ManageData_Page;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,7 +31,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -41,10 +47,10 @@ public class DelEvent_Fragment extends android.support.v4.app.Fragment implement
     Eventdel_Adapter eventdel_adapter;
     private ProgressDialog progressDialog2;
     HashMap<String,String> hashMap = new HashMap<>();
-    private String finalResult;
+    private String finalResult,getfarm_id,getunit_id;
     private HttpParse httpParse = new HttpParse();
     String detail_id_final,event_name_detail;
-    SwipeRefreshLayout swiperefresh;
+//    SwipeRefreshLayout swiperefresh;
     Handler handler;
     private String DeleteEvent = "https://pigaboo.xyz/Delete_Eventdata.php";
 
@@ -63,11 +69,15 @@ public class DelEvent_Fragment extends android.support.v4.app.Fragment implement
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        SharedPreferences farm = this.getActivity().getSharedPreferences("Farm", Context.MODE_PRIVATE);
+        getfarm_id = farm.getString("farm_id","");
+        getunit_id = farm.getString("unit_id","");
+
         Bundle bundle2 = getArguments();
         getpigid = bundle2.getString("pig_id");
         getpigno = bundle2.getString("pig_no");
 
-        swiperefresh = getView().findViewById(R.id.swiperefresh);
+//        swiperefresh = getView().findViewById(R.id.swiperefresh);
 
 
         rv2 = getView().findViewById(R.id.recyclerview3);
@@ -90,7 +100,7 @@ public class DelEvent_Fragment extends android.support.v4.app.Fragment implement
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String url = "https://pigaboo.xyz/Query_DataPig.php?pig_id="+getpigid;
+        String url = "https://pigaboo.xyz/Query_DataPig.php?pig_id="+getpigid+"&farm_id="+getfarm_id+"&unit_id="+getunit_id;
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -125,6 +135,12 @@ public class DelEvent_Fragment extends android.support.v4.app.Fragment implement
                 event_recorddate = collectData.getString("event_recorddate");
                 detail_id = collectData.getString("detail_id");
 
+                DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+                DateFormat outputFormat = new SimpleDateFormat("dd MMM yyyy");
+
+                Date date_recorddate = inputFormat.parse(event_recorddate);
+                String outputDateStr = outputFormat.format(date_recorddate);
+
                 DelEvent_items delEvent_items = new DelEvent_items(detail_id,event_name,event_recorddate);
                 delList.add(delEvent_items);
                 Log.d("DETAIL_ID",detail_id);
@@ -137,6 +153,8 @@ public class DelEvent_Fragment extends android.support.v4.app.Fragment implement
 
         }catch (JSONException ex) {
             ex.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
     }
 
@@ -205,7 +223,7 @@ public class DelEvent_Fragment extends android.support.v4.app.Fragment implement
                 super.onPostExecute(httpResponseMsg);
 
                 progressDialog2.dismiss();
-                Toast.makeText(getActivity(), httpResponseMsg.toString(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(getActivity(), httpResponseMsg.toString(), Toast.LENGTH_LONG).show();
             }
 
         }
@@ -411,6 +429,19 @@ public class DelEvent_Fragment extends android.support.v4.app.Fragment implement
                 ft14.replace(R.id.container, edt_getsick_fragment);
                 ft14.addToBackStack(null);
                 ft14.commit();
+                break;
+
+            case "หุ่นสุกร":
+                edt_Bcs_Fragment edt_bcs_fragment = new edt_Bcs_Fragment();
+                Bundle bundle16 = new Bundle();
+                bundle16.putString("detail_id",detail_id_final);
+
+                FragmentTransaction ft15 = getFragmentManager().beginTransaction();
+                ft15.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+                edt_bcs_fragment.setArguments(bundle16);
+                ft15.replace(R.id.container, edt_bcs_fragment);
+                ft15.addToBackStack(null);
+                ft15.commit();
                 break;
 
         }

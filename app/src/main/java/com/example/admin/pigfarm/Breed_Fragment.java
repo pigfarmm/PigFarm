@@ -255,7 +255,7 @@ public class Breed_Fragment extends Fragment {
     }
 
     private void Rut(){
-    String url4 = "https://pigaboo.xyz/Query_CountRut.php?farm_id="+farm_id+"&pig_id="+spin_noteId01.getSelectedItem().toString();
+    String url4 = "https://pigaboo.xyz/Query_CountRut.php?farm_id="+farm_id+"&pig_id="+spin_noteId01.getSelectedItem().toString()+"&unit_id="+unit_id;
     StringRequest stringRequest3 = new StringRequest(url4, new Response.Listener<String>() {
         @Override
         public void onResponse(String response) {
@@ -273,34 +273,48 @@ public class Breed_Fragment extends Fragment {
         requestQueue3.add(stringRequest3);
 }
 
-    private void QueryCountRut(String response) {
+    public void QueryCountRut(String response) {
         try {
             JSONObject jsonObject4 = new JSONObject(response);
             JSONArray result4 = jsonObject4.getJSONArray("result");
 
-            for (int i = 0; i<result4.length(); i++){
-                JSONObject collectData4 = result4.getJSONObject(i);
-                if (collectData4.getString("max_count") == "null"){
-                    max_count = "0";
-                }else{
+            if(result4.length() == 0){
+                max_count = "0";
+                event_recorddate = edit_dateNote01.getText().toString();
+                group_rut = "0";
+
+            }else{
+                for (int i = 0; i<result4.length(); i++){
+                    JSONObject collectData4 = result4.getJSONObject(i);
+
                     max_count = collectData4.getString("max_count");
-                }
-                if (collectData4.getString("event_recorddate") == null){
-                    event_recorddate = edit_dateNote01.getText().toString();
-                }else{
                     event_recorddate = collectData4.getString("event_recorddate");
-                }
-
-                if (collectData4.getString("group_rut") == null){
-                    group_rut = "0";
-                }else{
                     group_rut = collectData4.getString("group_rut");
-                }
 
-                Log.d("result max_date","value: " + collectData4.getString("event_recorddate"));
-                Log.d("result max_count_rut","value: " + max_count);
-                Log.d("result group_rut","value: " + group_rut);
+//                if (collectData4.getString("max_count") == "null"){
+//                    max_count = "0";
+//                }else{
+//                    max_count = collectData4.getString("max_count");
+//                }
+//                if (collectData4.getString("event_recorddate") == null){
+//                    event_recorddate = edit_dateNote01.getText().toString();
+//                }else{
+//                    event_recorddate = collectData4.getString("event_recorddate");
+//                }
+//
+//                if (collectData4.getString("group_rut") == null){
+//                    group_rut = "0";
+//                }else{
+//                    group_rut = collectData4.getString("group_rut");
+//                }
+
+                    Log.d("result max_date","value: " + collectData4.getString("event_recorddate"));
+                    Log.d("result max_count_rut","value: " + max_count);
+                    Log.d("result group_rut","value: " + group_rut);
+                }
             }
+
+
         }catch (JSONException ex) {
             ex.printStackTrace();
         }
@@ -361,7 +375,7 @@ public class Breed_Fragment extends Fragment {
     }
 
 
-    private class InsertAsyn extends AsyncTask<String, Void, String> {
+    public class InsertAsyn extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
             try {
@@ -524,21 +538,21 @@ public class Breed_Fragment extends Fragment {
     }
 
 
-    private class InsertRut extends AsyncTask<String, Void, String> {
+    public class InsertRut extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... strings) {
             try {
-
-                if (event_recorddate == null){
-                    event_recorddate = edit_dateNote01.getText().toString();
-                }else{
-                    event_recorddate = event_recorddate.toString();
-                }if (max_count == null){
-                    max_count = "0";
-                }if (group_rut == null){
-                    group_rut = "0";
-                }
+//
+//                if (event_recorddate == null){
+//                    event_recorddate = edit_dateNote01.getText().toString();
+//                }else{
+//                    event_recorddate = event_recorddate.toString();
+//                }if (max_count == null){
+//                    max_count = "0";
+//                }if (group_rut == null){
+//                    group_rut = "0";
+//                }
 
                 DateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -551,14 +565,20 @@ public class Breed_Fragment extends Fragment {
                 long hours = minutes / 60;
                 long days = hours / 24;
 
-                if (days >= 11) {
-                    sum_count = 0;
-                    group_rut = group_rut.toString();
-                    sum_grouprut = Integer.parseInt(group_rut)+1;
-                }else{
+                if (getmaxeventid.equals("6") && days>=11){
+                    sum_count = 1;  //reset ทับเป็นคร้ังที่ 1
+                    group_rut = "0";
+                    sum_grouprut = Integer.parseInt(group_rut);
+                }
+                else if (days >= 11) {
+                        sum_count = 1;  //reset ทับเป็นคร้ังที่ 1
+                        group_rut = group_rut.toString();
+                        sum_grouprut = Integer.parseInt(group_rut) + 1;
+                }
+                else{
                     group_rut = group_rut.toString();
                     max_count = max_count.toString();
-                    sum_count = Integer.parseInt(max_count);
+                    sum_count = Integer.parseInt(max_count)+1;
                     sum_grouprut = Integer.parseInt(group_rut);
                 }
 
@@ -570,7 +590,7 @@ public class Breed_Fragment extends Fragment {
                         .add("event_recorddate", edit_dateNote01.getText().toString())
                         .add("pig_id", spin_noteId01.getSelectedItem().toString())
                         .add("pig_amount_pregnant", getamount)
-                        .add("count_rut", String.valueOf(sum_count+1))
+                        .add("count_rut", String.valueOf(sum_count))
                         .add("group_rut", String.valueOf(sum_grouprut))
                         .build();
 
@@ -591,6 +611,7 @@ public class Breed_Fragment extends Fragment {
             Log.d("result async","value: "+s);
             if (s == "successfully"){
                 Toast.makeText(getActivity(), "บันทึกข้อมูลเรียบร้อยแล้ว",Toast.LENGTH_SHORT).show();
+                edit_imgpro.setText("");
             }else {
                 Toast.makeText(getActivity(), "ไม่สามารถบันทึกข้อมูลได้",Toast.LENGTH_SHORT).show();
             }

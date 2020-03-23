@@ -230,6 +230,7 @@ public class Wean2_Fragment extends Fragment {
                 Toast.makeText(getActivity(), "บันทึกข้อมูลเรียบร้อยแล้ว",Toast.LENGTH_SHORT).show();
                 edit_numbaby17.setText("");
                 edit_weight17.setText("");
+                edit_imgpro.setText("");
 
             }else {
                 Toast.makeText(getActivity(), "ไม่สามารถบันทึกข้อมูลได้",Toast.LENGTH_SHORT).show();

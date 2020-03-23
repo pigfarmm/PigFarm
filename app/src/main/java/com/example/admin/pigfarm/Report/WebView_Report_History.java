@@ -56,7 +56,8 @@ public class WebView_Report_History extends AppCompatActivity {
             buffer = new StringBuffer(pdffile);
             buffer.append("?");
             buffer.append(("pig_id=")+pig_id);
-            buffer.append(("&unit_name=")+unit_name);
+            buffer.append(("&farm_id=")+farm_id);
+            buffer.append(("&unit_id=")+unit_id);
         }
 
 

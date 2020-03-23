@@ -36,8 +36,8 @@ import java.util.HashMap;
 
 public class edt_Maternity_Fragment extends Fragment {
 
-    String get_detail_id,getfarm_id,event_recorddate,event_name,pig_alive,pig_die,pig_seedlings,pig_allweight,getunit_id;
-    EditText edt_eventname,edit_dateNote04,edit_live04,edit_die04,edit_baby04,edit_weight04;
+    String get_detail_id,getfarm_id,event_recorddate,event_name,pig_alive,pig_die,pig_seedlings,pig_allweight,getunit_id,bcs_score;
+    EditText edt_eventname,edit_dateNote04,edit_live04,edit_die04,edit_baby04,edit_weight04,edit_imgpro;
     Button btn_flacAct04;
     ImageView img_calNote04;
     ProgressDialog progressDialog;
@@ -77,6 +77,7 @@ public class edt_Maternity_Fragment extends Fragment {
         edit_baby04 = getView().findViewById(R.id.edit_baby04);
         edit_weight04 = getView().findViewById(R.id.edit_weight04);
         img_calNote04 = getView().findViewById(R.id.img_calNote04);
+        edit_imgpro = getView().findViewById(R.id.edit_imgpro);
 
         img_calNote04.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,6 +138,7 @@ public class edt_Maternity_Fragment extends Fragment {
                 pig_die = collectData.getString("pig_die");
                 pig_seedlings = collectData.getString("pig_seedlings");
                 pig_allweight = collectData.getString("pig_allweight");
+                bcs_score = collectData.getString("bcs_score");
 
                 edt_eventname.setText(event_name);
                 edit_live04.setText(pig_alive);
@@ -144,6 +146,7 @@ public class edt_Maternity_Fragment extends Fragment {
                 edit_baby04.setText(pig_seedlings);
                 edit_weight04.setText(pig_allweight);
                 edit_dateNote04.setText(event_recorddate);
+                edit_imgpro.setText(bcs_score);
 
 
             }
@@ -152,7 +155,7 @@ public class edt_Maternity_Fragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     GetDataFromEditText();
-                    update_data(event_recorddate, pig_alive,pig_die,pig_seedlings,pig_allweight,get_detail_id);
+                    update_data(event_recorddate, pig_alive,pig_die,pig_seedlings,pig_allweight,get_detail_id,bcs_score);
                 }
             });
 
@@ -169,10 +172,11 @@ public class edt_Maternity_Fragment extends Fragment {
         pig_die = edit_die04.getText().toString();
         pig_seedlings = edit_baby04.getText().toString();
         pig_allweight = edit_weight04.getText().toString();
+        bcs_score = edit_imgpro.getText().toString();
 
     }
 
-    private void update_data(String event_recorddate, String pig_alive, String pig_die, String pig_seedlings, String pig_allweight, String get_detail_id) {
+    private void update_data(String event_recorddate, String pig_alive, String pig_die, String pig_seedlings, String pig_allweight, String get_detail_id,String bcs_score) {
 
         class update_dataClass extends AsyncTask<String,Void,String> {
 
@@ -192,6 +196,7 @@ public class edt_Maternity_Fragment extends Fragment {
                 hashMap.put("pig_die",params[3]);
                 hashMap.put("pig_seedlings",params[4]);
                 hashMap.put("pig_allweight",params[5]);
+                hashMap.put("bcs_score",params[6]);
 
 
                 finalResult = httpParse.postRequest(hashMap,UpdateURL);
@@ -208,7 +213,7 @@ public class edt_Maternity_Fragment extends Fragment {
         }
 
         update_dataClass update_dataclass = new update_dataClass();
-        update_dataclass.execute(get_detail_id,event_recorddate,pig_alive,pig_die,pig_seedlings,pig_allweight);
+        update_dataclass.execute(get_detail_id,event_recorddate,pig_alive,pig_die,pig_seedlings,pig_allweight,bcs_score);
 
     }
 

@@ -22,30 +22,32 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/thaisansneue_bold"
-                android:text="เหตุการณ์"
+                android:text="เบอร์หู"
                 android:textColor="@color/Colorfont"
                 android:textSize="20sp" />
 
             <RelativeLayout
                 android:layout_width="325dp"
                 android:layout_height="45dp"
-                android:layout_marginLeft="30dp"
-                android:background="#d2d2d2">
+                android:background="#d2d2d2"
+                android:layout_marginLeft="30dp">
 
-                <EditText
-                    android:id="@+id/edit_evtname"
-                    android:layout_width="300dp"
-                    android:layout_height="match_parent"
+                <Spinner
+                    android:id="@+id/spin_noteId01"
+                    android:layout_width="325dp"
+                    android:layout_height="45dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:backgroundTint="@color/Colorfont"
-                    android:enabled="false"
-                    android:maxLines="1"
-                    android:fontFamily="@font/thaisansneue_regular"
-                    android:textColor="@color/Colorfont"
-                    android:textSize="20sp" />
+                    android:spinnerMode="dropdown" />
 
-
+                <ImageView
+                    android:id="@+id/img_spin01"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp"
+                    android:src="@drawable/dropdown" />
             </RelativeLayout>
 
             <TextView
@@ -68,56 +70,24 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
-                    android:backgroundTint="@color/Colorfont"
-                    android:fontFamily="@font/thaisansneue_regular"
-                    android:inputType="date"
                     android:maxLines="1"
+                    android:inputType="date"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/thaisansneue_regular"
                     android:textColor="@color/Colorfont"
-                    android:textSize="20sp" />
+                    android:backgroundTint="@color/Colorfont"/>
 
                 <ImageView
                     android:id="@+id/img_calNote01"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginRight="30dp"
-                    android:src="@drawable/calendar" />
+                    android:src="@drawable/calendar"
+                    android:layout_marginRight="30dp"/>
 
             </RelativeLayout>
 
-            <TextView
-                android:id="@+id/txt_dadIdAct01"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/thaisansneue_bold"
-                android:text="เบอร์พ่อ"
-                android:textColor="@color/Colorfont"
-                android:textSize="20sp" />
-
-            <RelativeLayout
-                android:layout_width="325dp"
-                android:layout_height="45dp"
-                android:layout_marginLeft="30dp"
-                android:background="#d2d2d2">
-
-                <Spinner
-                    android:id="@+id/spin_dadId01"
-                    android:layout_width="325dp"
-                    android:layout_height="45dp"
-                    android:spinnerMode="dropdown" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="15dp"
-                    android:src="@drawable/dropdown" />
-
-            </RelativeLayout>
-
+            <!-- Button IMG -->
             <TextView
                 android:id="@+id/txt_imgpro"
                 android:layout_width="wrap_content"
@@ -136,10 +106,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:inputType="date"
+                android:maxLines="1"
                 android:textSize="20sp"
                 android:fontFamily="@font/thaisansneue_regular"
                 android:textColor="@color/Colorfont"
                 android:backgroundTint="@color/Colorfont"/>
+
 
             <Button
                 android:id="@+id/btn_flacAct01"
@@ -148,9 +120,9 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="50dp"
                 android:background="@color/ColorNavBar"
+                android:textColor="@color/white"
                 android:fontFamily="@font/thaisansneue_bold"
                 android:text="บันทึกข้อมูล"
-                android:textColor="@color/white"
                 android:textSize="25dp" />
         </LinearLayout>
     </ScrollView>

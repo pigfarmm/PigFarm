@@ -2,6 +2,8 @@ package com.example.admin.pigfarm.ManageData_Page;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -30,16 +32,22 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.time.chrono.ThaiBuddhistDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
+import java.util.Locale;
 
 
 public class Fragment_datapig extends Fragment {
 
     private TextView text_recorddate,text_preglist, text_bd, text_breed, text_bredder, text_bredder1, text_from, text_reserveid,texttitle_preglist, text_pigid;
     String getpigno, getpigid, pig_no, pig_id, pig_preglist, pig_recorddate, pig_birthday, pig_breed, pig_idbreeder, pig_idbreeder2, pig_from, pig_idreserve,pig_amount_pregnant,
-            event_name,event_recorddate;
+            event_name,event_recorddate,bcs_score,getfarm_id,getunit_id;
     List<Event_items> itemsList;
     RecyclerView recyclerView;
     ImageView editprofile,editevent;
@@ -59,6 +67,10 @@ public class Fragment_datapig extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        SharedPreferences farm = this.getActivity().getSharedPreferences("Farm", Context.MODE_PRIVATE);
+        getfarm_id = farm.getString("farm_id","");
+        getunit_id = farm.getString("unit_id","");
 
         Bundle bundle2 = getArguments();
         getpigid = bundle2.getString("pig_id");
@@ -128,7 +140,7 @@ public class Fragment_datapig extends Fragment {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        String url = "https://pigaboo.xyz/Query_DataPig.php?pig_id="+getpigid;
+        String url = "https://pigaboo.xyz/Query_DataPig.php?pig_id="+getpigid+"&farm_id="+getfarm_id+"&unit_id="+getunit_id;
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -169,13 +181,25 @@ public class Fragment_datapig extends Fragment {
                 event_name = collectData.getString("event_name");
                 event_recorddate = collectData.getString("event_recorddate");
                 pig_amount_pregnant = collectData.getString("pig_amount_pregnant");
+                bcs_score = collectData.getString("bcs_score");
 
                 Log.d("pig_id",pig_id);
 
+                DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+                DateFormat outputFormat = new SimpleDateFormat("d MMM yyyy", new Locale("th", "TH"));
+
+
+
+                Date date_open = inputFormat.parse(pig_recorddate);
+                String outputDateStr = outputFormat.format(date_open);
+
+                Date date_bd = inputFormat.parse(pig_birthday);
+                String outputDateStr2 = outputFormat.format(date_bd);
+
 
                 text_pigid.setText(pig_id);
-                text_recorddate.setText(pig_recorddate);
-                text_bd.setText(pig_birthday);
+                text_recorddate.setText(outputDateStr);
+                text_bd.setText(outputDateStr2);
                 text_breed.setText(pig_breed);
                 text_bredder.setText(pig_idbreeder);
                 text_bredder1.setText(pig_idbreeder2);
@@ -186,7 +210,11 @@ public class Fragment_datapig extends Fragment {
                 if(event_name.equals("null") && event_recorddate.equals("null")) {
                     Log.d("CHECK EVENT " , " "+event_name+"  "+event_recorddate);
                 }else {
-                    Event_items event_items = new Event_items(event_name, event_recorddate);
+
+                    Date date_recorddate = inputFormat.parse(event_recorddate);
+                    String outputDateStr3 = outputFormat.format(date_recorddate);
+
+                    Event_items event_items = new Event_items(event_name, outputDateStr3,bcs_score);
                     itemsList.add(event_items);
 
                 }
@@ -201,6 +229,8 @@ public class Fragment_datapig extends Fragment {
 
         }catch (JSONException ex) {
             ex.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
     }
 }

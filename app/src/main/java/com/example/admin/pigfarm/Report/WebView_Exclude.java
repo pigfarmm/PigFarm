@@ -89,6 +89,7 @@ public class WebView_Exclude extends AppCompatActivity {
         buffer.append(("&start=")+start);
         buffer.append(("&end=")+end);
         buffer.append(("&unit_name=")+unit_name);
+        buffer.append(("&unit_id=")+unit_id);
 
 
         new ShowPDF().execute();

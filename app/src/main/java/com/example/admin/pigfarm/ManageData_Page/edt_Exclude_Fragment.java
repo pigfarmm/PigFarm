@@ -37,8 +37,8 @@ import java.util.HashMap;
 
 public class edt_Exclude_Fragment extends Fragment {
 
-    String get_detail_id,getfarm_id,event_recorddate,event_name,pig_resultofexclude,pig_reasonofexclude,getunit_id;
-    EditText edit_eventname,edit_dateNote08,edit_desc08;
+    String get_detail_id,getfarm_id,event_recorddate,event_name,pig_resultofexclude,pig_reasonofexclude,getunit_id,bcs_score;
+    EditText edit_eventname,edit_dateNote08,edit_desc08,edit_imgpro;
     Spinner spin_result08,spin_result09;
     Button btn_flacAct08;
     ImageView img_calNote08;
@@ -76,6 +76,7 @@ public class edt_Exclude_Fragment extends Fragment {
         img_calNote08 = getView().findViewById(R.id.img_calNote08);
         spin_result08 = getView().findViewById(R.id.spin_result08);
         spin_result09 = getView().findViewById(R.id.spin_result09);
+        edit_imgpro = getView().findViewById(R.id.edit_imgpro);
 
         final String[] eventStr = getResources().getStringArray(R.array.exclude_event);
         ArrayAdapter<String> adapterEvent = new ArrayAdapter<String>(this.getActivity(),
@@ -144,11 +145,13 @@ public class edt_Exclude_Fragment extends Fragment {
                 event_name = collectData.getString("event_name");
                 pig_resultofexclude = collectData.getString("pig_resultofexclude");
                 pig_reasonofexclude = collectData.getString("pig_reasonofexclude");
+                bcs_score = collectData.getString("bcs_score");
 
 
                 edit_eventname.setText(event_name);
                 edit_dateNote08.setText(event_recorddate);
                 edit_desc08.setText(pig_reasonofexclude);
+                edit_imgpro.setText(bcs_score);
 
 
             }
@@ -157,7 +160,7 @@ public class edt_Exclude_Fragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     GetDataFromEditText();
-                    update_data(event_recorddate,pig_reasonofexclude,pig_resultofexclude,get_detail_id);
+                    update_data(event_recorddate,pig_reasonofexclude,pig_resultofexclude,get_detail_id,bcs_score);
                 }
             });
 
@@ -171,10 +174,11 @@ public class edt_Exclude_Fragment extends Fragment {
         event_recorddate = edit_dateNote08.getText().toString();
         pig_reasonofexclude = spin_result09.getSelectedItem().toString();
         pig_resultofexclude = spin_result08.getSelectedItem().toString();
+        bcs_score = edit_imgpro.getText().toString();
     }
 
 
-    private void update_data(String event_recorddate, String pig_reasonofexclude,String pig_resultofexclude, String get_detail_id) {
+    private void update_data(String event_recorddate, String pig_reasonofexclude,String pig_resultofexclude, String get_detail_id,String bcs_score) {
         class update_dataClass extends AsyncTask<String,Void,String> {
 
             @Override
@@ -191,6 +195,7 @@ public class edt_Exclude_Fragment extends Fragment {
                 hashMap.put("event_recorddate",params[1]);
                 hashMap.put("pig_reasonofexclude",params[2]);
                 hashMap.put("pig_resultofexclude",params[3]);
+                hashMap.put("bcs_score",params[4]);
 
 
                 finalResult = httpParse.postRequest(hashMap,UpdateURL);
@@ -207,7 +212,7 @@ public class edt_Exclude_Fragment extends Fragment {
         }
 
         update_dataClass update_dataclass = new update_dataClass();
-        update_dataclass.execute(get_detail_id,event_recorddate,pig_reasonofexclude,pig_resultofexclude);
+        update_dataclass.execute(get_detail_id,event_recorddate,pig_reasonofexclude,pig_resultofexclude,bcs_score);
 
 
     }

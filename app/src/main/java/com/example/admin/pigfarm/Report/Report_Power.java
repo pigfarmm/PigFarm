@@ -58,7 +58,7 @@ public class Report_Power extends AppCompatActivity {
         card_b9 = findViewById(R.id.card_b9);
         card_b10 = findViewById(R.id.card_b10);
         card_b11 = findViewById(R.id.card_b11);
-        card_b12 = findViewById(R.id.card_b12);
+//        card_b12 = findViewById(R.id.card_b12);
 
         card_allperformance.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,13 +116,13 @@ public class Report_Power extends AppCompatActivity {
             }
         });
 
-        card_b12.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Report_Power.this, Report_compareunit.class);
-                startActivity(intent);
-            }
-        });
+//        card_b12.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(Report_Power.this, Report_compareunit.class);
+//                startActivity(intent);
+//            }
+//        });
 
         card_b7.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -40,7 +40,7 @@ public class Report_Home extends AppCompatActivity {
         txt_unit.setText(getunit_name);
 
         card_groupmanage = findViewById(R.id.card_groupmanage);
-        card_status_of_dadmom = findViewById(R.id.card_status_of_dadmom);
+//        card_status_of_dadmom = findViewById(R.id.card_status_of_dadmom);
         card_history_of_dadmom = findViewById(R.id.card_history_of_dadmom);
 
         card_groupmanage.setOnClickListener(new View.OnClickListener() {
@@ -51,13 +51,13 @@ public class Report_Home extends AppCompatActivity {
             }
         });
 
-        card_status_of_dadmom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Report_Home.this, Report_Status.class);
-                startActivity(intent);
-            }
-        });
+//        card_status_of_dadmom.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(Report_Home.this, Report_Status.class);
+//                startActivity(intent);
+//            }
+//        });
 
         card_history_of_dadmom.setOnClickListener(new View.OnClickListener() {
             @Override

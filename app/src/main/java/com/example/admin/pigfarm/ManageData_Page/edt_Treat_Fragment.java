@@ -37,8 +37,8 @@ import java.util.HashMap;
 
 public class edt_Treat_Fragment extends Fragment {
 
-    String get_detail_id,getfarm_id,event_recorddate,event_name,drug_group,note,getunit_id;
-    EditText edit_eventname,edit_dateNote19,edit_drugG19,edit_msg19;
+    String get_detail_id,getfarm_id,event_recorddate,event_name,drug_group,note,getunit_id,bcs_score;
+    EditText edit_eventname,edit_dateNote19,edit_drugG19,edit_msg19,edit_imgpro;
     Button btn_flacAct19;
     ImageView img_calNote19;
     ArrayList<String> listDad = new ArrayList<>();
@@ -77,6 +77,7 @@ public class edt_Treat_Fragment extends Fragment {
         btn_flacAct19 = getView().findViewById(R.id.btn_flacAct19);
         img_calNote19 = getView().findViewById(R.id.img_calNote19);
         spin_drugId01 = getView().findViewById(R.id.spin_drugId01);
+        edit_imgpro = getView().findViewById(R.id.edit_imgpro);
 
         final String[] eventStr = getResources().getStringArray(R.array.treat_event);
         ArrayAdapter<String> adapterEvent = new ArrayAdapter<String>(this.getActivity(),
@@ -141,12 +142,14 @@ public class edt_Treat_Fragment extends Fragment {
                 event_name = collectData.getString("event_name");
                 drug_group = collectData.getString("drug_group");
                 note =  collectData.getString("note");
+                bcs_score =  collectData.getString("bcs_score");
 
 
                 edit_eventname.setText(event_name);
                 edit_dateNote19.setText(event_recorddate);
                 edit_drugG19.setText(drug_group);
                 edit_msg19.setText(note);
+                edit_imgpro.setText(bcs_score);
 
             }
 
@@ -154,7 +157,7 @@ public class edt_Treat_Fragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     GetDataFromEditText();
-                    update_data(event_recorddate,drug_group,note,get_detail_id);
+                    update_data(event_recorddate,drug_group,note,get_detail_id,bcs_score);
                 }
             });
 
@@ -168,10 +171,11 @@ public class edt_Treat_Fragment extends Fragment {
         event_recorddate = edit_dateNote19.getText().toString();
         drug_group = spin_drugId01.getSelectedItem().toString();
         note = edit_msg19.getText().toString();
+        bcs_score = edit_imgpro.getText().toString();
 
     }
 
-    private void update_data(String event_recorddate, String drug_group, String note, String get_detail_id) {
+    private void update_data(String event_recorddate, String drug_group, String note, String get_detail_id,String bcs_score) {
 
         class update_dataClass extends AsyncTask<String,Void,String> {
 
@@ -188,6 +192,7 @@ public class edt_Treat_Fragment extends Fragment {
                 hashMap.put("event_recorddate",params[1]);
                 hashMap.put("drug_group",params[2]);
                 hashMap.put("note",params[3]);
+                hashMap.put("bcs_score",params[4]);
 
 
                 finalResult = httpParse.postRequest(hashMap,UpdateURL);
@@ -204,7 +209,7 @@ public class edt_Treat_Fragment extends Fragment {
         }
 
         update_dataClass update_dataclass = new update_dataClass();
-        update_dataclass.execute(get_detail_id,event_recorddate,drug_group,note);
+        update_dataclass.execute(get_detail_id,event_recorddate,drug_group,note,bcs_score);
 
 
     }

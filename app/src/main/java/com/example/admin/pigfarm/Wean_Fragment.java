@@ -225,13 +225,13 @@ public class Wean_Fragment extends Fragment {
         protected String doInBackground(String... strings) {
             try{
 
-                if (!getmaxeventid.equals("4") && !getmaxeventid.equals("null") && !getmaxeventid.equals("17")){
+                if (!getmaxeventid.equals("4") && !getmaxeventid.equals("null") && !getmaxeventid.equals("17") && !getmaxeventid.equals("11") && !getmaxeventid.equals("5") && !getmaxeventid.equals("7")){
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Light_Dialog_Alert);
                             builder1.setCancelable(false);
-                            builder1.setMessage("เหตุการณ์ล่าสุดไม่ใช่เหตุการณ์คลอด");
+                            builder1.setMessage("เหตุการณ์ล่าสุดไม่ใช่เหตุการณ์คลอด / ลูกหมูตาย");
                             builder1.setNegativeButton("ตกลง", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -280,6 +280,7 @@ public class Wean_Fragment extends Fragment {
                 Toast.makeText(getActivity(), "บันทึกข้อมูลเรียบร้อยแล้ว",Toast.LENGTH_SHORT).show();
                 edit_numbaby06.setText("");
                 edit_weight06.setText("");
+                edit_imgpro.setText("");
 
             }else {
                 Toast.makeText(getActivity(), "ไม่สามารถบันทึกข้อมูลได้",Toast.LENGTH_SHORT).show();

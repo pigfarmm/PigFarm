@@ -13,6 +13,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="35dp"
             android:orientation="vertical">
 
             <TextView
@@ -68,7 +70,7 @@
 
             <EditText
                 android:id="@+id/edit_dateNote01"
-                android:layout_width="300dp"
+                android:layout_width="260dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:inputType="date"
@@ -84,7 +86,7 @@
                     android:layout_height="45dp"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/calendar"
-                    android:layout_marginRight="30dp"/>
+                   />
 
             </RelativeLayout>
 

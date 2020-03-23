@@ -235,7 +235,7 @@ public class Adopt_Fragment extends Fragment {
         protected String doInBackground(String... strings) {
             try{
 
-                if (!getmaxeventid.equals("4") || getmaxeventid.equals("0") && !getmaxeventid.equals("17")){
+                if (!getmaxeventid.equals("4") || getmaxeventid.equals("0") && !getmaxeventid.equals("17") && !getmaxeventid.equals("11")){
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -285,6 +285,7 @@ public class Adopt_Fragment extends Fragment {
             if (result == "successfully"){
                 Toast.makeText(getActivity(), "บันทึกข้อมูลเรียบร้อยแล้ว",Toast.LENGTH_SHORT).show();
                 edit_numbaby07.setText("");
+                edit_imgpro.setText("");
 
             }else {
                 Toast.makeText(getActivity(), "ไม่สามารถบันทึกข้อมูลได้",Toast.LENGTH_SHORT).show();

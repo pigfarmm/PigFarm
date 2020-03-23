@@ -36,8 +36,8 @@ import java.util.HashMap;
 
 public class edt_Blightedovum_Fragment extends Fragment {
 
-    String get_detail_id,getfarm_id,event_recorddate,event_name,note,getunit_id;
-    EditText edit_eventname,edit_dateNote16,edit_msg16;
+    String get_detail_id,getfarm_id,event_recorddate,event_name,note,getunit_id,bcs_score;
+    EditText edit_eventname,edit_dateNote16,edit_msg16,edit_imgpro;
     Button btn_flacAct16;
     ImageView img_calNote16;
     ArrayList<String> listDad = new ArrayList<>();
@@ -72,6 +72,7 @@ public class edt_Blightedovum_Fragment extends Fragment {
         edit_msg16 = getView().findViewById(R.id.edit_msg16);
         btn_flacAct16 = getView().findViewById(R.id.btn_flacAct16);
         img_calNote16 = getView().findViewById(R.id.img_calNote16);
+        edit_imgpro = getView().findViewById(R.id.edit_imgpro);
 
         img_calNote16.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,11 +131,14 @@ public class edt_Blightedovum_Fragment extends Fragment {
                 event_recorddate = collectData.getString("event_recorddate");
                 event_name = collectData.getString("event_name");
                 note = collectData.getString("note");
+                bcs_score = collectData.getString("bcs_score");
+
 
 
                 edit_eventname.setText(event_name);
                 edit_dateNote16.setText(event_recorddate);
                 edit_msg16.setText(note);
+                edit_imgpro.setText(bcs_score);
 
             }
 
@@ -142,7 +146,7 @@ public class edt_Blightedovum_Fragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     GetDataFromEditText();
-                    update_data(event_recorddate,note,get_detail_id);
+                    update_data(event_recorddate,note,get_detail_id,bcs_score);
                 }
             });
 
@@ -155,10 +159,11 @@ public class edt_Blightedovum_Fragment extends Fragment {
     private void GetDataFromEditText() {
         event_recorddate = edit_dateNote16.getText().toString();
         note = edit_msg16.getText().toString();
+        bcs_score = edit_imgpro.getText().toString();
 
     }
 
-    private void update_data(String event_recorddate, String note, String get_detail_id) {
+    private void update_data(String event_recorddate, String note, String get_detail_id,String bcs_score) {
 
         class update_dataClass extends AsyncTask<String,Void,String> {
 
@@ -175,6 +180,7 @@ public class edt_Blightedovum_Fragment extends Fragment {
                 hashMap.put("detail_id",params[0]);
                 hashMap.put("event_recorddate",params[1]);
                 hashMap.put("note",params[2]);
+                hashMap.put("bcs_score",params[3]);
 
 
                 finalResult = httpParse.postRequest(hashMap,UpdateURL);
@@ -191,7 +197,7 @@ public class edt_Blightedovum_Fragment extends Fragment {
         }
 
         update_dataClass update_dataclass = new update_dataClass();
-        update_dataclass.execute(get_detail_id,event_recorddate,note);
+        update_dataclass.execute(get_detail_id,event_recorddate,note,bcs_score);
 
     }
 }
